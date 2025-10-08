@@ -7,12 +7,20 @@ package tp1.logic;
  */
 public class Position {
 
-	private int col;
-	private int row;
+	final private int col;
+	final private int row;
 
 	public Position(int y, int x) {
 		this.row = y;
 		this.col = x;
+	}
+	
+	public int GetY() {
+		return this.row;
+	}
+	
+	public int GetX() {
+		return this.col;
 	}
 	
 	public boolean equals(Position pos) {
