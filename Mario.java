@@ -5,29 +5,38 @@ import tp1.logic.Position;
 import tp1.view.Messages;
 
 public class Mario {
-	private Position pos;
+	private Position small_pos, big_pos;
 	private String mario;
-	private boolean left = true;
+	private boolean right = true, moving = false, big = true;
 	
 	public Mario(Game game, Position new_pos) {
-		this.pos = new_pos;
+		this.small_pos = new_pos;
+		this.big_pos = new Position(new_pos.GetY() - 1, new_pos.GetX());
 	}
 	
 	public String getIcon() {
-		if (left) {
-			mario = Messages.MARIO_LEFT;
+		
+		if (right) {
+			mario = Messages.MARIO_RIGHT;
 		}
 		
 		else {
-			mario = Messages.MARIO_RIGHT;
+			mario = Messages.MARIO_LEFT;
 		}
 		
 		
 		return mario;
 	}
 	
+	public boolean IsBig() {
+		return big;			
+	}
+	
 	public boolean IsInPos(Position pos) {
-		return this.pos.equals(pos);
+		if (big)
+			return this.big_pos.equals(pos) || this.small_pos.equals(pos);
+		else
+			return this.small_pos.equals(pos);
 	}
 	
 	public void update() {
