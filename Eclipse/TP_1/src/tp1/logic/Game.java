@@ -9,7 +9,7 @@ public class Game {
 	public static final int DIM_X = 30;
 	public static final int DIM_Y = 15;
 
-	public int remainingTime = 0, nLevel = 0, num_lives = 3, remaining_time = 100;
+	public int remainingTime = 0, nLevel = 0, num_lives = 3, remaining_time = 100, num_points;
 	public GameObjectContainer gameObjects;
 	public Mario mario;
 	public boolean end_game = false, won = false;
@@ -69,7 +69,7 @@ public class Game {
 
 	public int points() {
 		// TODO Auto-generated method stub
-		return 0;
+		return num_points;
 	}
 
 	public int numLives() {
@@ -79,6 +79,10 @@ public class Game {
 	
 	public void subtractLife() {
 		this.num_lives--;
+	}
+	
+	public void changeNumPoints(int addition) {
+		this.num_points += addition;
 	}
 
 	@Override
@@ -118,12 +122,44 @@ public class Game {
 		return found;
 	}
 	
+	public boolean eliminateGoomba(Position pos) {
+		boolean found = false;
+		int i = 0;
+		while(gameObjects.goombaList[i] != null && !found) {
+			if (gameObjects.goombaList[i].IsInPos(pos))
+				found = true;
+			i++;
+		}
+		
+		if(found) {
+			for(int j = i - 1; j < gameObjects.goomba_counter; j++)
+				gameObjects.goombaList[j] = gameObjects.goombaList[j + 1];
+			gameObjects.goomba_counter--;
+		}
+		
+		return found;
+	}
+	
+	
 	public boolean hasDoor(Position pos) {
 		int i = 0;
 		boolean found = false;
 		
 		while(gameObjects.doorList[i] != null && !found) {
 			if (gameObjects.doorList[i].IsInPos(pos))
+				found = true;
+			i++;
+		}
+		
+		return found;
+	}
+	
+	public boolean hasMario(Position pos) {
+		int i = 0;
+		boolean found = false;
+		
+		while(gameObjects.marioList[i] != null && !found) {
+			if (gameObjects.marioList[i].IsInPos(pos))
 				found = true;
 			i++;
 		}

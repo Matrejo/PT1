@@ -11,7 +11,7 @@ public class Mario {
 	private Action action = Action.UP;
 	private String mario;
 	private Game game;
-	private boolean right = true, moving = true, big = true;
+	private boolean right = true, moving = true, big = true, falling = false;
 	public boolean update = false, damaged = false;
 	
 	public Mario(Game game, Position new_pos) { 
@@ -74,6 +74,7 @@ public class Mario {
 				this.small_pos = action.moveDown(small_pos);
 				this.big_pos = action.moveDown(big_pos);
 			}
+			falling = true;
 			moving = false;
 			break;
 		
@@ -137,15 +138,33 @@ public class Mario {
 		}
 	}
 	
-	game.updateGoombas();
-	
 	game.remaining_time--;
 	
-	if(game.hasGoomba(small_pos))
-		damaged = true;
-	
+	if(!falling) {
+		if(game.hasGround(small_pos.add_y(small_pos, 1)) && (game.eliminateGoomba(small_pos.add_x(small_pos, 1)) || game.eliminateGoomba(big_pos.add_y(big_pos, -1)))) {
+			if(big)
+				big = false;
+			else
+				damaged = true;
+		}
+		
+		else if(game.eliminateGoomba(big_pos.add_y(big_pos, -1))) {
+			if(big)
+				big = false;
+			else
+				damaged = true;
+		}
+	}
+	else {
+		if(game.eliminateGoomba(small_pos.add_x(small_pos, 1)))
+			game.changeNumPoints(100);
+	}
 	if(game.hasDoor(small_pos))
 		game.won = true;
+	
+	game.updateGoombas();
+	
+	falling = false;
 	
 	}
 	
