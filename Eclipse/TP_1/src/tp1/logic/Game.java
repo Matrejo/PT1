@@ -9,10 +9,10 @@ public class Game {
 	public static final int DIM_X = 30;
 	public static final int DIM_Y = 15;
 
-	public int remainingTime = 0, nLevel = 0, num_lives = 3;
+	public int remainingTime = 0, nLevel = 0, num_lives = 3, remaining_time = 100;
 	public GameObjectContainer gameObjects;
 	public Mario mario;
-	public boolean end_game = false;
+	public boolean end_game = false, won = false;
 	
 	
 	public Game(int nLevel) {
@@ -59,12 +59,12 @@ public class Game {
 
 	public boolean playerWins() {
 		// TODO Auto-generated method stub
-		return false;
+		return won;
 	}
 
 	public int remainingTime() {
 		// TODO Auto-generated method stub
-		return 100;
+		return remaining_time;
 	}
 
 	public int points() {
@@ -89,7 +89,7 @@ public class Game {
 
 	public boolean playerLoses() {
 		// TODO Auto-generated method stub
-		return false;
+		return num_lives == 0;
 	}
 	
 	public boolean hasGround(Position pos) {
@@ -111,6 +111,19 @@ public class Game {
 		
 		while(gameObjects.goombaList[i] != null && !found) {
 			if (gameObjects.goombaList[i].IsInPos(pos))
+				found = true;
+			i++;
+		}
+		
+		return found;
+	}
+	
+	public boolean hasDoor(Position pos) {
+		int i = 0;
+		boolean found = false;
+		
+		while(gameObjects.doorList[i] != null && !found) {
+			if (gameObjects.doorList[i].IsInPos(pos))
 				found = true;
 			i++;
 		}

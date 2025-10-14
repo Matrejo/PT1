@@ -53,31 +53,62 @@ public class Mario {
 	if (!update) {
 		switch(mario_action) {
 		case UP:
-			this.small_pos = action.moveUp(small_pos);
-			this.big_pos = action.moveUp(big_pos);
-			moving = true;
+			if (big) {
+				if(!game.hasGround(big_pos.add_y(big_pos, -1))) {
+					this.small_pos = action.moveUp(small_pos);
+					this.big_pos = action.moveUp(big_pos);
+					moving = true;
+				}
+			}
+			else {
+				if(!game.hasGround(small_pos.add_y(small_pos, -1))) {
+					this.small_pos = action.moveUp(small_pos);
+					this.big_pos = action.moveUp(big_pos);
+					moving = true;
+				}
+			}
 			break;
 		
 		case DOWN:
 			while(!game.hasGround(small_pos.add_y(small_pos, 1)) && !this.small_pos.outOfBounds()) {
 				this.small_pos = action.moveDown(small_pos);
 				this.big_pos = action.moveDown(big_pos);
-				moving = false;
 			}
+			moving = false;
 			break;
 		
 		case LEFT:
-			this.small_pos = action.moveLeft(small_pos);
-			this.big_pos = action.moveLeft(big_pos);
-			moving = true;
-			right = false;
+			if (big) {
+				if(!game.hasGround(big_pos.add_x(big_pos, -1)) && !game.hasGround(small_pos.add_x(small_pos, -1))) {
+					this.small_pos = action.moveLeft(small_pos);
+					this.big_pos = action.moveLeft(big_pos);
+					moving = true;
+				}
+			}
+			else {
+				if(!game.hasGround(small_pos.add_x(small_pos, -1))) {
+					this.small_pos = action.moveLeft(small_pos);
+					this.big_pos = action.moveLeft(big_pos);
+					moving = true;
+				}
+			}
 			break;
 		
 		case RIGHT:
-			this.small_pos = action.moveRight(small_pos);
-			this.big_pos = action.moveRight(big_pos);
-			moving = true;
-			right = true;
+			if (big) {
+				if(!game.hasGround(big_pos.add_x(big_pos, 1)) && !game.hasGround(small_pos.add_x(small_pos, 1))) {
+					this.small_pos = action.moveRight(small_pos);
+					this.big_pos = action.moveRight(big_pos);
+					moving = true;
+				}
+			}
+			else {
+				if(!game.hasGround(small_pos.add_x(small_pos, 1))) {
+					this.small_pos = action.moveRight(small_pos);
+					this.big_pos = action.moveRight(big_pos);
+					moving = true;
+				}
+			}
 			break;
 		}
 		}
@@ -106,8 +137,15 @@ public class Mario {
 		}
 	}
 	
+	game.updateGoombas();
+	
+	game.remaining_time--;
+	
 	if(game.hasGoomba(small_pos))
 		damaged = true;
+	
+	if(game.hasDoor(small_pos))
+		game.won = true;
 	
 	}
 	

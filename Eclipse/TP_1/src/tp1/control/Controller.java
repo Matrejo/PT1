@@ -67,11 +67,9 @@ public class Controller {
 					}
 				}
 				
-				game.updateGoombas();
-				
 				actions.doActions(game);
 								
-				if(game.mario.marioOutOfBounds())
+				if(game.mario.marioOutOfBounds() || game.won)
 					continue_game = false;
 				
 				view.showGame();
@@ -80,8 +78,6 @@ public class Controller {
 			
 			case "u":
 			case "update":
-				
-				game.updateGoombas();
 				
 				game.mario.update = true;
 				
@@ -111,6 +107,9 @@ public class Controller {
 				continue_game = false;
 				break;
 			}
+			
+			if (game.remaining_time == 0)
+				continue_game = false;
 			
 			if(game.mario.damaged) {
 				game.subtractLife();
