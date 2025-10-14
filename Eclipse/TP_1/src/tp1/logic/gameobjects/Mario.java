@@ -12,6 +12,7 @@ public class Mario {
 	private String mario;
 	private Game game;
 	private boolean right = true, moving = true, big = true;
+	public boolean update = false, damaged = false;
 	
 	public Mario(Game game, Position new_pos) { 
 		this.game = game;
@@ -47,41 +48,71 @@ public class Mario {
 			return this.small_pos.equals(pos);
 	}
 	
-	public void MoveMario(Action mario_action) {
-		switch(mario_action) {
+	public void update(Action mario_action) {
 		
+	if (!update) {
+		switch(mario_action) {
 		case UP:
 			this.small_pos = action.moveUp(small_pos);
 			this.big_pos = action.moveUp(big_pos);
 			moving = true;
 			break;
-			
+		
 		case DOWN:
-			while(!game.hasGround(small_pos) && !this.small_pos.outOfBounds()) {
+			while(!game.hasGround(small_pos.add_y(small_pos, 1)) && !this.small_pos.outOfBounds()) {
 				this.small_pos = action.moveDown(small_pos);
 				this.big_pos = action.moveDown(big_pos);
 				moving = false;
 			}
 			break;
-			
+		
 		case LEFT:
 			this.small_pos = action.moveLeft(small_pos);
 			this.big_pos = action.moveLeft(big_pos);
 			moving = true;
 			right = false;
 			break;
-			
+		
 		case RIGHT:
 			this.small_pos = action.moveRight(small_pos);
 			this.big_pos = action.moveRight(big_pos);
 			moving = true;
 			right = true;
 			break;
-
+		}
+		}
+	
+	else if (moving) {
+		if(!game.hasGround(small_pos.add_x(small_pos, 1)) && right) {
+			this.small_pos = action.moveRight(small_pos);
+			this.big_pos = action.moveRight(big_pos);
+			moving = true;
+		}
+		
+		else { 
+			if(!game.hasGround(small_pos.add_x(small_pos, -1))) {
+				this.small_pos = action.moveLeft(small_pos);
+				this.big_pos = action.moveLeft(big_pos);
+				moving = true;
+				right = false;
+			}
+			
+			else {
+				this.small_pos = action.moveRight(small_pos);
+				this.big_pos = action.moveRight(big_pos);
+				moving = true;
+				right = true;
+			}
 		}
 	}
 	
-	public void update() {
-		//TODO fill your code
+	if(game.hasGoomba(small_pos))
+		damaged = true;
+	
+	}
+	
+	
+	public boolean marioOutOfBounds() {
+		return small_pos.outOfBounds();
 	}
 }

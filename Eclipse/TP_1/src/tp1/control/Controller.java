@@ -45,25 +45,34 @@ public class Controller {
 					switch(command[i].toLowerCase()) {
 					
 					case "u":
+						game.mario.update = false;
 						actions.addAction(Action.UP);
 						break;
 						
 					case "d":
+						game.mario.update = false;
 						actions.addAction(Action.DOWN);
 						break;
 						
 					case "l":
+						game.mario.update = false;
 						actions.addAction(Action.LEFT);
 						break;
 						
 					case "r":
+						game.mario.update = false;
 						actions.addAction(Action.RIGHT);
 						break;
 						
 					}
 				}
 				
+				game.updateGoombas();
+				
 				actions.doActions(game);
+								
+				if(game.mario.marioOutOfBounds())
+					continue_game = false;
 				
 				view.showGame();
 				
@@ -71,7 +80,16 @@ public class Controller {
 			
 			case "u":
 			case "update":
-				//Whatever
+				
+				game.updateGoombas();
+				
+				game.mario.update = true;
+				
+				game.mario.update(Action.DOWN);
+				
+				if(game.mario.marioOutOfBounds())
+					continue_game = false;
+				
 				view.showGame();
 				
 				break;
@@ -92,6 +110,19 @@ public class Controller {
 			case "exit":
 				continue_game = false;
 				break;
+			}
+			
+			if(game.mario.damaged) {
+				game.subtractLife();
+				
+				if (game.numLives() > 0) {
+					game.initLevel1();
+					view.showGame();
+					game.mario.damaged = false;
+				}
+				
+				else
+					continue_game = false;
 			}
 		}
 		

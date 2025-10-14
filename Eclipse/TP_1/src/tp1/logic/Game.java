@@ -9,7 +9,7 @@ public class Game {
 	public static final int DIM_X = 30;
 	public static final int DIM_Y = 15;
 
-	public int remainingTime = 0, nLevel = 0;
+	public int remainingTime = 0, nLevel = 0, num_lives = 3;
 	public GameObjectContainer gameObjects;
 	public Mario mario;
 	public boolean end_game = false;
@@ -74,7 +74,11 @@ public class Game {
 
 	public int numLives() {
 		// TODO Auto-generated method stub
-		return 3;
+		return num_lives;
+	}
+	
+	public void subtractLife() {
+		this.num_lives--;
 	}
 
 	@Override
@@ -93,12 +97,35 @@ public class Game {
 		boolean found = false;
 		
 		while(gameObjects.groundList[i] != null && !found) {
-			if (gameObjects.groundList[i].IsInPos(pos.add_y(pos, 1)))
+			if (gameObjects.groundList[i].IsInPos(pos))
 				found = true;
 			i++;
 		}
 		
 		return found;
+	}
+	
+	public boolean hasGoomba(Position pos) {
+		int i = 0;
+		boolean found = false;
+		
+		while(gameObjects.goombaList[i] != null && !found) {
+			if (gameObjects.goombaList[i].IsInPos(pos))
+				found = true;
+			i++;
+		}
+		
+		return found;
+	}
+	
+	public void updateGoombas() {
+		int i = 0;
+		
+		while(gameObjects.goombaList[i] != null) {
+			gameObjects.goombaList[i].update();
+			i++;
+		}
+		
 	}
 	
 	
@@ -150,6 +177,7 @@ public class Game {
 			
 			// 1. Mapa
 			gameObjects = new GameObjectContainer();
+			
 			for(int col = 0; col < 15; col++) {
 				gameObjects.add(new Ground(new Position(13,col)));
 				gameObjects.add(new Ground(new Position(14,col)));		

@@ -23,28 +23,28 @@ public class ActionList {
 			
 			case Action.UP:
 				if (did_down == 0 && did_up < 5) {
-					game.mario.MoveMario(Action.UP);
+					game.mario.update(Action.UP);
 					did_up++;
 				}
 				break;
 				
 			case Action.DOWN:
 				if (did_up == 0 && did_down < 5) {
-					game.mario.MoveMario(Action.DOWN);
+					game.mario.update(Action.DOWN);
 					did_down++;
 				}
 				break;
 				
 			case Action.LEFT:
 				if (did_right == 0 && did_left < 5) {
-					game.mario.MoveMario(Action.LEFT);
+					game.mario.update(Action.LEFT);
 					did_left++;
 				}
 				break;
 				
 			case Action.RIGHT:
 				if (did_left == 0 && did_right < 5) {
-					game.mario.MoveMario(Action.RIGHT);
+					game.mario.update(Action.RIGHT);
 					did_right++;
 				}
 				break;

@@ -32,6 +32,6 @@ public class Position {
 	}
 	
 	public boolean outOfBounds() {
-		return this.row > 14;
+		return (this.row < 0 || this.row > 14 || this.col < 0 || this.col > 29);
 	}
 }
