@@ -115,21 +115,21 @@ public class Mario {
 		}
 	
 	else if (moving) {
-		if(!game.hasGround(small_pos.add_x(small_pos, 1)) && right) {
+		if((!game.hasGround(small_pos.add_x(small_pos, 1)) && !game.hasGround(big_pos.add_x(big_pos, 1))) && right && !small_pos.add_x(small_pos, 1).outOfBounds()) {
 			this.small_pos = action.moveRight(small_pos);
 			this.big_pos = action.moveRight(big_pos);
 			moving = true;
 		}
 		
 		else { 
-			if(!game.hasGround(small_pos.add_x(small_pos, -1))) {
+			if((!game.hasGround(small_pos.add_x(small_pos, -1)) && !game.hasGround(big_pos.add_x(big_pos, -1))) && !small_pos.add_x(small_pos, -1).outOfBounds()) {
 				this.small_pos = action.moveLeft(small_pos);
 				this.big_pos = action.moveLeft(big_pos);
 				moving = true;
 				right = false;
 			}
 			
-			else {
+			else if ((!game.hasGround(small_pos.add_x(small_pos, 1)) && !game.hasGround(big_pos.add_x(big_pos, 1))) && !small_pos.add_x(small_pos, 1).outOfBounds()){
 				this.small_pos = action.moveRight(small_pos);
 				this.big_pos = action.moveRight(big_pos);
 				moving = true;
@@ -137,26 +137,29 @@ public class Mario {
 			}
 		}
 	}
-	
-	game.remaining_time--;
-	
+		
 	if(!falling) {
 		if(game.hasGround(small_pos.add_y(small_pos, 1)) && (game.eliminateGoomba(small_pos.add_x(small_pos, 1)) || game.eliminateGoomba(big_pos.add_y(big_pos, -1)))) {
-			if(big)
+			if(big) {
 				big = false;
+				game.changeNumPoints(100);
+			}
 			else
 				damaged = true;
 		}
 		
 		else if(game.eliminateGoomba(big_pos.add_y(big_pos, -1))) {
-			if(big)
+			if(big) {
 				big = false;
+				game.changeNumPoints(100);
+			}
+			
 			else
 				damaged = true;
 		}
 	}
 	else {
-		if(game.eliminateGoomba(small_pos.add_x(small_pos, 1)))
+		if(game.eliminateGoomba(small_pos))
 			game.changeNumPoints(100);
 	}
 	if(game.hasDoor(small_pos))

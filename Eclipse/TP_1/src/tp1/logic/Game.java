@@ -9,7 +9,7 @@ public class Game {
 	public static final int DIM_X = 30;
 	public static final int DIM_Y = 15;
 
-	public int remainingTime = 0, nLevel = 0, num_lives = 3, remaining_time = 100, num_points;
+	public int remainingTime = 0, nLevel = 0, num_lives = 3, remaining_time = 100, num_points = 0;
 	public GameObjectContainer gameObjects;
 	public Mario mario;
 	public boolean end_game = false, won = false;
@@ -177,8 +177,12 @@ public class Game {
 		
 	}
 	
+	public void update() {
+		
+	}
 	
-	public void initLevel0() {
+	
+	private void initLevel0() {
 		this.nLevel = 0;
 		this.remainingTime = 100;
 		

@@ -5,6 +5,7 @@ import tp1.view.GameView;
 import tp1.view.Messages;
 import tp1.logic.ActionList;
 import tp1.logic.Action;
+import tp1.Main;
 /**
  *  Accepts user input and coordinates the game execution logic
  */
@@ -30,10 +31,12 @@ public class Controller {
 		
 		view.showWelcome();
 		
+		view.showGame();
+		
 		while (continue_game) {
 			command = view.getPrompt();
 		
-			command[0].toLowerCase();
+			command[0] = command[0].toLowerCase();
 		
 			switch (command[0]) {
 		
@@ -41,33 +44,44 @@ public class Controller {
 			case "action":
 				actions = new ActionList(command.length - 1);
 				
-				for (int i = 1; i < command.length; i++) {
-					switch(command[i].toLowerCase()) {
+				if(actions.ActionListLength() != 0) {
+					for (int i = 1; i < command.length; i++) {
+						switch(command[i].toLowerCase()) {
 					
-					case "u":
-						game.mario.update = false;
-						actions.addAction(Action.UP);
-						break;
+						case "u":
+						case "up":
+							game.mario.update = false;
+							actions.addAction(Action.UP);
+							break;
 						
-					case "d":
-						game.mario.update = false;
-						actions.addAction(Action.DOWN);
-						break;
+						case "d":
+						case "down":
+							game.mario.update = false;
+							actions.addAction(Action.DOWN);
+							break;
 						
-					case "l":
-						game.mario.update = false;
-						actions.addAction(Action.LEFT);
-						break;
+						case "l":
+						case "left":
+							game.mario.update = false;
+							actions.addAction(Action.LEFT);
+							break;
 						
-					case "r":
-						game.mario.update = false;
-						actions.addAction(Action.RIGHT);
-						break;
+						case "r":
+						case "right":
+							game.mario.update = false;
+							actions.addAction(Action.RIGHT);
+							break;
 						
+						}
 					}
+					
+					actions.doActions(game);
 				}
 				
-				actions.doActions(game);
+				else {
+					game.mario.update = true;
+					game.mario.update(Action.DOWN);
+				}
 								
 				if(game.mario.marioOutOfBounds() || game.won)
 					continue_game = false;
@@ -77,14 +91,12 @@ public class Controller {
 				break;
 			
 			case "u":
+			case "":
 			case "update":
 				
 				game.mario.update = true;
 				
 				game.mario.update(Action.DOWN);
-				
-				if(game.mario.marioOutOfBounds())
-					continue_game = false;
 				
 				view.showGame();
 				
@@ -123,6 +135,8 @@ public class Controller {
 				else
 					continue_game = false;
 			}
+			
+			game.remaining_time--;
 		}
 		
 		view.showEndMessage();
