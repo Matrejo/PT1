@@ -1,0 +1,64 @@
+package tp1.logic.gameobjects;
+
+import tp1.logic.Game;
+import tp1.logic.Position;
+import tp1.view.Messages;
+import tp1.logic.Action;
+
+public class Mario {
+	private Position small_pos, big_pos;
+	private Action action = Action.UP;
+	private String mario;
+	private boolean right = true, moving = false, big = true;
+	
+	public Mario(Game game, Position new_pos) { 
+		this.small_pos = new_pos;
+		this.big_pos = action.moveUp(new_pos);
+	}
+	
+	public String getIcon() {
+		
+		if (right) {
+			mario = Messages.MARIO_RIGHT;
+		}
+		
+		else {
+			mario = Messages.MARIO_LEFT;
+		}
+		
+		
+		return mario;
+	}
+	
+	public boolean IsBig() {
+		return big;			
+	}
+	
+	public boolean IsInPos(Position pos) {
+		if (big)
+			return this.big_pos.equals(pos) || this.small_pos.equals(pos);
+		else
+			return this.small_pos.equals(pos);
+	}
+	
+	public void MoveMario(Action mario_action) {
+		switch(mario_action) {
+		
+		case UP:
+			this.small_pos = action.moveUp(small_pos);
+			this.big_pos = action.moveUp(big_pos);
+			break;
+			
+		case DOWN:
+			this.small_pos = action.moveDown(small_pos);
+			this.big_pos = action.moveDown(big_pos);
+			break;
+			
+		
+		}
+	}
+	
+	public void update() {
+		//TODO fill your code
+	}
+}

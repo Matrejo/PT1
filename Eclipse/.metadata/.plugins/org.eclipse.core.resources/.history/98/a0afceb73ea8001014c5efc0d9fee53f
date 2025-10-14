@@ -1,0 +1,12 @@
+package tp1.logic;
+
+import tp1.logic.Action;
+
+public class ActionList {
+	private int counter = 0;
+	Action action_list[] = new Action[100];
+	
+	public void addAction(Action new_action) {
+		action_list[counter] = new_action;
+	}
+}

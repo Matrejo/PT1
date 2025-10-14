@@ -1,0 +1,36 @@
+package tp1.logic.gameobjects;
+
+import tp1.logic.Game;
+import tp1.logic.Position;
+import tp1.view.Messages;
+
+public class Mario {
+	private Position pos;
+	private String mario;
+	private boolean left;
+	
+	public Mario(Game game, Position new_pos) {
+		this.pos = new_pos;
+	}
+	
+	String getIcon() {
+		if (left) {
+			mario = Messages.MARIO_LEFT;
+		}
+		
+		else {
+			mario = Messages.MARIO_RIGHT;
+		}
+		
+		
+		return mario;
+	}
+	
+	public boolean IsInPos(Position pos) {
+		return this.pos.equals(pos);
+	}
+	
+	public void update() {
+		//TODO fill your code
+	}
+}

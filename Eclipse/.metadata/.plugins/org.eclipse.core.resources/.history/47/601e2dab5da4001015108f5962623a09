@@ -1,0 +1,45 @@
+package tp1.logic.gameobjects;
+
+import tp1.logic.Game;
+import tp1.logic.Position;
+import tp1.view.Messages;
+
+public class Mario {
+	private Position small_pos, big_pos;
+	private String mario;
+	private boolean right = true, moving = false, big = true;
+	
+	public Mario(Game game, Position new_pos) {
+		this.small_pos = new_pos;
+		this.big_pos = new Position(new_pos.GetY() - 1, new_pos.GetX());
+	}
+	
+	public String getIcon() {
+		
+		if (right) {
+			mario = Messages.MARIO_RIGHT;
+		}
+		
+		else {
+			mario = Messages.MARIO_LEFT;
+		}
+		
+		
+		return mario;
+	}
+	
+	public boolean IsBig() {
+		return big;			
+	}
+	
+	public boolean IsnPos(Position pos) {
+		if (big)
+			return this.big_pos.equals(pos) || this.small_pos.equals(pos);
+		else
+			return this.small_pos.equals(pos);
+	}
+	
+	public void update() {
+		//TODO fill your code
+	}
+}
