@@ -56,7 +56,7 @@ public class Controller {
 					game.update(game.mario.mario_actions);
 				}
 								
-				if(game.mario.marioOutOfBounds() || game.won)
+				if(game.won)
 					continue_game = false;
 				
 				view.showGame();
@@ -95,11 +95,13 @@ public class Controller {
 			if (game.remaining_time == 0)
 				continue_game = false;
 			
-			if(game.mario.damaged) {
+			if(game.mario.damaged || game.mario.marioOutOfBounds()) {
 				game.subtractLife();
 				
 				if (game.numLives() > 0) {
 					game.initLevel1();
+					game.num_points = 0;
+					game.remaining_time = 100;
 					view.showGame();
 					game.mario.damaged = false;
 					game.mario.mario_actions = new ActionList(100);

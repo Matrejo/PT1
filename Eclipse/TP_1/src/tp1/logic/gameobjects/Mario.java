@@ -152,9 +152,9 @@ public class Mario {
 				right = true;
 			}
 		}
+		
+		game.doInteractionsFrom(this);
 	}
-	
-	game.doInteractionsFrom(this);
 	
 	}
 	
@@ -182,6 +182,11 @@ public class Mario {
 				else {
 					damaged = true;
 				}
+			}
+			
+			else {
+				other.receiveInteraction(this);
+				game.changeNumPoints(100);
 			}
 		}
 		
