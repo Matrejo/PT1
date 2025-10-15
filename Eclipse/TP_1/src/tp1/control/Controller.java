@@ -40,10 +40,7 @@ public class Controller {
 		
 			command[0] = command[0].toLowerCase();
 		
-			switch (command[0]) {
-		
-			case "a":
-			case "action":
+			if(command[0].equals("a") || command[0].equals("action")){
 				
 				if(command.length > 1) {
 					game.mario.update = false;
@@ -60,12 +57,9 @@ public class Controller {
 					continue_game = false;
 				
 				view.showGame();
-				
-				break;
+			}
 			
-			case "u":
-			case "":
-			case "update":
+			else if(command[0].equals("u") || command[0].equals("update") || command[0].equals("")) {
 				
 				game.mario.update = true;
 				
@@ -73,24 +67,26 @@ public class Controller {
 	
 				view.showGame();
 				
-				break;
+			}
 			
-			case "r":
-			case "reset":
+			else if(command[0].equals("r") || command[0].equals("reset")) {
 	            game = new Game(game.nLevel);
 				view.showGame();
 				
-				break;
+			}
 			
-			case "h":
-			case "help":
+			else if(command[0].equals("h") || command[0].equals("help")) {
 				System.out.println(Messages.HELP);
-				break;
+
+			}
 			
-			case "e":
-			case "exit":
+			else if(command[0].equals("e") || command[0].equals("exit")) {
 				continue_game = false;
-				break;
+		
+			}
+			
+			else {
+				view.showError(Messages.UNKNOWN_COMMAND.formatted(command[0]));
 			}
 			
 			if (game.remaining_time == 0)
