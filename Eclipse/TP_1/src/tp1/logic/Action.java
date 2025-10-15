@@ -50,51 +50,51 @@ public enum Action {
 		return pos;
 	}
 	
-	public void parseCommands(String command[], ActionList actions) {
-		for (int i = 1; i < command.length; i++) {
-			switch(command[i].toLowerCase()) {
+	public Action parseCommands(String command) {
+		Action action = UP;
 		
-			case "u":
-			case "up":
-				if(down_counter == 0 && up_counter < 5) {
-					actions.addAction(Action.UP);
-					up_counter++;
-				}
-				break;
-			
-			case "d":
-			case "down":
-				if(up_counter == 0 && down_counter < 5) {
-					actions.addAction(Action.DOWN);
-					down_counter++;
-				}
-				break;
-			
-			case "l":
-			case "left":
-				if(right_counter == 0 && left_counter < 5) {
-					actions.addAction(Action.LEFT);
-					left_counter++;
-				}
-				break;
-			
-			case "r":
-			case "right":
-				if(left_counter == 0 && right_counter < 5) {
-					actions.addAction(Action.RIGHT);
-					right_counter++;
-				}
-				break;
-				
-			case "s":
-			case "stop":
-				if(stop_counter < 5) {
-					actions.addAction(Action.STOP);
-					stop_counter++;
-				}
-				break;
-			
+		switch(command.toLowerCase()) {
+		
+		case "u":
+		case "up":
+			if(down_counter == 0 && up_counter < 5) {
+				action = UP;
+				up_counter++;
 			}
+			break;
+			
+		case "d":
+		case "down":
+			if(up_counter == 0 && down_counter < 5) {
+				action = DOWN;
+				down_counter++;
+			}
+			break;
+			
+		case "l":
+		case "left":
+			if(right_counter == 0 && left_counter < 5) {
+				action = LEFT;
+				left_counter++;
+			}
+			break;
+			
+		case "r":
+		case "right":
+			if(left_counter == 0 && right_counter < 5) {
+				action = RIGHT;
+				right_counter++;
+			}
+			break;
+				
+		case "s":
+		case "stop":
+			if(stop_counter < 5) {
+				action = STOP;
+				stop_counter++;
+			}
+			break;
+			
 		}
 		
 		up_counter = 0;
@@ -102,5 +102,7 @@ public enum Action {
 		right_counter = 0;
 		left_counter = 0;
 		stop_counter = 0;
+		
+		return action;
 	}
 }

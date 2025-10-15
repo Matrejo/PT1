@@ -15,7 +15,6 @@ public class Controller {
 	private GameView view;
 	private String command[] = new String[100];
 	private boolean continue_game = true;
-	public ActionList actions;
 	
 	public Controller(Game game, GameView view) {
 		this.game = game;
@@ -28,12 +27,13 @@ public class Controller {
 	 * 
 	 */
 	public void run() {
+		Action action = Action.UP;
 		
 		view.showWelcome();
 		
 		view.showGame();
 		
-		actions = new ActionList(100);
+		game.mario.mario_actions = new ActionList(100);
 		
 		while (continue_game) {
 			command = view.getPrompt();
@@ -44,13 +44,16 @@ public class Controller {
 				
 				if(command.length > 1) {
 					game.mario.update = false;
-					actions.parseCommands(command);
-					game.update(actions);
+					for (int i = 1; i < command.length; i++) {
+						action = action.parseCommands(command[i]);
+						game.addAction(action);
+					}
+					game.update(game.mario.mario_actions);
 				}
 				
 				else {
 					game.mario.update = true;
-					game.update(actions);
+					game.update(game.mario.mario_actions);
 				}
 								
 				if(game.mario.marioOutOfBounds() || game.won)
@@ -59,11 +62,11 @@ public class Controller {
 				view.showGame();
 			}
 			
-			else if(command[0].equals("u") || command[0].equals("update") || command[0].equals("")) {
+			else if(command[0].equals("u") || command[0].equals("update") || command[0].equals("") || command[0].equals(" ")) {
 				
 				game.mario.update = true;
 				
-				game.update(actions);
+				game.update(game.mario.mario_actions);
 	
 				view.showGame();
 				
@@ -99,6 +102,7 @@ public class Controller {
 					game.initLevel1();
 					view.showGame();
 					game.mario.damaged = false;
+					game.mario.mario_actions = new ActionList(100);
 				}
 				
 				else

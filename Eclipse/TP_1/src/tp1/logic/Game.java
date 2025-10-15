@@ -107,6 +107,10 @@ public class Game {
 		return num_lives == 0;
 	}
 	
+	public void addAction(Action act) {
+		this.mario.mario_actions.addAction(act);
+	}
+	
 	public void marioExited() {
 		this.num_points = this.num_points + this.remaining_time * 10;
 		
@@ -159,7 +163,7 @@ public class Game {
 	
 	public void update(ActionList actions) {
 		this.remaining_time--;
-		gameObjects.update(this, actions);
+		gameObjects.update(this);
 	}
 	
 	

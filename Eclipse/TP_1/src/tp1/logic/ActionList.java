@@ -17,10 +17,6 @@ public class ActionList {
 		this.counter++;
 	}
 	
-	public void parseCommands(String commands[]) {
-		action.parseCommands(commands, this);
-	}
-	
 	public int ActionListLength() {
 		return this.counter;
 	}

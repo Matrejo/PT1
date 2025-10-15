@@ -54,10 +54,10 @@ public class GameObjectContainer {
 		}
 	}
 	
-	public void update(Game game, ActionList actions) {
-		game.mario.update(actions);
+	public void update(Game game) {
+		game.mario.update();
 		
-		actions.deleteActionList();
+		game.mario.mario_actions.deleteActionList();
 		
 		game.mario.interactWith(game.gameObjects.doorList[0]);
 		

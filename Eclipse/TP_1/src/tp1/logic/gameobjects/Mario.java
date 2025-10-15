@@ -12,6 +12,7 @@ import tp1.logic.Goomba;
 public class Mario {
 	private Position small_pos, big_pos;
 	private Action action = Action.UP;
+	public ActionList mario_actions;
 	private String mario;
 	private Game game;
 	private boolean right = true, moving = true, big = true;
@@ -52,11 +53,11 @@ public class Mario {
 			return this.small_pos.equals(pos);
 	}
 	
-	public void update(ActionList actions) {
+	public void update() {
 		
 	if (!update) {
-		for (int i = 0; i < actions.ActionListLength(); i++) {
-			switch(actions.action_list[i]) {
+		for (int i = 0; i < this.mario_actions.ActionListLength(); i++) {
+			switch(this.mario_actions.action_list[i]) {
 			case UP:
 				if (big) {
 					if(!game.hasGround(big_pos.add_y(big_pos, -1))) {
@@ -136,7 +137,7 @@ public class Mario {
 			moving = true;
 		}
 		
-		else { 
+		else {
 			if((!game.hasGround(small_pos.add_x(small_pos, -1)) && !game.hasGround(big_pos.add_x(big_pos, -1))) && !small_pos.add_x(small_pos, -1).outOfBounds()) {
 				this.small_pos = action.moveLeft(small_pos);
 				this.big_pos = action.moveLeft(big_pos);
@@ -152,6 +153,8 @@ public class Mario {
 			}
 		}
 	}
+	
+	game.doInteractionsFrom(this);
 	
 	}
 	
