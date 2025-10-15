@@ -22,15 +22,15 @@ public class Goomba {
 	}
 	
 	public void update() {
-		if (!game.hasGround(this.pos.add_y(this.pos, 1)) && !game.hasGoomba(this.pos.add_y(this.pos, 1)))
+		if (!game.hasGround(this.pos.add_y(this.pos, 1)))
 			this.pos = this.pos.add_y(this.pos, 1);
 		
 		
-		else if (!game.hasGround(this.pos.add_x(this.pos, 1)) && !game.hasGoomba(this.pos.add_x(this.pos, 1)) && right && !this.pos.add_x(pos, 1).outOfBounds())
+		else if (!game.hasGround(this.pos.add_x(this.pos, 1)) && right && !this.pos.add_x(pos, 1).outOfBounds())
 			this.pos = this.pos.add_x(this.pos, 1);
 		
 		else {
-			if(!game.hasGround(this.pos.add_x(this.pos, -1)) && !game.hasGoomba(this.pos.add_x(this.pos, -1)) && !this.pos.add_x(pos, -1).outOfBounds()) {
+			if(!game.hasGround(this.pos.add_x(this.pos, -1)) && !this.pos.add_x(pos, -1).outOfBounds()) {
 				this.pos = this.pos.add_x(this.pos, -1);
 				right = false;
 			}

@@ -62,14 +62,12 @@ public class Mario {
 					if(!game.hasGround(big_pos.add_y(big_pos, -1))) {
 						this.small_pos = action.moveUp(small_pos);
 						this.big_pos = action.moveUp(big_pos);
-						moving = true;
 					}
 				}
 				else {
 					if(!game.hasGround(small_pos.add_y(small_pos, -1))) {
 						this.small_pos = action.moveUp(small_pos);
 						this.big_pos = action.moveUp(big_pos);
-						moving = true;
 					}
 				}
 				break;
