@@ -5,8 +5,8 @@ import tp1.logic.Game;
 
 public class ActionList {
 	private int counter = 0;
-	Action action_list[];
-	private int did_up = 0, did_down = 0, did_right = 0, did_left = 0;
+	public Action action_list[], action = Action.STOP;
+	private int did_up = 0, did_down = 0, did_right = 0, did_left = 0, did_stop = 0;
 	
 	public ActionList(int size) {
 		this.action_list = new Action[size];
@@ -17,42 +17,18 @@ public class ActionList {
 		this.counter++;
 	}
 	
-	public void doActions(Game game) {
-		for (int i = 0; i < this.action_list.length; i++) {
-			switch(this.action_list[i]) {
-			
-			case Action.UP:
-				if (did_down == 0 && did_up < 5) {
-					game.mario.update(Action.UP);
-					did_up++;
-				}
-				break;
-				
-			case Action.DOWN:
-				if (did_up == 0 && did_down < 5) {
-					game.mario.update(Action.DOWN);
-					did_down++;
-				}
-				break;
-				
-			case Action.LEFT:
-				if (did_right == 0 && did_left < 5) {
-					game.mario.update(Action.LEFT);
-					did_left++;
-				}
-				break;
-				
-			case Action.RIGHT:
-				if (did_left == 0 && did_right < 5) {
-					game.mario.update(Action.RIGHT);
-					did_right++;
-				}
-				break;
-			}
-		}
+	public void parseCommands(String commands[]) {
+		action.parseCommands(commands, this);
 	}
 	
 	public int ActionListLength() {
-		return this.action_list.length;
+		return this.counter;
+	}
+	
+	public void deleteActionList() {
+		for (int i = 0; i < this.action_list.length; i++) {
+			this.action_list[i] = null;
+		}
+		this.counter = 0;
 	}
 }

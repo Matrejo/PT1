@@ -17,6 +17,17 @@ public class Game {
 	
 	public Game(int nLevel) {
 		// TODO Auto-generated constructor stub
+		
+		gameObjects = new GameObjectContainer();
+		if (nLevel == 1) {
+			this.initLevel1();
+			this.nLevel = nLevel;
+		}
+		
+		else {
+			this.initLevel0();
+			this.nLevel = 0;
+		}
 	}
 	
 	public String positionToString(int col, int row) {
@@ -96,6 +107,17 @@ public class Game {
 		return num_lives == 0;
 	}
 	
+	public void marioExited() {
+		this.num_points = this.num_points + this.remaining_time * 10;
+		
+		this.won = true;
+		this.end_game = true;
+	}
+	
+	public void doInteractionsFrom(Mario mario) {
+		gameObjects.doInteractionsFrom(mario);
+	}
+	
 	public boolean hasGround(Position pos) {
 		int i = 0;
 		boolean found = false;
@@ -122,38 +144,6 @@ public class Game {
 		return found;
 	}
 	
-	public boolean eliminateGoomba(Position pos) {
-		boolean found = false;
-		int i = 0;
-		while(gameObjects.goombaList[i] != null && !found) {
-			if (gameObjects.goombaList[i].IsInPos(pos))
-				found = true;
-			i++;
-		}
-		
-		if(found) {
-			for(int j = i - 1; j < gameObjects.goomba_counter; j++)
-				gameObjects.goombaList[j] = gameObjects.goombaList[j + 1];
-			gameObjects.goomba_counter--;
-		}
-		
-		return found;
-	}
-	
-	
-	public boolean hasDoor(Position pos) {
-		int i = 0;
-		boolean found = false;
-		
-		while(gameObjects.doorList[i] != null && !found) {
-			if (gameObjects.doorList[i].IsInPos(pos))
-				found = true;
-			i++;
-		}
-		
-		return found;
-	}
-	
 	public boolean hasMario(Position pos) {
 		int i = 0;
 		boolean found = false;
@@ -167,18 +157,9 @@ public class Game {
 		return found;
 	}
 	
-	public void updateGoombas() {
-		int i = 0;
-		
-		while(gameObjects.goombaList[i] != null) {
-			gameObjects.goombaList[i].update();
-			i++;
-		}
-		
-	}
-	
-	public void update() {
-		
+	public void update(ActionList actions) {
+		this.remaining_time--;
+		gameObjects.update(this, actions);
 	}
 	
 	

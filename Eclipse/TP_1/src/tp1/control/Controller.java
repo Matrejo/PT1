@@ -33,6 +33,8 @@ public class Controller {
 		
 		view.showGame();
 		
+		actions = new ActionList(100);
+		
 		while (continue_game) {
 			command = view.getPrompt();
 		
@@ -42,45 +44,16 @@ public class Controller {
 		
 			case "a":
 			case "action":
-				actions = new ActionList(command.length - 1);
 				
-				if(actions.ActionListLength() != 0) {
-					for (int i = 1; i < command.length; i++) {
-						switch(command[i].toLowerCase()) {
-					
-						case "u":
-						case "up":
-							game.mario.update = false;
-							actions.addAction(Action.UP);
-							break;
-						
-						case "d":
-						case "down":
-							game.mario.update = false;
-							actions.addAction(Action.DOWN);
-							break;
-						
-						case "l":
-						case "left":
-							game.mario.update = false;
-							actions.addAction(Action.LEFT);
-							break;
-						
-						case "r":
-						case "right":
-							game.mario.update = false;
-							actions.addAction(Action.RIGHT);
-							break;
-						
-						}
-					}
-					
-					actions.doActions(game);
+				if(command.length > 1) {
+					game.mario.update = false;
+					actions.parseCommands(command);
+					game.update(actions);
 				}
 				
 				else {
 					game.mario.update = true;
-					game.mario.update(Action.DOWN);
+					game.update(actions);
 				}
 								
 				if(game.mario.marioOutOfBounds() || game.won)
@@ -96,15 +69,15 @@ public class Controller {
 				
 				game.mario.update = true;
 				
-				game.mario.update(Action.DOWN);
-				
+				game.update(actions);
+	
 				view.showGame();
 				
 				break;
 			
 			case "r":
 			case "reset":
-	            game.initLevel1();
+	            game = new Game(game.nLevel);
 				view.showGame();
 				
 				break;
@@ -135,8 +108,6 @@ public class Controller {
 				else
 					continue_game = false;
 			}
-			
-			game.remaining_time--;
 		}
 		
 		view.showEndMessage();

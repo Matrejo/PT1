@@ -26,7 +26,6 @@ public class Main {
 			if (args.length != 0) nLevel = Integer.parseInt(args[0]);
 
             Game game = new Game(nLevel);
-            game.initLevel1();
             GameView view = args.length>1 ? new ConsoleView(game): new ConsoleColorsView(game);
             Controller controller = new Controller(game, view);
 					

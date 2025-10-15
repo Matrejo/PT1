@@ -2,10 +2,11 @@ package tp1.logic;
 
 import tp1.view.Messages;
 import tp1.logic.Game;
+import tp1.logic.gameobjects.Mario;
 
 public class Goomba {
 	private Position pos;
-	public boolean right = true;
+	public boolean right = true, eliminated = false;
 	private Game game;
 	
 	public Goomba(Game game, Position new_pos) {
@@ -39,5 +40,14 @@ public class Goomba {
 				right = true;
 			}
 		}
+	}
+	
+	public boolean receiveInteraction(Mario other) {
+		if (other.IsInPos(this.pos)) {
+			this.eliminated = true;
+			
+		}
+		
+		return this.eliminated;
 	}
 }
