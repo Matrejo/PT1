@@ -1,8 +1,7 @@
 package tp1.logic;
 
 import tp1.logic.gameobjects.Mario;
-import tp1.logic.Action;
-import tp1.view.Messages;
+
 
 public class Game {
 
@@ -123,42 +122,15 @@ public class Game {
 	}
 	
 	public boolean hasGround(Position pos) {
-		int i = 0;
-		boolean found = false;
-		
-		while(gameObjects.groundList[i] != null && !found) {
-			if (gameObjects.groundList[i].IsInPos(pos))
-				found = true;
-			i++;
-		}
-		
-		return found;
+		return gameObjects.hasGround(pos);
 	}
 	
 	public boolean hasGoomba(Position pos) {
-		int i = 0;
-		boolean found = false;
-		
-		while(gameObjects.goombaList[i] != null && !found) {
-			if (gameObjects.goombaList[i].IsInPos(pos))
-				found = true;
-			i++;
-		}
-		
-		return found;
+		return gameObjects.hasGoomba(pos);
 	}
 	
 	public boolean hasMario(Position pos) {
-		int i = 0;
-		boolean found = false;
-		
-		while(gameObjects.marioList[i] != null && !found) {
-			if (gameObjects.marioList[i].IsInPos(pos))
-				found = true;
-			i++;
-		}
-		
-		return found;
+		return gameObjects.hasMario(pos);
 	}
 	
 	public void update(ActionList actions) {

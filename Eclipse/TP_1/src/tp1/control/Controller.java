@@ -1,11 +1,12 @@
 package tp1.control;
 
 import tp1.logic.Game;
+import tp1.view.ConsoleColorsView;
+import tp1.view.ConsoleView;
 import tp1.view.GameView;
 import tp1.view.Messages;
 import tp1.logic.ActionList;
 import tp1.logic.Action;
-import tp1.Main;
 /**
  *  Accepts user input and coordinates the game execution logic
  */
@@ -73,9 +74,13 @@ public class Controller {
 			}
 			
 			else if(command[0].equals("r") || command[0].equals("reset")) {
-	            game = new Game(game.nLevel);
-				view.showGame();
+	            this.game = new Game(this.game.nLevel);
+	            GameView view = this.game.nLevel>1 ? new ConsoleView(game): new ConsoleColorsView(game);
+	            Controller controller = new Controller(game, view);
+						
+				controller.run();
 				
+				view.showGame();				
 			}
 			
 			else if(command[0].equals("h") || command[0].equals("help")) {
@@ -100,7 +105,6 @@ public class Controller {
 				
 				if (game.numLives() > 0) {
 					game.initLevel1();
-					game.num_points = 0;
 					game.remaining_time = 100;
 					view.showGame();
 					game.mario.damaged = false;

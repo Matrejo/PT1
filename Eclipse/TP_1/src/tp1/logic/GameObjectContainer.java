@@ -1,8 +1,7 @@
 package tp1.logic;
 
-import tp1.logic.Ground;
+
 import tp1.logic.gameobjects.Mario;
-import tp1.logic.Game;
 
 public class GameObjectContainer {
 	public int ground_counter = 0, mario_counter = 0, goomba_counter = 0, door_counter = 0;
@@ -29,6 +28,45 @@ public class GameObjectContainer {
 	public void add(Goomba goomba) {
 		goombaList[goomba_counter] = goomba;
 		goomba_counter++;
+	}
+	
+	public boolean hasGround(Position pos) {
+		int i = 0;
+		boolean found = false;
+		
+		while(this.groundList[i] != null && !found) {
+			if (this.groundList[i].IsInPos(pos))
+				found = true;
+			i++;
+		}
+		
+		return found;
+	}
+	
+	public boolean hasGoomba(Position pos) {
+		int i = 0;
+		boolean found = false;
+		
+		while(this.goombaList[i] != null && !found) {
+			if (this.goombaList[i].IsInPos(pos))
+				found = true;
+			i++;
+		}
+		
+		return found;
+	}
+	
+	public boolean hasMario(Position pos) {
+		int i = 0;
+		boolean found = false;
+		
+		while(this.marioList[i] != null && !found) {
+			if (this.marioList[i].IsInPos(pos))
+				found = true;
+			i++;
+		}
+		
+		return found;
 	}
 	
 	public void doInteractionsFrom(Mario mario) {

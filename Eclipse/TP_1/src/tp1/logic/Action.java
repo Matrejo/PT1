@@ -1,7 +1,5 @@
 package tp1.logic;
 
-import tp1.logic.Position;
-import tp1.logic.ActionList;
 /**
  * Represents the allowed actions in the game
  *

@@ -1,7 +1,6 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.Game;
-import tp1.logic.GameObjectContainer;
 import tp1.logic.Position;
 import tp1.view.Messages;
 import tp1.logic.Action;
@@ -174,8 +173,9 @@ public class Mario {
 		
 		if (other.IsInPos(small_pos)) {
 			if (!falling) {
-				other.receiveInteraction(this);
-				game.changeNumPoints(100);
+				if(other.receiveInteraction(this)) {
+					game.changeNumPoints(100);
+				}
 				if(big) {
 					big = false;
 				}
@@ -190,15 +190,11 @@ public class Mario {
 			}
 		}
 		
-		else if(other.IsInPos(big_pos)) {
+		else if(other.IsInPos(big_pos) && big) {
 			other.receiveInteraction(this);
 			game.changeNumPoints(100);
-			if(big) {
-				big = false;
-			}
-			else {
-				damaged = true;
-			}
+			big = false;
+			
 		}
 		
 		return interacted;
