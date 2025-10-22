@@ -138,6 +138,20 @@ public class Game {
 		gameObjects.update(this);
 	}
 	
+	public void reset() {
+		    reset(null);
+	}
+
+	public void reset(Integer levelOpt) {
+	    if (levelOpt != null) this.nLevel = (levelOpt == 1) ? 1 : 0;
+
+	    this.remaining_time = 100;
+
+	    this.gameObjects = new GameObjectContainer();
+	    if (this.nLevel == 1) initLevel1();
+	    else initLevel0();
+	}
+	
 	
 	private void initLevel0() {
 		this.nLevel = 0;

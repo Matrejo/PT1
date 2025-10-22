@@ -1,6 +1,7 @@
 package tp1.control;
 
 import tp1.logic.Game;
+import java.util.Arrays;
 import tp1.view.ConsoleColorsView;
 import tp1.view.ConsoleView;
 import tp1.view.GameView;
@@ -28,7 +29,7 @@ public class Controller {
 	 * 
 	 */
 	public void run() {
-		Action action = Action.UP;
+		Action action = Action.UP; //action = action.parseCommands("up")
 		
 		view.showWelcome();
 		
@@ -45,11 +46,17 @@ public class Controller {
 				
 				if(command.length > 1) {
 					game.mario.update = false;
-					for (int i = 1; i < command.length; i++) {
+					
+					String[] tokens = Arrays.copyOfRange(command, 1, command.length);
+					ActionList parsed = Action.parseCommands(tokens); //build the action list respecting the limit of 5 some actions
+					game.mario.mario_actions = parsed;
+					game.update(parsed);
+					
+					/*for (int i = 1; i < command.length; i++) {
 						action = action.parseCommands(command[i]);
 						game.addAction(action);
 					}
-					game.update(game.mario.mario_actions);
+					game.update(game.mario.mario_actions);*/
 				}
 				
 				else {
@@ -73,14 +80,21 @@ public class Controller {
 				
 			}
 			
+			//fix reset 
 			else if(command[0].equals("r") || command[0].equals("reset")) {
-	            this.game = new Game(this.game.nLevel);
-	            GameView view = this.game.nLevel>1 ? new ConsoleView(game): new ConsoleColorsView(game);
-	            Controller controller = new Controller(game, view);
-						
-				controller.run();
+				Integer levelArg = game.nLevel;
 				
-				view.showGame();				
+				 game.reset(levelArg);               // ricarica il livello giusto o quello corrente
+				 game.nLevel = levelArg;
+				 game.mario.damaged = false;         // pulizia stato mario (se serve)
+				 game.mario.mario_actions = new ActionList(100); // svuota azioni pendenti
+				 view.showGame();                    // dopo un comando valido che cambia lo stato, si ristampa la board
+				
+	            //this.game = new Game(this.game.nLevel);
+	            //GameView view = this.game.nLevel>1 ? new ConsoleView(game): new ConsoleColorsView(game);
+	            //Controller controller = new Controller(game, view);
+				//controller.run();
+				//view.showGame();				
 			}
 			
 			else if(command[0].equals("h") || command[0].equals("help")) {
@@ -100,12 +114,16 @@ public class Controller {
 			if (game.remaining_time == 0)
 				continue_game = false;
 			
+			
 			if(game.mario.damaged || game.mario.marioOutOfBounds()) {
 				game.subtractLife();
 				
 				if (game.numLives() > 0) {
-					game.initLevel1();
+					int nLevel = game.nLevel;
+					// game.initLevel1();
+					game.reset(game.nLevel); //fix
 					game.remaining_time = 100;
+					game.nLevel = nLevel;
 					view.showGame();
 					game.mario.damaged = false;
 					game.mario.mario_actions = new ActionList(100);
