@@ -19,9 +19,7 @@ public class Mario extends GameObject{
 	public boolean update = false, damaged = false;
 	
 	public Mario(Game game, Position new_pos) { 
-		this.game = game;
-		this.small_pos = new_pos;
-		this.big_pos = action.moveUp(new_pos);
+		super (game, new_pos, true);
 	}
 	
 	public String getIcon() {

@@ -1,0 +1,25 @@
+package tp1.logic.gameobjects;
+
+import tp1.logic.Position;
+import tp1.logic.Game;
+import tp1.view.Messages;
+
+public class Ground extends GameObject{
+	private Position pos;
+	
+	public Ground(Game game, Position new_pos) {
+		super (game, new_pos);
+	}
+	
+	public boolean IsInPos(Position pos) {
+		return this.pos.equals(pos);
+	}
+	
+	public String getIcon() {
+		return Messages.LAND;
+	}
+	
+	public void update() {
+		
+	}
+}

@@ -22,7 +22,14 @@ public class GameObjectContainer {
 	}
 	
 	public String postitionToString(Position pos) {
-		return "";
+		String icon = "";
+		
+		for (GameObject c : objects) {
+			if (c.isInPosition(pos)) {
+				icon = c.getIcon();
+			}
+		}
+		return icon;
 	}
 
 	//TODO fill your code

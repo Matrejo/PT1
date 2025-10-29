@@ -78,6 +78,10 @@ public class Game {
 		
 	}
 	
+	public boolean isSolid(Position pos) {
+		
+	}
+	
 
 	private void initLevel0() {
 		this.nLevel = 0;
