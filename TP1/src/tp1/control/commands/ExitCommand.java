@@ -1,0 +1,46 @@
+package tp1.control.commands;
+
+import tp1.logic.Game;
+import tp1.view.GameView;
+import tp1.view.Messages;
+
+public class ExitCommand extends NoParamsCommand{
+
+	// Forman parte de atributos de estado
+	private static final String NAME = Messages.COMMAND_EXIT_NAME;
+	private static final String SHORTCUT = Messages.COMMAND_EXIT_SHORTCUT;
+	private static final String DETAILS = Messages.COMMAND_EXIT_DETAILS;
+	private static final String HELP = Messages.COMMAND_EXIT_HELP;
+
+	public ExitCommand() {
+		super(NAME, SHORTCUT, DETAILS, HELP); 
+	}
+	
+	protected boolean matchCommand(String name) {
+		return this.matchCommandName(name);
+	}
+	
+	public Command parse(String[] commandWords) {
+		Command return_command = null;
+		
+		if(commandWords.length == 1) {
+			if(this.matchCommandName(commandWords[0])) {
+				return_command = this;
+			}
+		}
+		
+		return return_command;
+	}
+
+	@Override
+	public void execute(Game game, GameView view){
+		// You should let the game know that you are leaving so that 
+		// if it needs to close something, it can close it and finish.
+	    game.exit(); 	
+	}
+	
+	public String helpText() {
+		return this.getHelp();
+	}
+
+}

@@ -1,0 +1,119 @@
+!SESSION 2025-10-28 11:46:12.786 -----------------------------------------------
+eclipse.buildId=4.37.0.20250905-1455
+java.version=21.0.8
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.committers.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.committers.product
+
+!ENTRY org.eclipse.lemminx.uber-jar 4 0 2025-10-28 11:46:15.932
+!MESSAGE bundle org.eclipse.lemminx.uber-jar:0.31.0 (297) Component descriptor entry 'OSGI-INF/*.xml' not found
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-10-28 11:47:27.708
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\User'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2025-10-28 11:49:01.480 -----------------------------------------------
+eclipse.buildId=4.37.0.20250905-1455
+java.version=21.0.8
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.committers.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.committers.product -data file:/C:/Users/User/Universidad/TP1/
+
+!ENTRY org.eclipse.lemminx.uber-jar 4 0 2025-10-28 11:49:02.965
+!MESSAGE bundle org.eclipse.lemminx.uber-jar:0.31.0 (297) Component descriptor entry 'OSGI-INF/*.xml' not found
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-10-28 11:49:08.144
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\User'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2025-10-28 12:41:58.036 -----------------------------------------------
+eclipse.buildId=4.37.0.20250905-1455
+java.version=21.0.8
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.committers.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.committers.product
+
+!ENTRY org.eclipse.lemminx.uber-jar 4 0 2025-10-28 12:42:01.431
+!MESSAGE bundle org.eclipse.lemminx.uber-jar:0.31.0 (297) Component descriptor entry 'OSGI-INF/*.xml' not found
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-10-28 12:42:36.594
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\User'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2025-10-28 12:49:26.490 -----------------------------------------------
+eclipse.buildId=4.37.0.20250905-1455
+java.version=21.0.8
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.committers.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.committers.product
+
+!ENTRY org.eclipse.lemminx.uber-jar 4 0 2025-10-28 12:49:31.216
+!MESSAGE bundle org.eclipse.lemminx.uber-jar:0.31.0 (297) Component descriptor entry 'OSGI-INF/*.xml' not found
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-10-28 12:49:56.382
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\User'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2025-10-28 16:10:43.317 -----------------------------------------------
+eclipse.buildId=4.37.0.20250905-1455
+java.version=21.0.8
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.committers.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.committers.product
+
+!ENTRY org.eclipse.lemminx.uber-jar 4 0 2025-10-28 16:10:48.185
+!MESSAGE bundle org.eclipse.lemminx.uber-jar:0.31.0 (297) Component descriptor entry 'OSGI-INF/*.xml' not found
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-10-28 16:11:22.474
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\User'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2025-10-29 11:35:50.132 -----------------------------------------------
+eclipse.buildId=4.37.0.20250905-1455
+java.version=21.0.8
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.committers.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.committers.product
+
+!ENTRY org.eclipse.lemminx.uber-jar 4 0 2025-10-29 11:35:54.208
+!MESSAGE bundle org.eclipse.lemminx.uber-jar:0.31.0 (297) Component descriptor entry 'OSGI-INF/*.xml' not found
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-10-29 11:36:34.548
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\User'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2025-10-29 16:05:18.597 -----------------------------------------------
+eclipse.buildId=4.37.0.20250905-1455
+java.version=21.0.8
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.committers.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.committers.product
+
+!ENTRY org.eclipse.lemminx.uber-jar 4 0 2025-10-29 16:05:27.709
+!MESSAGE bundle org.eclipse.lemminx.uber-jar:0.31.0 (297) Component descriptor entry 'OSGI-INF/*.xml' not found
+
+!ENTRY org.eclipse.egit.ui 2 0 2025-10-29 16:06:17.510
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\User'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
