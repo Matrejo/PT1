@@ -12,10 +12,6 @@ public class Goomba extends GameObject{
 		super(game, new_pos, false);
 	}
 	
-	public boolean IsInPos(Position pos) {
-		return this.pos.equals(pos);
-	}
-	
 	public String getIcon() {
 		return Messages.GOOMBA;
 	}
@@ -39,39 +35,23 @@ public class Goomba extends GameObject{
 		}
 	}
 	
-	public boolean receiveInteraction(Mario other) {
+	public boolean recieveInteraction(Mario mario) {
 		boolean interacted = false;
-		if (other.IsInPos(this.pos) && this.isAlive()) {
-			this.dead();
+		
+		if (mario.isInPosition(this.pos)) {
 			interacted = true;
+			this.dead();
 		}
 		
 		return interacted;
 	}
 	
-	public boolean receiveInteraction(Ground ground) {
-		boolean interacted = true;
-		
-		return interacted;
-	}
-	
-	public boolean receiveInteraction(ExitDoor door) {
-		boolean interacted = true;
-		
-		return interacted;
-	}
-	
-	public boolean receiveInteraction(Goomba goomba) {
-		boolean interacted = true;
-		
-		return interacted;
-	}
 	
 	public boolean interactWith(GameItem other) {
-	  	boolean canInteract = other.isInPosition(this.pos);
-	  	if (canInteract) {
-	  		other.receiveInteraction(this);
-		}
-		return canInteract;
+		boolean interacted;
+	  	
+	  	interacted = other.receiveInteraction(this);
+		
+		return interacted;
 	 }
 }

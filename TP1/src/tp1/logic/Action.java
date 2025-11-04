@@ -19,38 +19,6 @@ public enum Action {
 		this.y=y;
 	}
 	
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-	
-	public Position moveUp(Position pos) {
-		pos = pos.add_y(pos, UP.y);
-		
-		return pos;
-	}
-	
-	public Position moveDown(Position pos) {
-		pos = pos.add_y(pos, DOWN.y);
-		
-		return pos;
-	}
-	
-	public Position moveLeft(Position pos) {
-		pos = pos.add_x(pos, LEFT.x);
-		
-		return pos;
-	}
-	
-	public Position moveRight(Position pos) {
-		pos = pos.add_x(pos, RIGHT.x);
-		
-		return pos;
-	}
-	
 	//parsing of one word
 	 public static Action parseCommand(String command) {
 	        if (command == null) {

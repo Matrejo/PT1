@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import tp1.control.commands.Command;
-import tp1.control.commands.ExitCommand;
-import tp1.control.commands.HelpCommand;
+
 import tp1.logic.gameobjects.GameObject;
+import tp1.logic.gameobjects.GameItem;
+import tp1.view.Messages;
 
 public class GameObjectContainer {
 	private ArrayList<GameObject> objects;
@@ -21,7 +21,16 @@ public class GameObjectContainer {
 		objects.add(object);
 	}
 	
-	public String postitionToString(Position pos) {
+	public boolean hasGround(Position pos) {
+		boolean found = false;
+		if(positionToString(pos) == Messages.LAND) {
+			found = true;
+		}
+		
+		return found;
+	}
+	
+	public String positionToString(Position pos) {
 		String icon = "";
 		
 		for (GameObject c : objects) {
@@ -30,6 +39,14 @@ public class GameObjectContainer {
 			}
 		}
 		return icon;
+	}	
+	
+	public boolean doInteractions(GameItem obj) {
+		
+		for (GameObject c: objects) {
+			c.interactWith(obj);
+		}
+		return true;
 	}
 
 	//TODO fill your code

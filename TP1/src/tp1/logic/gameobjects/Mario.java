@@ -5,21 +5,20 @@ import tp1.logic.Position;
 import tp1.view.Messages;
 import tp1.logic.Action;
 import tp1.logic.ActionList;
-import tp1.logic.ExitDoor;
-import tp1.logic.Goomba;
 
 public class Mario extends GameObject{
-	private Position small_pos, big_pos;
+	private Position big_pos;
 	private Action action = Action.UP;
-	public ActionList mario_actions;
+	private ActionList mario_actions;
 	private String mario;
 	private Game game;
 	private boolean right = true, moving = true, big = true;
-	public boolean falling = false;
-	public boolean update = false, damaged = false;
+	private boolean falling = false;
+	private boolean update = false, damaged = false;
 	
 	public Mario(Game game, Position new_pos) { 
 		super (game, new_pos, true);
+		this.big_pos = this.pos.add_y(pos, -1);
 	}
 	
 	public String getIcon() {
@@ -43,154 +42,127 @@ public class Mario extends GameObject{
 		return big;			
 	}
 	
-	public boolean IsInPos(Position pos) {
-		if (big)
-			return this.big_pos.equals(pos) || this.small_pos.equals(pos);
-		else
-			return this.small_pos.equals(pos);
-	}
-	
 	public void update() {
 		
-	if (!update) {
-		for (int i = 0; i < this.mario_actions.ActionListLength(); i++) {
-			switch(this.mario_actions.action_list[i]) {
-			case UP:
-				if (big) {
-					if(!game.hasGround(big_pos.add_y(big_pos, -1))) {
-						this.small_pos = action.moveUp(small_pos);
-						this.big_pos = action.moveUp(big_pos);
+		if (!update) {
+			for (int i = 0; i < this.mario_actions.ActionListLength(); i++) {
+				switch(this.mario_actions.action_list[i]) {
+				case UP:
+					if (big) {
+						if(!game.hasGround(this.pos.add_y(this.pos, -1)) && !game.hasGround(big_pos.add_y(big_pos, -1))) {
+							this.move(Action.UP);
+							this.big_pos = this.pos.add_y(this.pos, -1);
+						}
 					}
-				}
-				else {
-					if(!game.hasGround(small_pos.add_y(small_pos, -1))) {
-						this.small_pos = action.moveUp(small_pos);
-						this.big_pos = action.moveUp(big_pos);
+					else {
+						if(!game.hasGround(this.pos.add_y(this.pos, -1))) {
+							this.move(Action.UP);
+							this.big_pos = this.pos.add_y(this.pos, -1);
+						}
 					}
-				}
-				break;
-			
-			case DOWN:
-				while(!game.hasGround(small_pos.add_y(small_pos, 1)) && !this.small_pos.outOfBounds()) {
-					this.small_pos = action.moveDown(small_pos);
-					this.big_pos = action.moveDown(big_pos);
-				}
-				falling = true;
-				moving = false;
-				break;
-			
-			case LEFT:
-				if (big) {
-					if(!game.hasGround(big_pos.add_x(big_pos, -1)) && !game.hasGround(small_pos.add_x(small_pos, -1))) {
-						this.small_pos = action.moveLeft(small_pos);
-						this.big_pos = action.moveLeft(big_pos);
-						moving = true;
-						right = false;
-					}
-				}
-				else {
-					if(!game.hasGround(small_pos.add_x(small_pos, -1))) {
-						this.small_pos = action.moveLeft(small_pos);
-						this.big_pos = action.moveLeft(big_pos);
-						moving = true;
-						right = false;
-					}
-				}
-				break;
-			
-			case RIGHT:
-				if (big) {
-					if(!game.hasGround(big_pos.add_x(big_pos, 1)) && !game.hasGround(small_pos.add_x(small_pos, 1))) {
-						this.small_pos = action.moveRight(small_pos);
-						this.big_pos = action.moveRight(big_pos);
-						moving = true;
-						right = true;
-					}
-				}
-				else {
-					if(!game.hasGround(small_pos.add_x(small_pos, 1))) {
-						this.small_pos = action.moveRight(small_pos);
-						this.big_pos = action.moveRight(big_pos);
-						moving = true;
-						right = true;
-					}
-				}
-				break;
+					break;
 				
-			case STOP:
-				moving = false;
-				break;
+				case DOWN:
+					while(!game.hasGround(this.pos.add_y(this.pos, 1)) && !this.pos.outOfBounds()) {
+						this.move(Action.DOWN);
+						this.big_pos = this.pos.add_y(pos, 1);
+					}
+					falling = true;
+					moving = false;
+					break;
+				
+				case LEFT:
+					if (big) {
+						if(!game.hasGround(big_pos.add_x(big_pos, -1)) && !game.hasGround(this.pos.add_x(this.pos, -1))) {
+							this.move(Action.LEFT);
+							this.big_pos = this.pos.add_x(this.pos, -1);
+							moving = true;
+							right = false;
+						}
+					}
+					else {
+						if(!game.hasGround(this.pos.add_x(this.pos, -1))) {
+							this.move(Action.LEFT);
+							this.big_pos = this.pos.add_x(this.pos, -1);
+							moving = true;
+							right = false;
+						}
+					}
+					break;
+				
+				case RIGHT:
+					if (big) {
+						if(!game.hasGround(big_pos.add_x(big_pos, 1)) && !game.hasGround(this.pos.add_x(this.pos, 1))) {
+							this.move(Action.RIGHT);
+							this.big_pos = this.pos.add_x(this.pos, 1);
+							moving = true;
+							right = true;
+						}
+					}
+					else {
+						if(!game.hasGround(this.pos.add_x(this.pos, 1))) {
+							this.move(Action.RIGHT);
+							this.big_pos = this.pos.add_x(this.pos, 1);
+							moving = true;
+							right = true;
+						}
+					}
+					break;
+					
+				case STOP:
+					moving = false;
+					break;
+				}
+				game.doInteractionsFrom(this);
 			}
-			game.doInteractionsFrom(this);
-		}
-		}
-	
-	else if (moving) {
-		if((!game.hasGround(small_pos.add_x(small_pos, 1)) && !game.hasGround(big_pos.add_x(big_pos, 1))) && right && !small_pos.add_x(small_pos, 1).outOfBounds()) {
-			this.small_pos = action.moveRight(small_pos);
-			this.big_pos = action.moveRight(big_pos);
-			moving = true;
-		}
-		
-		else {
-			if((!game.hasGround(small_pos.add_x(small_pos, -1)) && !game.hasGround(big_pos.add_x(big_pos, -1))) && !small_pos.add_x(small_pos, -1).outOfBounds()) {
-				this.small_pos = action.moveLeft(small_pos);
-				this.big_pos = action.moveLeft(big_pos);
+			}
+
+		else if (moving) {
+			if((!game.hasGround(this.pos.add_x(this.pos, 1)) && !game.hasGround(big_pos.add_x(big_pos, 1))) && right && !this.pos.add_x(this.pos, 1).outOfBounds()) {
+				this.move(Action.RIGHT);
+				this.big_pos = this.pos.add_x(this.pos, 1);
 				moving = true;
-				right = false;
-			}
-			
-			else if ((!game.hasGround(small_pos.add_x(small_pos, 1)) && !game.hasGround(big_pos.add_x(big_pos, 1))) && !small_pos.add_x(small_pos, 1).outOfBounds()){
-				this.small_pos = action.moveRight(small_pos);
-				this.big_pos = action.moveRight(big_pos);
-				moving = true;
-				right = true;
-			}
-		}
-		
-		game.doInteractionsFrom(this);
-	}
-	
-	}
-	
-	public boolean interactWith(ExitDoor other) {
-		boolean interacted = false;
-		
-		if (other.IsInPos(small_pos)) {
-			game.marioExited();
-			interacted = true;
-		}
-		
-		return interacted;
-	}
-	
-	public boolean interactWith(Goomba other) {
-		boolean interacted = false;
-		
-		if (other.IsInPos(small_pos)) {
-			if (!falling) {
-				if(other.receiveInteraction(this)) {
-					game.changeNumPoints(100);
-				}
-				if(big) {
-					big = false;
-				}
-				else {
-					damaged = true;
-				}
 			}
 			
 			else {
-				other.receiveInteraction(this);
-				game.changeNumPoints(100);
+				if((!game.hasGround(this.pos.add_x(this.pos, -1)) && !game.hasGround(big_pos.add_x(big_pos, -1))) && !this.pos.add_x(this.pos, -1).outOfBounds()) {
+					this.move(Action.LEFT);
+					this.big_pos = this.pos.add_x(this.pos, -1);
+					moving = true;
+					right = false;
+				}
+				
+				else if ((!game.hasGround(this.pos.add_x(this.pos, 1)) && !game.hasGround(big_pos.add_x(big_pos, 1))) && !this.pos.add_x(this.pos, 1).outOfBounds()){
+					this.move(Action.RIGHT);
+					this.big_pos = this.pos.add_x(this.pos, 1);
+					moving = true;
+					right = true;
+				}
+			}
+			
+			game.doInteractionsFrom(this);
+		}
+
+		}
+	
+	public boolean receiveInteraction(Goomba goomba) {
+		boolean interacted = false;
+		
+		if (goomba.isInPosition(this.pos)) {
+			interacted = true;
+			if(!this.falling) {
+				if (!damaged) {
+					damaged = true;
+				}
+				else {
+					this.dead();
+				}
 			}
 		}
 		
-		else if(other.IsInPos(big_pos) && big) {
-			other.receiveInteraction(this);
-			game.changeNumPoints(100);
-			big = false;
-			
+		else if (goomba.isInPosition(big_pos) && !damaged) {
+			interacted = true;
+			damaged = true;
 		}
 		
 		return interacted;
@@ -198,6 +170,18 @@ public class Mario extends GameObject{
 	
 	
 	public boolean marioOutOfBounds() {
-		return small_pos.outOfBounds();
+		return this.pos.outOfBounds();
 	}
+	
+	public boolean isInPosition(Position pos) {
+		return this.pos.equals(pos) || big_pos.equals(pos);
+	}
+	
+	public boolean interactWith(GameItem other) {
+		boolean interacted;
+	  	
+	  	interacted = other.receiveInteraction(this);
+		
+		return interacted;
+	 }
 }

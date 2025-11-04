@@ -33,7 +33,7 @@ public class CommandGenerator {
 		
 		for (Command c: availableCommands) {
 			new_command = c.helpText();
-			commands.append(new_command).append(Messages.LINE_SEPARATOR);
+			commands.append(new_command);
 		}
 		
 		return commands.toString();

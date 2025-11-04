@@ -4,7 +4,7 @@ import tp1.logic.Action;
 import tp1.logic.Game;
 import tp1.logic.Position;
 
-public abstract class GameObject { // TODO 
+public abstract class GameObject implements GameItem{ // TODO 
 
 	protected Position pos; // If you can, make it private.
 	private boolean isAlive;
@@ -62,16 +62,19 @@ public abstract class GameObject { // TODO
 		}
 	}
 	
-	public interface GameItem {
-		public boolean isSolid();
-		public boolean isAlive();
-		public boolean isInPosition(Position pos);
-
-		public boolean interactWith(GameItem other);
-
-		public boolean receiveInteraction(Ground ground);
-		public boolean receiveInteraction(Mario mario);
-		public boolean receiveInteraction(ExitDoor door);
-		public boolean receiveInteraction(Goomba goomba);
+	public boolean receiveInteraction(Mario other) {
+		return false;
+	}
+	
+	public boolean receiveInteraction(Ground ground) {
+		return false;
+	}
+	
+	public boolean receiveInteraction(ExitDoor door) {
+		return false;
+	}
+	
+	public boolean receiveInteraction(Goomba goomba) {
+		return false;
 	}
 }

@@ -12,15 +12,19 @@ public class Ground extends GameObject{
 		this.dead();
 	}
 	
-	public boolean IsInPos(Position pos) {
-		return this.pos.equals(pos);
-	}
-	
 	public String getIcon() {
 		return Messages.LAND;
 	}
 	
 	public void update() {
 		
+	}
+	
+	public boolean interactWith(GameItem other) {
+		boolean interacted;
+	  	
+	  	interacted = other.receiveInteraction(this);
+		
+		return interacted;
 	}
 }
