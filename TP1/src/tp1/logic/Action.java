@@ -5,18 +5,20 @@ package tp1.logic;
  *
  */
 public enum Action {
-	LEFT(-1,0), RIGHT(1,0), DOWN(0,1), UP(0,-1), STOP(0,0);
+	LEFT(-1,0, "l"), RIGHT(1,0,"r"), DOWN(0,1,"d"), UP(0,-1,"u"), STOP(0,0,"s");
 	private int up_counter = 0, down_counter = 0, right_counter = 0, left_counter = 0, stop_counter = 0;
 	
 	private int x;
 	private int y;
+	private String abbrev;
 	
 	//fix
     private static final int MAX_REPEAT = 4;
 	
-	private Action(int x, int y) {
+	private Action(int x, int y, String shortcut) {
 		this.x=x;
 		this.y=y;
+		abbrev = shortcut;
 	}
 	
 	//parsing of one word
@@ -88,60 +90,14 @@ public enum Action {
 
 	        return list;
 	    }
-
-	public Action parseCommands(String command) {
-		Action action = UP;
-		
-		switch(command.toLowerCase()) {
-		
-		case "u":
-		case "up":
-			if(down_counter == 0 && up_counter < 5) {
-				action = UP;
-				up_counter++;
-			}
-			break;
-			
-		case "d":
-		case "down":
-			if(up_counter == 0 && down_counter < 5) {
-				action = DOWN;
-				down_counter++;
-			}
-			break;
-			
-		case "l":
-		case "left":
-			if(right_counter == 0 && left_counter < 5) {
-				action = LEFT;
-				left_counter++;
-			}
-			break;
-			
-		case "r":
-		case "right":
-			if(left_counter == 0 && right_counter < 5) {
-				action = RIGHT;
-				right_counter++;
-			}
-			break;
-				
-		case "s":
-		case "stop":
-			if(stop_counter < 5) {
-				action = STOP;
-				stop_counter++;
-			}
-			break;
-			
-		}
-		
-		up_counter = 0;
-		down_counter = 0;
-		right_counter = 0;
-		left_counter = 0;
-		stop_counter = 0;
-		
-		return action;
-	}
+	 
+	 public static Action fromString(String input) {
+	   for (Action action : Action.values()) {
+	     if (action.name().equalsIgnoreCase(input) || action.abbrev.equalsIgnoreCase(input)) {
+	       return action;
+	     }
+	   }
+	   return null;
+	 }
+	 
 }

@@ -42,19 +42,19 @@ public abstract class GameObject implements GameItem{ // TODO
 	protected void move(Action dir) {
 		switch (dir) {
 		case UP:
-			this.pos.add_y(pos, -1);
+			this.pos = this.pos.add_y(pos, -1);
 			break;
 		
 		case DOWN:
-			this.pos.add_y(pos, 1);
+			this.pos = this.pos.add_y(pos, 1);
 			break;
 			
 		case RIGHT:
-			this.pos.add_x(pos, 1);
+			this.pos = this.pos.add_x(pos, 1);
 			break;
 			
 		case LEFT:
-			this.pos.add_x(pos, -1);
+			this.pos = this.pos.add_x(pos, -1);
 			break;
 			
 		case STOP:

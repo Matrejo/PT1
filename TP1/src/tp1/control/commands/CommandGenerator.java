@@ -9,7 +9,8 @@ public class CommandGenerator {
 
 	private static final List<Command> availableCommands = Arrays.asList(
 			//TODO fill with your code
-			// new UpdateCommand(),
+			new UpdateCommand(),
+			new ActionCommand(),
 			new HelpCommand(),
 			new ExitCommand()
 			

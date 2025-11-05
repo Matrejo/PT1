@@ -23,14 +23,14 @@ public class GameObjectContainer {
 	
 	public boolean hasGround(Position pos) {
 		boolean found = false;
-		if(positionToString(pos) == Messages.LAND) {
+		if(toString(pos) == Messages.LAND) {
 			found = true;
 		}
 		
 		return found;
 	}
 	
-	public String positionToString(Position pos) {
+	public String toString(Position pos) {
 		String icon = "";
 		
 		for (GameObject c : objects) {
@@ -42,11 +42,22 @@ public class GameObjectContainer {
 	}	
 	
 	public boolean doInteractions(GameItem obj) {
+		boolean interacted = false, auxiliary = false;
 		
 		for (GameObject c: objects) {
-			c.interactWith(obj);
+			auxiliary = c.interactWith(obj);
+			if (auxiliary) {
+				interacted = true;
+			}
 		}
-		return true;
+		
+		return interacted;
+	}
+	
+	public void update() {
+		for (GameObject c : objects) {
+			c.update();
+		}
 	}
 
 	//TODO fill your code

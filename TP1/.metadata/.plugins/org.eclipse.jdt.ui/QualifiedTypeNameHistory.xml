@@ -2,6 +2,10 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="tp1.logic.gameobjects.Ground"/>
     <fullyQualifiedTypeName name="tp1.view.Messages"/>
-    <fullyQualifiedTypeName name="tp1.logic.gameobjects.GameObject"/>
     <fullyQualifiedTypeName name="tp1.logic.gameobjects.GameItem"/>
+    <fullyQualifiedTypeName name="tp1.logic.Game"/>
+    <fullyQualifiedTypeName name="tp1.logic.gameobjects.GameObject"/>
+    <fullyQualifiedTypeName name="tp1.logic.gameobjects.GameObjectFactory"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="tp1.logic.Position"/>
 </qualifiedTypeNameHistroy>

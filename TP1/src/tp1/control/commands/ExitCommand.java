@@ -25,7 +25,7 @@ public class ExitCommand extends NoParamsCommand{
 		
 		if(commandWords.length == 1) {
 			if(this.matchCommandName(commandWords[0])) {
-				return_command = this;
+				return_command = new ExitCommand();
 			}
 		}
 		

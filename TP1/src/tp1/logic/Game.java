@@ -4,7 +4,6 @@ import tp1.logic.gameobjects.Mario;
 import tp1.logic.gameobjects.Ground;
 import tp1.logic.gameobjects.ExitDoor;
 import tp1.logic.gameobjects.Goomba;
-import tp1.logic.gameobjects.GameObject;
 import tp1.logic.gameobjects.GameItem;
 
 public class Game {
@@ -17,6 +16,13 @@ public class Game {
 	private boolean endGame = false, won = false;
 	
 	private GameObjectContainer gameObjects;
+	
+	public void doMarioActions(Action[] actions) {
+        mario.setActions(actions);
+        mario.moveMario();
+        this.update();
+    }
+
 
 	//TODO fill your code
 	
@@ -37,7 +43,7 @@ public class Game {
 
 		Position pos = new Position(row, col);
 		
-		return this.gameObjects.positionToString(pos);
+		return this.gameObjects.toString(pos);
 	}
 
 	public boolean playerWins() {
@@ -88,6 +94,10 @@ public class Game {
 	
 	public void doInteractionsFrom(GameItem obj) {
 		gameObjects.doInteractions(obj);
+	}
+	
+	public void update() {
+		gameObjects.update();
 	}
 	
 
@@ -183,4 +193,3 @@ public class Game {
 			gameObjects.add(new Goomba(this, new Position(12, 14)));
 	}
 }
-

@@ -23,7 +23,7 @@ public class UpdateCommand extends AbstractCommand{
 	public Command parse(String[] commandWords) {
 		Command return_command = null;
 		
-		if(commandWords.length > 1) {
+		if(commandWords.length == 1) {
 			if(this.matchCommandName(commandWords[0])) {
 				return_command = new UpdateCommand();
 			}
@@ -34,8 +34,7 @@ public class UpdateCommand extends AbstractCommand{
 
 	@Override
 	public void execute(Game game, GameView view){
-		// You should let the game know that you are leaving so that 
-		// if it needs to close something, it can close it and finish.
-	    game.exit(); 	
+		game.update();
+		view.showGame();
 	}
 }

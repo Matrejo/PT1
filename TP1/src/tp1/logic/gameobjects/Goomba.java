@@ -20,15 +20,15 @@ public class Goomba extends GameObject{
 		if (this.interactWith(null))
 			this.move(Action.LEFT);
 		
-		else if (right && !this.pos.add_x(pos, 1).outOfBounds())
+		else if (right && !this.pos.add_x(pos, 1).outOfBounds() && !game.hasGround(this.pos.add_x(pos, 1)))
 			this.move(Action.RIGHT);
 		
 		else {
-			if(!this.pos.add_x(pos, -1).outOfBounds()) {
+			if(!this.pos.add_x(pos, -1).outOfBounds() && !game.hasGround(this.pos.add_x(pos, -1))) {
 				this.move(Action.LEFT);;
 				right = false;
 			}
-			else if (!this.pos.add_x(pos, 1).outOfBounds()){
+			else if (!this.pos.add_x(pos, 1).outOfBounds() && !game.hasGround(this.pos.add_x(pos, 1))){
 				this.move(Action.RIGHT);
 				right = true;
 			}
@@ -48,9 +48,14 @@ public class Goomba extends GameObject{
 	
 	
 	public boolean interactWith(GameItem other) {
-		boolean interacted;
+		boolean interacted = false;
 	  	
-	  	interacted = other.receiveInteraction(this);
+		if (other != null)
+			interacted = other.receiveInteraction(this);
+		
+		if (interacted) {
+			this.dead();
+		}
 		
 		return interacted;
 	 }
