@@ -34,7 +34,7 @@ public class GameObjectContainer {
 		String icon = "";
 		
 		for (GameObject c : objects) {
-			if (c.isInPosition(pos)) {
+			if (c.isInPosition(pos) && c.isAlive()) {
 				icon = c.getIcon();
 			}
 		}
@@ -44,7 +44,7 @@ public class GameObjectContainer {
 	public boolean doInteractions(GameItem obj) {
 		boolean interacted = false, auxiliary = false;
 		
-		for (GameObject c: objects) {
+		for (GameItem c: objects) {
 			auxiliary = c.interactWith(obj);
 			if (auxiliary) {
 				interacted = true;

@@ -9,7 +9,6 @@ public class Ground extends GameObject{
 	
 	public Ground(Game game, Position new_pos) {
 		super (game, new_pos, true);
-		this.dead();
 	}
 	
 	public String getIcon() {

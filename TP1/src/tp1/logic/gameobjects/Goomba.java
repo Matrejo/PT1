@@ -17,8 +17,8 @@ public class Goomba extends GameObject{
 	}
 	
 	public void update() {
-		if (this.interactWith(null))
-			this.move(Action.LEFT);
+		if (!game.hasGround(this.pos.add_y(pos, 1)))
+			this.move(Action.DOWN);
 		
 		else if (right && !this.pos.add_x(pos, 1).outOfBounds() && !game.hasGround(this.pos.add_x(pos, 1)))
 			this.move(Action.RIGHT);
@@ -33,6 +33,8 @@ public class Goomba extends GameObject{
 				right = true;
 			}
 		}
+		
+		game.doInteractionsFrom(this);
 	}
 	
 	public boolean recieveInteraction(Mario mario) {
