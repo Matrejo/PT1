@@ -4,12 +4,13 @@ import tp1.logic.Game;
 import tp1.logic.Position;
 import tp1.view.Messages;
 import tp1.logic.Action;
-import tp1.logic.ActionList;
 
 public class Mario extends GameObject{
 	private Position big_pos;
 	private Action[] mario_actions = null;
 	private String mario;
+	private static final String NAME = "mario";
+    private static final String SHORTCUT = "m";
 	private boolean right = true, moving = true, big = true, updated = false;
 	private boolean falling = false;
 	
@@ -20,6 +21,33 @@ public class Mario extends GameObject{
 	
 	public void setActions(Action[] actions) {
 		this.mario_actions = actions;
+	}
+	
+	public String getShortcut() {
+		return SHORTCUT;
+	}
+	
+	public String getName() {
+		return NAME;
+	}
+	
+	public GameObject parse(String objWords[]) {
+		GameObject object = null;
+		if (objWords.length <= 4 && (5 < objWords[0].length() && objWords[0].length() < 8)) {
+			if (this.matchObjectName(objWords[1])) {
+				object = this.createInstance(objWords, game);
+			}
+		}
+		
+		return object;
+	}
+	
+	public void makeBig() {
+		this.big = true;
+	}
+	
+	public void makeSmall() {
+		this.big = false;
 	}
 	
 	public String getIcon() {
@@ -37,6 +65,38 @@ public class Mario extends GameObject{
 		}
 		
 		return mario;
+	}
+	
+	public void faceRight() {
+		this.right = true;
+	}
+	
+	public void faceLeft() {
+		this.right = false;
+	}
+	
+	public Mario createInstance(String[] info, Game game) {
+		Mario new_mario = new Mario(game, pos.coordsToPos(info[0]));
+		
+		if (info.length >= 3) {
+			if(info[2].toLowerCase() == "left") {
+				new_mario.faceLeft();
+			}
+			else if (info[2].toLowerCase() == "small") {
+				new_mario.makeSmall();
+			}
+			
+			if(info.length == 4) {
+				if(info[3].toLowerCase() == "left") {
+					new_mario.faceLeft();
+				}
+				else if (info[3].toLowerCase() == "small") {
+					new_mario.makeSmall();
+				}
+			}
+		}
+		
+		return new_mario;
 	}
 	
 	public boolean IsBig() {
@@ -121,6 +181,7 @@ public class Mario extends GameObject{
 		}
 		
 		updated = true;
+		game.doInteractionsFrom(this);
 	}
 
 	public void update() {
@@ -149,8 +210,10 @@ public class Mario extends GameObject{
 				
 				game.doInteractionsFrom(this);
 		}
-		else
+		else {
 			updated = false;
+			game.doInteractionsFrom(this);
+		}
 	}
 	
 	public boolean receiveInteraction(Goomba goomba) {
@@ -160,7 +223,7 @@ public class Mario extends GameObject{
 			interacted = true;
 			if(!this.falling) {
 				if (big) {
-					big = false;
+					this.makeSmall();
 				}
 				else {
 					this.dead();
@@ -183,6 +246,10 @@ public class Mario extends GameObject{
 	
 	public boolean isInPosition(Position pos) {
 		return (this.pos.equals(pos) || (big_pos.equals(pos) && big));
+	}
+	
+	public boolean receiveInteraction(ExitDoor door) {
+		return door.receiveInteraction(this);
 	}
 	
 	public boolean interactWith(GameItem other) {

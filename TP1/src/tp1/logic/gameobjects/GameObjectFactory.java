@@ -17,15 +17,15 @@ public class GameObjectFactory {
 			new Mario(new Game(-1), new Position(0, 0))
 	);
 	
-//	public static GameObject parse (String objWords[], Game game) {
-//		GameObject obj;
+	public static GameObject parse (String objWords[], Game game) {
+		GameObject obj = null;
 		
-//		for (GameObject c: availableObjects) {
-//			if (c.parse(objWords) != null) {
-//				final_command = c.parse(commandWords);
-//			}
-//		}
+		for (GameObject c: availableObjects) {
+			if (c.parse(objWords, game) != null) {
+				obj = c.parse(objWords, game);
+			}
+		}
 		
-//		return obj;
-//	};
+		return obj;
+	};
 }

@@ -84,6 +84,12 @@ public class Messages {
 	public static final String COMMAND_ACTION_SHORTCUT = "a";
 	public static final String COMMAND_ACTION_DETAILS = "[a]ction [[R]IGHT | [L]EFT | [U]P | [D]OWN | [S]TOP]+";
 	public static final String COMMAND_ACTION_HELP = "user performs actions";
+	
+	//ADD OBJECT
+	public static final String COMMAND_ADD_OBJECT_NAME = "addObject";
+	public static final String COMMAND_ADD_OBJECT_SHORTCUT = "aO";
+	public static final String COMMAND_ADD_OBJECT_DETAILS = "[a]dd[O]bject <object_description>";
+	public static final String COMMAND_ADD_OBJECT_HELP = "adds to the board the object described by object_description";
 		
 	// EXIT
 	public static final String COMMAND_EXIT_NAME = "exit";

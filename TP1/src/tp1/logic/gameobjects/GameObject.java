@@ -22,6 +22,27 @@ public abstract class GameObject implements GameItem{ // TODO
 		return this.pos.equals(p);
 	}
  	
+	public abstract GameObject createInstance(String[] info, Game game);
+	
+	public GameObject parse(String objWords[], Game game) {
+		GameObject object = null;
+		if (objWords.length > 1 && (5 <= objWords[0].length() && objWords[0].length() < 8)) {
+			if (this.matchObjectName(objWords[1])) {
+				object = this.createInstance(objWords, game);
+			}
+		}
+		
+		return object;
+	}
+	
+	protected boolean matchObjectName(String name) {
+		return getShortcut().equalsIgnoreCase(name) || getName().equalsIgnoreCase(name);
+	}
+	
+	public abstract String getShortcut();
+	
+	public abstract String getName();
+	
 	public boolean isAlive() {
 		return isAlive;
 	}

@@ -20,10 +20,6 @@ public class HelpCommand extends NoParamsCommand {
 		view.showMessage(CommandGenerator.commandHelp());
 	}
 	
-	protected boolean matchCommand(String name) {
-		return this.matchCommandName(name);
-	}
-	
 	public Command parse(String[] commandWords) {
 		Command return_command = null;
 		

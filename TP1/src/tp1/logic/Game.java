@@ -1,10 +1,6 @@
 package tp1.logic;
 
-import tp1.logic.gameobjects.Mario;
-import tp1.logic.gameobjects.Ground;
-import tp1.logic.gameobjects.ExitDoor;
-import tp1.logic.gameobjects.Goomba;
-import tp1.logic.gameobjects.GameItem;
+import tp1.logic.gameobjects.*;
 
 public class Game {
 
@@ -14,7 +10,6 @@ public class Game {
 	private int nLevel = 0, numLives = 3, remainingTime = 100, numPoints = 0;
 	private Mario mario;
 	private boolean endGame = false, won = false;
-	
 	private GameObjectContainer gameObjects;
 	
 	public void doMarioActions(Action[] actions) {
@@ -22,7 +17,12 @@ public class Game {
         mario.moveMario();
         this.update();
     }
-
+	
+	public void newObject(String[] newObject) {
+		AddObject addObjectToGame = new AddObject(newObject, this);
+		GameObject newGameObject = addObjectToGame.addObject(this);
+		gameObjects.add(newGameObject);
+	}
 
 	//TODO fill your code
 	
@@ -47,8 +47,8 @@ public class Game {
 	}
 
 	public boolean playerWins() {
-		// TODO Auto-generated method stub
-		return false;
+		this.won = true;
+		return won;
 	}
 
 	public int remainingTime() {
@@ -73,7 +73,7 @@ public class Game {
 	}
 
 	public boolean isFinished() {
-		// TODO Auto-generated method stub
+		this.endGame = (won || numLives == 0);
 		return endGame;
 	}
 
@@ -98,6 +98,7 @@ public class Game {
 	
 	public void update() {
 		gameObjects.update();
+		this.doInteractionsFrom(mario);
 	}
 	
 
