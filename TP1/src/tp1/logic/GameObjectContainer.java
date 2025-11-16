@@ -21,10 +21,13 @@ public class GameObjectContainer {
 		objects.add(object);
 	}
 	
-	public boolean hasGround(Position pos) {
+	public boolean hasSolid(Position pos) {
 		boolean found = false;
-		if(toString(pos) == Messages.LAND) {
-			found = true;
+		
+		for (GameObject c : objects) {
+			if (c.isInPosition(pos) && c.isSolid()) {
+				found = true;
+			}
 		}
 		
 		return found;

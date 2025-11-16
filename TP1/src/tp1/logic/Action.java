@@ -6,7 +6,6 @@ package tp1.logic;
  */
 public enum Action {
 	LEFT(-1,0, "l"), RIGHT(1,0,"r"), DOWN(0,1,"d"), UP(0,-1,"u"), STOP(0,0,"s");
-	private int up_counter = 0, down_counter = 0, right_counter = 0, left_counter = 0, stop_counter = 0;
 	
 	private int x;
 	private int y;

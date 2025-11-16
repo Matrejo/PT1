@@ -56,6 +56,7 @@ public class Messages {
 	public static final String INVALID_COMMAND = "Invalid command: %s";
 	public static final String INVALID_COMMAND_PARAMETERS = "Invalid command parameters";
 	public static final String ERROR_COMMAND_EXECUTE = "Command execute problem";
+	public static final String ERROR_EXISTING_MARIO = "There is already a Mario in the game";
 
 	
 	public static final String HELP_AVAILABLE_COMMANDS = "Available commands:";

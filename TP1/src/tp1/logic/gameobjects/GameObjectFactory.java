@@ -14,7 +14,9 @@ public class GameObjectFactory {
 			new Ground(new Game(-1), new Position(0, 0)),
 			new ExitDoor(new Game(-1), new Position(0, 0)),
 			new Goomba(new Game(-1), new Position(0, 0)),
-			new Mario(new Game(-1), new Position(0, 0))
+			new Mario(new Game(-1), new Position(0, 0)),
+			new Mushroom(new Game(-1), new Position(0, 0)),
+			new Box(new Game(-1), new Position(0, 0))
 	);
 	
 	public static GameObject parse (String objWords[], Game game) {

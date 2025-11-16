@@ -40,13 +40,16 @@ public class AddObjectCommand extends AbstractCommand{
 	}
 	
 	public void execute(Game game, GameView view) {
+		boolean added = false;
 		String[] noCommandObject = new String[newObject.length - 1];
 		
 		for (int i = 1; i < newObject.length; i++) {
 			noCommandObject[i - 1] = newObject[i];
 		}
 		
-		game.newObject(noCommandObject);
-		view.showGame();
+		added = game.newObject(noCommandObject);
+		if (added) {
+			view.showGame();
+		}
 	}
 }

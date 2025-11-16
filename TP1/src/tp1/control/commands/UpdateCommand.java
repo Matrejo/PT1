@@ -4,7 +4,7 @@ import tp1.logic.Game;
 import tp1.view.GameView;
 import tp1.view.Messages;
 
-public class UpdateCommand extends AbstractCommand{
+public class UpdateCommand extends NoParamsCommand{
 
 	// Forman parte de atributos de estado
 	private static final String NAME = Messages.COMMAND_UPDATE_NAME;
@@ -14,22 +14,6 @@ public class UpdateCommand extends AbstractCommand{
 
 	public UpdateCommand() {
 		super(NAME, SHORTCUT, DETAILS, HELP); 
-	}
-
-	protected boolean matchCommand(String name) {
-		return this.matchCommandName(name);
-	}
-	
-	public Command parse(String[] commandWords) {
-		Command return_command = null;
-		
-		if(commandWords.length == 1) {
-			if(this.matchCommandName(commandWords[0])) {
-				return_command = new UpdateCommand();
-			}
-		}
-		
-		return return_command;
 	}
 
 	@Override

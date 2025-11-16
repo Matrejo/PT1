@@ -7,8 +7,21 @@ public abstract class NoParamsCommand extends AbstractCommand {
 	}
 
 	@Override
-	public Command parse(String[] commandWords) {
+	/*public Command parse(String[] commandWords) {
 		Command return_command = this.parse(commandWords);
+		return return_command;
+	}*/
+	
+	
+	public Command parse(String[] commandWords) {
+		Command return_command = null;
+		
+		if(commandWords.length == 1) {
+			if(this.matchCommandName(commandWords[0])) {
+				return_command = this;
+			}
+		}
+		
 		return return_command;
 	}
 }

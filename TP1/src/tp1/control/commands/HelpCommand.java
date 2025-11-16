@@ -19,16 +19,4 @@ public class HelpCommand extends NoParamsCommand {
 	public void execute(Game game, GameView view) {
 		view.showMessage(CommandGenerator.commandHelp());
 	}
-	
-	public Command parse(String[] commandWords) {
-		Command return_command = null;
-		
-		if(commandWords.length == 1) {
-			if(this.matchCommandName(commandWords[0])) {
-				return_command = this;
-			}
-		}
-		
-		return return_command;
-	}
 }

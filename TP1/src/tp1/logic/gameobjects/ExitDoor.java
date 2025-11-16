@@ -24,9 +24,7 @@ public class ExitDoor extends GameObject{
 		return Messages.EXIT_DOOR;
 	}
 	
-	public void update() {
-		
-	};
+	public void update() {};
 	
 	public String getShortcut() {
 		return SHORTCUT;
@@ -49,7 +47,7 @@ public class ExitDoor extends GameObject{
 		
 		if (mario.isInPosition(this.pos)) {
 			interacted = true;
-			this.game.playerWins();
+			this.game.reachedDoor();
 		}
 		
 		return interacted;

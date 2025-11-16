@@ -15,27 +15,9 @@ public class ExitCommand extends NoParamsCommand{
 	public ExitCommand() {
 		super(NAME, SHORTCUT, DETAILS, HELP); 
 	}
-	
-	protected boolean matchCommand(String name) {
-		return this.matchCommandName(name);
-	}
-	
-	public Command parse(String[] commandWords) {
-		Command return_command = null;
-		
-		if(commandWords.length == 1) {
-			if(this.matchCommandName(commandWords[0])) {
-				return_command = new ExitCommand();
-			}
-		}
-		
-		return return_command;
-	}
 
 	@Override
 	public void execute(Game game, GameView view){
-		// You should let the game know that you are leaving so that 
-		// if it needs to close something, it can close it and finish.
 	    game.exit(); 	
 	}
 

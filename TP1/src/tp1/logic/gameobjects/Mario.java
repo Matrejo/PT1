@@ -15,7 +15,7 @@ public class Mario extends GameObject{
 	private boolean falling = false;
 	
 	public Mario(Game game, Position new_pos) { 
-		super (game, new_pos, true);
+		super (game, new_pos, false);
 		this.big_pos = this.pos.add_y(pos, -1);
 	}
 	
@@ -79,18 +79,18 @@ public class Mario extends GameObject{
 		Mario new_mario = new Mario(game, pos.coordsToPos(info[0]));
 		
 		if (info.length >= 3) {
-			if(info[2].toLowerCase() == "left") {
+			if(info[2].equalsIgnoreCase("left")) {
 				new_mario.faceLeft();
 			}
-			else if (info[2].toLowerCase() == "small") {
+			else if (info[2].equalsIgnoreCase("small")) {
 				new_mario.makeSmall();
 			}
 			
 			if(info.length == 4) {
-				if(info[3].toLowerCase() == "left") {
+				if(info[3].equalsIgnoreCase("left")) {
 					new_mario.faceLeft();
 				}
-				else if (info[3].toLowerCase() == "small") {
+				else if (info[3].equalsIgnoreCase("small")) {
 					new_mario.makeSmall();
 				}
 			}
@@ -110,13 +110,13 @@ public class Mario extends GameObject{
 				switch(this.mario_actions[i]) {
 				case UP:
 					if (big) {
-						if(!game.hasGround(this.pos.add_y(this.pos, -1)) && !game.hasGround(big_pos.add_y(big_pos, -1))) {
+						if(!game.hasSolid(this.pos.add_y(this.pos, -1)) && !game.hasSolid(big_pos.add_y(big_pos, -1))) {
 							this.move(Action.UP);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 						}
 					}
 					else {
-						if(!game.hasGround(this.pos.add_y(this.pos, -1))) {
+						if(!game.hasSolid(this.pos.add_y(this.pos, -1))) {
 							this.move(Action.UP);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 						}
@@ -124,17 +124,18 @@ public class Mario extends GameObject{
 					break;
 				
 				case DOWN:
-					while(!game.hasGround(this.pos.add_y(this.pos, 1)) && !this.pos.outOfBounds()) {
+					falling = true;
+					while(!game.hasSolid(this.pos.add_y(this.pos, 1)) && !this.pos.outOfBounds()) {
 						this.move(Action.DOWN);
 						this.big_pos = this.pos.add_y(pos, -1);
+						game.doInteractionsFrom(this);
 					}
-					falling = true;
 					moving = false;
 					break;
 				
 				case LEFT:
 					if (big) {
-						if(!game.hasGround(big_pos.add_x(big_pos, -1)) && !game.hasGround(this.pos.add_x(this.pos, -1))) {
+						if(!game.hasSolid(big_pos.add_x(big_pos, -1)) && !game.hasSolid(this.pos.add_x(this.pos, -1))) {
 							this.move(Action.LEFT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
@@ -142,7 +143,7 @@ public class Mario extends GameObject{
 						}
 					}
 					else {
-						if(!game.hasGround(this.pos.add_y(this.pos, -1))) {
+						if(!game.hasSolid(this.pos.add_y(this.pos, -1))) {
 							this.move(Action.LEFT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
@@ -153,7 +154,7 @@ public class Mario extends GameObject{
 				
 				case RIGHT:
 					if (big) {
-						if(!game.hasGround(big_pos.add_x(big_pos, 1)) && !game.hasGround(this.pos.add_x(this.pos, 1))) {
+						if(!game.hasSolid(big_pos.add_x(big_pos, 1)) && !game.hasSolid(this.pos.add_x(this.pos, 1))) {
 							this.move(Action.RIGHT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
@@ -161,7 +162,7 @@ public class Mario extends GameObject{
 						}
 					}
 					else {
-						if(!game.hasGround(this.pos.add_x(this.pos, 1))) {
+						if(!game.hasSolid(this.pos.add_x(this.pos, 1))) {
 							this.move(Action.RIGHT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
@@ -182,33 +183,34 @@ public class Mario extends GameObject{
 		
 		updated = true;
 		game.doInteractionsFrom(this);
+		falling = false;
 	}
 
 	public void update() {
-		if (!updated) {
-			if((!game.hasGround(this.pos.add_x(this.pos, 1)) && !game.hasGround(big_pos.add_x(big_pos, 1))) && right && !this.pos.add_x(this.pos, 1).outOfBounds()) {
+		if (!updated && moving) {
+			if((!game.hasSolid(this.pos.add_x(this.pos, 1)) && !game.hasSolid(big_pos.add_x(big_pos, 1))) && right && !this.pos.add_x(this.pos, 1).outOfBounds()) {
+				this.move(Action.RIGHT);
+				this.big_pos = this.pos.add_y(this.pos, -1);
+				moving = true;
+			}
+				
+			else {
+				if((!game.hasSolid(this.pos.add_x(this.pos, -1)) && !game.hasSolid(big_pos.add_x(big_pos, -1))) && !this.pos.add_x(this.pos, -1).outOfBounds()) {
+					this.move(Action.LEFT);
+					this.big_pos = this.pos.add_y(this.pos, -1);
+					moving = true;
+					right = false;
+				}
+				
+				else if ((!game.hasSolid(this.pos.add_x(this.pos, 1)) && !game.hasSolid(big_pos.add_x(big_pos, 1))) && !this.pos.add_x(this.pos, 1).outOfBounds()){
 					this.move(Action.RIGHT);
 					this.big_pos = this.pos.add_y(this.pos, -1);
 					moving = true;
+					right = true;
 				}
+			}
 				
-				else {
-					if((!game.hasGround(this.pos.add_x(this.pos, -1)) && !game.hasGround(big_pos.add_x(big_pos, -1))) && !this.pos.add_x(this.pos, -1).outOfBounds()) {
-						this.move(Action.LEFT);
-						this.big_pos = this.pos.add_y(this.pos, -1);
-						moving = true;
-						right = false;
-					}
-					
-					else if ((!game.hasGround(this.pos.add_x(this.pos, 1)) && !game.hasGround(big_pos.add_x(big_pos, 1))) && !this.pos.add_x(this.pos, 1).outOfBounds()){
-						this.move(Action.RIGHT);
-						this.big_pos = this.pos.add_y(this.pos, -1);
-						moving = true;
-						right = true;
-					}
-				}
-				
-				game.doInteractionsFrom(this);
+			game.doInteractionsFrom(this);
 		}
 		else {
 			updated = false;
@@ -219,7 +221,7 @@ public class Mario extends GameObject{
 	public boolean receiveInteraction(Goomba goomba) {
 		boolean interacted = false;
 		
-		if (goomba.isInPosition(this.pos)) {
+		if (goomba.isInPosition(this.pos) && goomba.isAlive()) {
 			interacted = true;
 			if(!this.falling) {
 				if (big) {
@@ -231,9 +233,34 @@ public class Mario extends GameObject{
 			}
 		}
 		
-		else if (goomba.isInPosition(big_pos) && big) {
+		else if (goomba.isInPosition(big_pos) && big && goomba.isAlive()) {
 			interacted = true;
-			big = true;
+			big = false;
+		}
+		
+		return interacted;
+	}
+	
+	public boolean receiveInteraction(Mushroom mushroom) {
+		boolean interacted = false;
+		
+		if (mushroom.isInPosition(this.pos)) {
+			interacted = true;
+			this.makeBig();
+		}
+		
+		return interacted;
+	}
+	
+	public boolean receiveInteraction(Box box) {
+		boolean interacted = false;
+		
+		if (big && box.isInPosition(big_pos.add_y(big_pos, -1))) {
+			interacted = true;
+		}
+		
+		else if(box.isInPosition(pos.add_y(pos, -1))) {
+			interacted = true;
 		}
 		
 		return interacted;

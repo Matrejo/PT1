@@ -21,6 +21,7 @@ public abstract class GameObject implements GameItem{ // TODO
 	public boolean isInPosition(Position p) {
 		return this.pos.equals(p);
 	}
+	
  	
 	public abstract GameObject createInstance(String[] info, Game game);
 	
@@ -49,6 +50,10 @@ public abstract class GameObject implements GameItem{ // TODO
 	
 	public void dead(){
 		this.isAlive = false;
+	}
+	
+	public void alive() {
+		this.isAlive = true;
 	}
 	
 	public boolean isSolid() {
@@ -96,6 +101,14 @@ public abstract class GameObject implements GameItem{ // TODO
 	}
 	
 	public boolean receiveInteraction(Goomba goomba) {
+		return false;
+	}
+	
+	public boolean receiveInteraction(Mushroom mushroom) {
+		return false;
+	}
+	
+	public boolean receiveInteraction(Box box) {
 		return false;
 	}
 }

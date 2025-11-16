@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="tp1.logic.gameobjects.Ground"/>
-    <fullyQualifiedTypeName name="tp1.view.Messages"/>
     <fullyQualifiedTypeName name="tp1.logic.gameobjects.GameItem"/>
     <fullyQualifiedTypeName name="tp1.logic.gameobjects.GameObject"/>
     <fullyQualifiedTypeName name="tp1.logic.gameobjects.GameObjectFactory"/>
@@ -9,4 +8,6 @@
     <fullyQualifiedTypeName name="tp1.logic.Position"/>
     <fullyQualifiedTypeName name="tp1.logic.Game"/>
     <fullyQualifiedTypeName name="tp1.logic.AddObjectCommand"/>
+    <fullyQualifiedTypeName name="tp1.view.ConsoleView"/>
+    <fullyQualifiedTypeName name="tp1.view.Messages"/>
 </qualifiedTypeNameHistroy>

@@ -22,7 +22,7 @@ public class Goomba extends GameObject{
 		Goomba new_goomba = new Goomba(game, pos.coordsToPos(info[0]));
 		
 		if(info.length == 3) {
-			if(info[2] == "right") {
+			if("right".equalsIgnoreCase(info[2])) {
 				new_goomba.faceRight();
 			}
 		}
@@ -47,18 +47,18 @@ public class Goomba extends GameObject{
 	}
 	
 	public void update() {
-		if (!game.hasGround(this.pos.add_y(pos, 1)))
+		if (!game.hasSolid(this.pos.add_y(pos, 1)))
 			this.move(Action.DOWN);
 		
-		else if (right && !this.pos.add_x(pos, 1).outOfBounds() && !game.hasGround(this.pos.add_x(pos, 1)))
+		else if (right && !this.pos.add_x(pos, 1).outOfBounds() && !game.hasSolid(this.pos.add_x(pos, 1)))
 			this.move(Action.RIGHT);
 		
 		else {
-			if(!this.pos.add_x(pos, -1).outOfBounds() && !game.hasGround(this.pos.add_x(pos, -1))) {
+			if(!this.pos.add_x(pos, -1).outOfBounds() && !game.hasSolid(this.pos.add_x(pos, -1))) {
 				this.move(Action.LEFT);;
 				right = false;
 			}
-			else if (!this.pos.add_x(pos, 1).outOfBounds() && !game.hasGround(this.pos.add_x(pos, 1))){
+			else if (!this.pos.add_x(pos, 1).outOfBounds() && !game.hasSolid(this.pos.add_x(pos, 1))){
 				this.move(Action.RIGHT);
 				right = true;
 			}
@@ -67,12 +67,14 @@ public class Goomba extends GameObject{
 		game.doInteractionsFrom(this);
 	}
 	
-	public boolean recieveInteraction(Mario mario) {
+	public boolean receiveInteraction(Mario mario) {
 		boolean interacted = false;
 		
 		if (mario.isInPosition(this.pos)) {
 			interacted = true;
+			mario.receiveInteraction(this);
 			this.dead();
+			game.addPoints(100);
 		}
 		
 		return interacted;
@@ -87,6 +89,7 @@ public class Goomba extends GameObject{
 		
 		if (interacted) {
 			this.dead();
+			game.addPoints(100);
 		}
 		
 		return interacted;
