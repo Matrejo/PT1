@@ -5,21 +5,21 @@ import java.util.List;
 
 import tp1.logic.gameobjects.*;
 import tp1.control.commands.Command;
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Position;
 
 public class GameObjectFactory {
 	
 	private static final List<GameObject> availableObjects = Arrays.asList(
-			new Ground(new Game(-1), new Position(0, 0)),
-			new ExitDoor(new Game(-1), new Position(0, 0)),
-			new Goomba(new Game(-1), new Position(0, 0)),
-			new Mario(new Game(-1), new Position(0, 0)),
-			new Mushroom(new Game(-1), new Position(0, 0)),
-			new Box(new Game(-1), new Position(0, 0))
+			new Ground(),
+			new ExitDoor(),
+			new Goomba(),
+			new Mario(),
+			new Mushroom(),
+			new Box()
 	);
 	
-	public static GameObject parse (String objWords[], Game game) {
+	public static GameObject parse (String objWords[], GameWorld game) {
 		GameObject obj = null;
 		
 		for (GameObject c: availableObjects) {

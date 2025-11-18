@@ -1,7 +1,7 @@
 package tp1.control.commands;
 
 
-import tp1.logic.Game;
+import tp1.logic.GameModel;
 import tp1.view.GameView;
 import tp1.view.Messages;
 
@@ -39,7 +39,7 @@ public class AddObjectCommand extends AbstractCommand{
 		return returnCommand;
 	}
 	
-	public void execute(Game game, GameView view) {
+	public void execute(GameModel game, GameView view) {
 		boolean added = false;
 		String[] noCommandObject = new String[newObject.length - 1];
 		
@@ -48,8 +48,20 @@ public class AddObjectCommand extends AbstractCommand{
 		}
 		
 		added = game.newObject(noCommandObject);
+		
 		if (added) {
 			view.showGame();
+		}
+		
+		else {
+			StringBuilder errorMessage = new StringBuilder();
+			
+			for (int i = 1; i < newObject.length; i++) {
+				errorMessage.append(newObject[i]);
+				errorMessage.append(" ");
+			}
+			
+			view.showError(Messages.INVALID_GAME_OBJECT.formatted(String.join(" ", errorMessage)));
 		}
 	}
 }

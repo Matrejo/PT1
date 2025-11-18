@@ -1,7 +1,7 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -10,14 +10,17 @@ public class Mushroom extends GameObject{
 	private static final String NAME = "Mushroom";
     private static final String SHORTCUT = "MU";
     		
-	public Mushroom(Game game, Position new_pos) {
+	public Mushroom(GameWorld game, Position new_pos) {
 		super(game, new_pos, false);
 	}	
+	
+	public Mushroom() {}
+	
 	public String getIcon() {
 		return Messages.MUSHROOM;
 	}
 	
-	public Mushroom createInstance(String[] info, Game game) {
+	public Mushroom createInstance(String[] info, GameWorld game) {
 		Mushroom new_mushroom = new Mushroom(game, pos.coordsToPos(info[0]));
 		
 		if(info.length == 3) {
@@ -57,18 +60,18 @@ public class Mushroom extends GameObject{
 	}
 	
 	public void update() {
-		if (!game.hasSolid(this.pos.add_y(pos, 1)))
+		if (!game.isSolid(this.pos.add_y(pos, 1)))
 			this.move(Action.DOWN);
 		
-		else if (right && !this.pos.add_x(pos, 1).outOfBounds() && !game.hasSolid(this.pos.add_x(pos, 1)))
+		else if (right && !this.pos.add_x(pos, 1).outOfBounds() && !game.isSolid(this.pos.add_x(pos, 1)))
 			this.move(Action.RIGHT);
 		
 		else {
-			if(!this.pos.add_x(pos, -1).outOfBounds() && !game.hasSolid(this.pos.add_x(pos, -1))) {
+			if(!this.pos.add_x(pos, -1).outOfBounds() && !game.isSolid(this.pos.add_x(pos, -1))) {
 				this.move(Action.LEFT);;
 				right = false;
 			}
-			else if (!this.pos.add_x(pos, 1).outOfBounds() && !game.hasSolid(this.pos.add_x(pos, 1))){
+			else if (!this.pos.add_x(pos, 1).outOfBounds() && !game.isSolid(this.pos.add_x(pos, 1))){
 				this.move(Action.RIGHT);
 				right = true;
 			}

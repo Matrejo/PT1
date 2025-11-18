@@ -1,6 +1,6 @@
 package tp1.logic.gameobjects;
 
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 import tp1.logic.Action;
@@ -14,10 +14,12 @@ public class Mario extends GameObject{
 	private boolean right = true, moving = true, big = true, updated = false;
 	private boolean falling = false;
 	
-	public Mario(Game game, Position new_pos) { 
+	public Mario(GameWorld game, Position new_pos) { 
 		super (game, new_pos, false);
 		this.big_pos = this.pos.add_y(pos, -1);
 	}
+	
+	public Mario() {}
 	
 	public void setActions(Action[] actions) {
 		this.mario_actions = actions;
@@ -75,7 +77,7 @@ public class Mario extends GameObject{
 		this.right = false;
 	}
 	
-	public Mario createInstance(String[] info, Game game) {
+	public Mario createInstance(String[] info, GameWorld game) {
 		Mario new_mario = new Mario(game, pos.coordsToPos(info[0]));
 		
 		if (info.length >= 3) {
@@ -110,13 +112,13 @@ public class Mario extends GameObject{
 				switch(this.mario_actions[i]) {
 				case UP:
 					if (big) {
-						if(!game.hasSolid(this.pos.add_y(this.pos, -1)) && !game.hasSolid(big_pos.add_y(big_pos, -1))) {
+						if(!game.isSolid(this.pos.add_y(this.pos, -1)) && !game.isSolid(big_pos.add_y(big_pos, -1))) {
 							this.move(Action.UP);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 						}
 					}
 					else {
-						if(!game.hasSolid(this.pos.add_y(this.pos, -1))) {
+						if(!game.isSolid(this.pos.add_y(this.pos, -1))) {
 							this.move(Action.UP);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 						}
@@ -125,7 +127,7 @@ public class Mario extends GameObject{
 				
 				case DOWN:
 					falling = true;
-					while(!game.hasSolid(this.pos.add_y(this.pos, 1)) && !this.pos.outOfBounds()) {
+					while(!game.isSolid(this.pos.add_y(this.pos, 1)) && !this.pos.outOfBounds()) {
 						this.move(Action.DOWN);
 						this.big_pos = this.pos.add_y(pos, -1);
 						game.doInteractionsFrom(this);
@@ -135,7 +137,7 @@ public class Mario extends GameObject{
 				
 				case LEFT:
 					if (big) {
-						if(!game.hasSolid(big_pos.add_x(big_pos, -1)) && !game.hasSolid(this.pos.add_x(this.pos, -1))) {
+						if(!game.isSolid(big_pos.add_x(big_pos, -1)) && !game.isSolid(this.pos.add_x(this.pos, -1))) {
 							this.move(Action.LEFT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
@@ -143,7 +145,7 @@ public class Mario extends GameObject{
 						}
 					}
 					else {
-						if(!game.hasSolid(this.pos.add_y(this.pos, -1))) {
+						if(!game.isSolid(this.pos.add_y(this.pos, -1))) {
 							this.move(Action.LEFT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
@@ -154,7 +156,7 @@ public class Mario extends GameObject{
 				
 				case RIGHT:
 					if (big) {
-						if(!game.hasSolid(big_pos.add_x(big_pos, 1)) && !game.hasSolid(this.pos.add_x(this.pos, 1))) {
+						if(!game.isSolid(big_pos.add_x(big_pos, 1)) && !game.isSolid(this.pos.add_x(this.pos, 1))) {
 							this.move(Action.RIGHT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
@@ -162,7 +164,7 @@ public class Mario extends GameObject{
 						}
 					}
 					else {
-						if(!game.hasSolid(this.pos.add_x(this.pos, 1))) {
+						if(!game.isSolid(this.pos.add_x(this.pos, 1))) {
 							this.move(Action.RIGHT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
@@ -188,21 +190,21 @@ public class Mario extends GameObject{
 
 	public void update() {
 		if (!updated && moving) {
-			if((!game.hasSolid(this.pos.add_x(this.pos, 1)) && !game.hasSolid(big_pos.add_x(big_pos, 1))) && right && !this.pos.add_x(this.pos, 1).outOfBounds()) {
+			if((!game.isSolid(this.pos.add_x(this.pos, 1)) && !game.isSolid(big_pos.add_x(big_pos, 1))) && right && !this.pos.add_x(this.pos, 1).outOfBounds()) {
 				this.move(Action.RIGHT);
 				this.big_pos = this.pos.add_y(this.pos, -1);
 				moving = true;
 			}
 				
 			else {
-				if((!game.hasSolid(this.pos.add_x(this.pos, -1)) && !game.hasSolid(big_pos.add_x(big_pos, -1))) && !this.pos.add_x(this.pos, -1).outOfBounds()) {
+				if((!game.isSolid(this.pos.add_x(this.pos, -1)) && !game.isSolid(big_pos.add_x(big_pos, -1))) && !this.pos.add_x(this.pos, -1).outOfBounds()) {
 					this.move(Action.LEFT);
 					this.big_pos = this.pos.add_y(this.pos, -1);
 					moving = true;
 					right = false;
 				}
 				
-				else if ((!game.hasSolid(this.pos.add_x(this.pos, 1)) && !game.hasSolid(big_pos.add_x(big_pos, 1))) && !this.pos.add_x(this.pos, 1).outOfBounds()){
+				else if ((!game.isSolid(this.pos.add_x(this.pos, 1)) && !game.isSolid(big_pos.add_x(big_pos, 1))) && !this.pos.add_x(this.pos, 1).outOfBounds()){
 					this.move(Action.RIGHT);
 					this.big_pos = this.pos.add_y(this.pos, -1);
 					moving = true;

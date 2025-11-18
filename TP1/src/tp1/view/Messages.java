@@ -80,6 +80,13 @@ public class Messages {
 	public static final String COMMAND_UPDATE_DETAILS = "[u]pdate | \"\"";
 	public static final String COMMAND_UPDATE_HELP = "user does not perform any action";
 	
+	// RESTART
+	public static final String COMMAND_RESTART_NAME = "restart";
+	public static final String COMMAND_RESTART_SHORTCUT = "r";
+	public static final String COMMAND_RESTART_DETAILS = "[r]eset [numLevel]";
+	public static final String COMMAND_RESTART_HELP = "reset the game to initial configuration if not numLevel else load the numLevel map";
+
+	
 	//ACTION
 	public static final String COMMAND_ACTION_NAME = "action";
 	public static final String COMMAND_ACTION_SHORTCUT = "a";

@@ -1,9 +1,10 @@
 package tp1.logic;
 
+import tp1.control.commands.Command;
 import tp1.logic.gameobjects.*;
-import tp1.view.Messages;
+import tp1.view.*;
 
-public class Game {
+public class Game implements GameModel, GameStatus, GameWorld {
 
 	public static final int DIM_X = 30;
 	public static final int DIM_Y = 15;
@@ -24,21 +25,24 @@ public class Game {
 		boolean added = false;
 		AddObject addObjectToGame = new AddObject(newObject, this);
 		GameObject newGameObject = addObjectToGame.addObject(this);
-		if (newGameObject.getName() == "mario") {
-			if (!mario.isAlive()){
-				this.mario = mario.createInstance(newObject, this);
-				gameObjects.add(this.mario);
-				added = true;
+		
+		if (newGameObject != null) {
+			if (newGameObject.getName() == "mario") {
+				if (!mario.isAlive()){
+					this.mario = mario.createInstance(newObject, this);
+					gameObjects.add(this.mario);
+					added = true;
+				}
+				
+				else {
+					System.out.println(Messages.ERROR.formatted(Messages.ERROR_EXISTING_MARIO));	
+				}
 			}
 			
 			else {
-				System.out.println(Messages.ERROR.formatted(Messages.ERROR_EXISTING_MARIO));	
+				gameObjects.add(newGameObject);
+				added = true;
 			}
-		}
-		
-		else {
-			gameObjects.add(newGameObject);
-			added = true;
 		}
 		
 		return added;
@@ -73,6 +77,31 @@ public class Game {
 
 	public boolean playerWins() {
 		return won;
+	}
+	
+	public void restart() {
+		gameObjects = new GameObjectContainer();
+		this.numLives = 3;
+		this.remainingTime = 100;
+		this.numPoints = 0;
+		if (nLevel == 1) {
+			this.initLevel1();
+			this.nLevel = 1;
+		}
+		
+		else if (nLevel == 0){
+			this.initLevel0();
+			this.nLevel = 0;
+		}
+		
+		else {
+			this.initLevelVoid();
+			this.nLevel = -1;
+		}
+	}
+	
+	public void setLevel(int level) {
+		this.nLevel = level;
 	}
 
 	public int remainingTime() {
@@ -128,7 +157,7 @@ public class Game {
 		this.exit = true;
 	}
 	
-	public boolean hasSolid(Position pos) {
+	public boolean isSolid(Position pos) {
 		return gameObjects.hasSolid(pos);
 	}
 	

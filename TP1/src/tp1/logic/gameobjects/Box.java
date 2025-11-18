@@ -1,7 +1,7 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -9,11 +9,12 @@ public class Box extends GameObject{
 		private boolean empty = false;
 		private static final String NAME = "Box";
 	    private static final String SHORTCUT = "B";
-	    private Position below = this.pos.add_y(this.pos, 1), above = this.pos.add_y(pos, -1);
 	    		
-		public Box(Game game, Position new_pos) {
+		public Box(GameWorld game, Position new_pos) {
 			super(game, new_pos, true);
-		}	
+		}
+		
+		public Box() {}
 		
 		public String getIcon() {
 		    if (empty)
@@ -23,7 +24,7 @@ public class Box extends GameObject{
 		}
 
 		
-		public Box createInstance(String[] info, Game game) {
+		public Box createInstance(String[] info, GameWorld game) {
 		    Box new_box = new Box(game, pos.coordsToPos(info[0]));
 
 		    if (info.length >= 3) {
@@ -52,6 +53,8 @@ public class Box extends GameObject{
 		
 		public boolean receiveInteraction(Mario mario) {
 			boolean interacted = false;
+			Position below = this.pos.add_y(this.pos, 1), above = this.pos.add_y(pos, -1);
+			
 			if (mario.isInPosition(below)) {
 				if (!empty) {
 					empty = true; 

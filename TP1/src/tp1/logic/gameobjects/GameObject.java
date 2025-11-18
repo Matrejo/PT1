@@ -1,21 +1,27 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
+import tp1.logic.GameModel;
+import tp1.logic.GameStatus;
 import tp1.logic.Position;
 
-public abstract class GameObject implements GameItem{ // TODO 
+public abstract class GameObject implements GameItem { // TODO 
 
 	protected Position pos; // If you can, make it private.
 	private boolean isAlive;
-	protected Game game;
+	protected GameWorld game;
 	protected boolean solid;
 	
-	public GameObject(Game game, Position pos, boolean solid) {
+	public GameObject(GameWorld game, Position pos, boolean solid) {
 		this.isAlive = true;
 		this.pos = pos;
 		this.game = game;
 		this.solid = solid;
+	}
+	
+	public GameObject() {
+		this.pos = new Position(0, 0);
 	}
 	
 	public boolean isInPosition(Position p) {
@@ -23,9 +29,9 @@ public abstract class GameObject implements GameItem{ // TODO
 	}
 	
  	
-	public abstract GameObject createInstance(String[] info, Game game);
+	public abstract GameObject createInstance(String[] info, GameWorld game);
 	
-	public GameObject parse(String objWords[], Game game) {
+	public GameObject parse(String objWords[], GameWorld game) {
 		GameObject object = null;
 		if (objWords.length > 1 && (5 <= objWords[0].length() && objWords[0].length() < 8)) {
 			if (this.matchObjectName(objWords[1])) {

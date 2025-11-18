@@ -13,7 +13,8 @@ public class CommandGenerator {
 			new ActionCommand(),
 			new HelpCommand(),
 			new ExitCommand(),
-			new AddObjectCommand()
+			new AddObjectCommand(),
+			new RestartCommand()
 			
 	);
 

@@ -10,7 +10,7 @@ public class AddObject {
 		this.objWords = newObject;
 	}
 	
-	public GameObject addObject(Game game) {
+	public GameObject addObject(GameWorld game) {
 		GameObject newGameObject = GameObjectFactory.parse(objWords, game);
 		
 		return newGameObject;
