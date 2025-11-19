@@ -27,7 +27,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		GameObject newGameObject = addObjectToGame.addObject(this);
 		
 		if (newGameObject != null) {
-			if (newGameObject.getName() == "mario") {
+			if (mario.getName().equalsIgnoreCase(newGameObject.getName())) {
 				if (!mario.isAlive()){
 					this.mario = mario.createInstance(newObject, this);
 					gameObjects.add(this.mario);
@@ -81,7 +81,6 @@ public class Game implements GameModel, GameStatus, GameWorld {
 	
 	public void restart() {
 		gameObjects = new GameObjectContainer();
-		this.numLives = 3;
 		this.remainingTime = 100;
 		this.numPoints = 0;
 		if (nLevel == 1) {
@@ -97,6 +96,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		else {
 			this.initLevelVoid();
 			this.nLevel = -1;
+			this.numLives = 3;
 		}
 	}
 	
@@ -174,22 +174,26 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		this.doInteractionsFrom(mario);
 		this.remainingTime--;
 		if(!mario.isAlive()) {
+			int currentTime = remainingTime;
 			mario.alive();
 			this.numLives--;
 			gameObjects = new GameObjectContainer();
 			if (nLevel == 1) {
 				this.initLevel1();
 				this.nLevel = 1;
+				this.remainingTime = currentTime;
 			}
 			
 			else if (nLevel == 0){
 				this.initLevel0();
 				this.nLevel = 0;
+				this.remainingTime = currentTime;
 			}
 			
 			else {
 				this.initLevelVoid();
 				this.nLevel = -1;
+				this.remainingTime = currentTime;
 			}
 		}
 	}
@@ -239,7 +243,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 	}
 	
 	public void initLevel1() {
-		this.nLevel = 0;
+		this.nLevel = 1;
 		this.remainingTime = 100;
 		
 		// 1. Mapa
@@ -289,7 +293,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 	}
 	
 	public void initLevelVoid() {
-		this.nLevel = 0;
+		this.nLevel = -1;
 		this.remainingTime = 100;
 		
 		// 1. Mapa

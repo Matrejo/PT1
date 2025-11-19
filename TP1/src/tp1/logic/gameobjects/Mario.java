@@ -5,14 +5,13 @@ import tp1.logic.Position;
 import tp1.view.Messages;
 import tp1.logic.Action;
 
-public class Mario extends GameObject{
+public class Mario extends MovingObject{
 	private Position big_pos;
 	private Action[] mario_actions = null;
 	private String mario;
 	private static final String NAME = "mario";
     private static final String SHORTCUT = "m";
-	private boolean right = true, moving = true, big = true, updated = false;
-	private boolean falling = false;
+	private boolean moving = true, big = true, updated = false;
 	
 	public Mario(GameWorld game, Position new_pos) { 
 		super (game, new_pos, false);
@@ -35,11 +34,8 @@ public class Mario extends GameObject{
 	
 	public GameObject parse(String objWords[]) {
 		GameObject object = null;
-		if (objWords.length <= 4 && (5 < objWords[0].length() && objWords[0].length() < 8)) {
-			if (this.matchObjectName(objWords[1])) {
-				object = this.createInstance(objWords, game);
-			}
-		}
+		
+		object = super.parse(objWords, game);
 		
 		return object;
 	}
@@ -54,7 +50,7 @@ public class Mario extends GameObject{
 	
 	public String getIcon() {
 		
-		if (right) {
+		if (getRight()) {
 			mario = Messages.MARIO_RIGHT;
 		}
 		
@@ -69,20 +65,12 @@ public class Mario extends GameObject{
 		return mario;
 	}
 	
-	public void faceRight() {
-		this.right = true;
-	}
-	
-	public void faceLeft() {
-		this.right = false;
-	}
-	
 	public Mario createInstance(String[] info, GameWorld game) {
 		Mario new_mario = new Mario(game, pos.coordsToPos(info[0]));
 		
 		if (info.length >= 3) {
 			if(info[2].equalsIgnoreCase("left")) {
-				new_mario.faceLeft();
+				setRight(false);
 			}
 			else if (info[2].equalsIgnoreCase("small")) {
 				new_mario.makeSmall();
@@ -90,7 +78,7 @@ public class Mario extends GameObject{
 			
 			if(info.length == 4) {
 				if(info[3].equalsIgnoreCase("left")) {
-					new_mario.faceLeft();
+					setRight(false);
 				}
 				else if (info[3].equalsIgnoreCase("small")) {
 					new_mario.makeSmall();
@@ -126,7 +114,7 @@ public class Mario extends GameObject{
 					break;
 				
 				case DOWN:
-					falling = true;
+					setFalling(true);
 					while(!game.isSolid(this.pos.add_y(this.pos, 1)) && !this.pos.outOfBounds()) {
 						this.move(Action.DOWN);
 						this.big_pos = this.pos.add_y(pos, -1);
@@ -141,7 +129,7 @@ public class Mario extends GameObject{
 							this.move(Action.LEFT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
-							right = false;
+							setRight(false);
 						}
 					}
 					else {
@@ -149,7 +137,7 @@ public class Mario extends GameObject{
 							this.move(Action.LEFT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
-							right = false;
+							setRight(false);
 						}
 					}
 					break;
@@ -160,7 +148,7 @@ public class Mario extends GameObject{
 							this.move(Action.RIGHT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
-							right = true;
+							setRight(true);
 						}
 					}
 					else {
@@ -168,7 +156,7 @@ public class Mario extends GameObject{
 							this.move(Action.RIGHT);
 							this.big_pos = this.pos.add_y(this.pos, -1);
 							moving = true;
-							right = true;
+							setRight(true);
 						}
 					}
 					break;
@@ -185,12 +173,12 @@ public class Mario extends GameObject{
 		
 		updated = true;
 		game.doInteractionsFrom(this);
-		falling = false;
+		setFalling(false);
 	}
 
 	public void update() {
 		if (!updated && moving) {
-			if((!game.isSolid(this.pos.add_x(this.pos, 1)) && !game.isSolid(big_pos.add_x(big_pos, 1))) && right && !this.pos.add_x(this.pos, 1).outOfBounds()) {
+			if((!game.isSolid(this.pos.add_x(this.pos, 1)) && !game.isSolid(big_pos.add_x(big_pos, 1))) && getRight() && !this.pos.add_x(this.pos, 1).outOfBounds()) {
 				this.move(Action.RIGHT);
 				this.big_pos = this.pos.add_y(this.pos, -1);
 				moving = true;
@@ -201,14 +189,14 @@ public class Mario extends GameObject{
 					this.move(Action.LEFT);
 					this.big_pos = this.pos.add_y(this.pos, -1);
 					moving = true;
-					right = false;
+					setRight(false);
 				}
 				
 				else if ((!game.isSolid(this.pos.add_x(this.pos, 1)) && !game.isSolid(big_pos.add_x(big_pos, 1))) && !this.pos.add_x(this.pos, 1).outOfBounds()){
 					this.move(Action.RIGHT);
 					this.big_pos = this.pos.add_y(this.pos, -1);
 					moving = true;
-					right = true;
+					setRight(true);
 				}
 			}
 				
@@ -225,7 +213,7 @@ public class Mario extends GameObject{
 		
 		if (goomba.isInPosition(this.pos) && goomba.isAlive()) {
 			interacted = true;
-			if(!this.falling) {
+			if(!this.getFalling()) {
 				if (big) {
 					this.makeSmall();
 				}

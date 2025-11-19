@@ -5,8 +5,7 @@ import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
-public class Mushroom extends GameObject{
-	private boolean right = true;
+public class Mushroom extends MovingObject{
 	private static final String NAME = "Mushroom";
     private static final String SHORTCUT = "MU";
     		
@@ -25,19 +24,11 @@ public class Mushroom extends GameObject{
 		
 		if(info.length == 3) {
 			if("right".equalsIgnoreCase(info[2])) {
-				new_mushroom.faceRight();
+				new_mushroom.setRight(true);
 			}
 		}
 		
 		return new_mushroom;
-	}
-	
-	public void faceRight() {
-		this.right = true;
-	}
-	
-	public void faceLeft() {
-		this.right = false;
 	}
 	
 	public String getShortcut() {
@@ -60,6 +51,8 @@ public class Mushroom extends GameObject{
 	}
 	
 	public void update() {
+		boolean right = getRight();
+		
 		if (!game.isSolid(this.pos.add_y(pos, 1)))
 			this.move(Action.DOWN);
 		
@@ -69,11 +62,11 @@ public class Mushroom extends GameObject{
 		else {
 			if(!this.pos.add_x(pos, -1).outOfBounds() && !game.isSolid(this.pos.add_x(pos, -1))) {
 				this.move(Action.LEFT);;
-				right = false;
+				setRight(false);
 			}
 			else if (!this.pos.add_x(pos, 1).outOfBounds() && !game.isSolid(this.pos.add_x(pos, 1))){
 				this.move(Action.RIGHT);
-				right = true;
+				setRight(true);
 			}
 		}
 		

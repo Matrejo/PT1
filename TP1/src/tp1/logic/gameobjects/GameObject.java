@@ -11,7 +11,7 @@ public abstract class GameObject implements GameItem { // TODO
 	protected Position pos; // If you can, make it private.
 	private boolean isAlive;
 	protected GameWorld game;
-	protected boolean solid;
+	private boolean solid;
 	
 	public GameObject(GameWorld game, Position pos, boolean solid) {
 		this.isAlive = true;
@@ -33,7 +33,7 @@ public abstract class GameObject implements GameItem { // TODO
 	
 	public GameObject parse(String objWords[], GameWorld game) {
 		GameObject object = null;
-		if (objWords.length > 1 && (5 <= objWords[0].length() && objWords[0].length() < 8)) {
+		if (objWords.length == 2 && (5 <= objWords[0].length() && objWords[0].length() < 8) && !pos.coordsToPos(objWords[1]).outOfBounds()) {
 			if (this.matchObjectName(objWords[1])) {
 				object = this.createInstance(objWords, game);
 			}

@@ -5,7 +5,6 @@ import tp1.logic.GameWorld;
 import tp1.view.Messages;
 
 public class Ground extends GameObject{
-	private Position pos = new Position(0, 0);
 	private static final String NAME = "ground";
     private static final String SHORTCUT = "gr";
 	

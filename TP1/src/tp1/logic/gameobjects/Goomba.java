@@ -5,13 +5,13 @@ import tp1.logic.Position;
 import tp1.view.Messages;
 import tp1.logic.Action;
 
-public class Goomba extends GameObject{	
-	private boolean right = false;
+public class Goomba extends MovingObject{	
 	private static final String NAME = "goomba";
     private static final String SHORTCUT = "g";
 	
 	public Goomba(GameWorld game, Position new_pos) {
 		super(game, new_pos, false);
+		setRight(false);
 	}
 	
 	public Goomba() {}
@@ -33,11 +33,11 @@ public class Goomba extends GameObject{
 	}
 	
 	public void faceRight() {
-		this.right = true;
+		setRight(true);
 	}
 	
 	public void faceLeft() {
-		this.right = false;
+		setRight(false);
 	}
 	
 	public String getShortcut() {
@@ -52,17 +52,17 @@ public class Goomba extends GameObject{
 		if (!game.isSolid(this.pos.add_y(pos, 1)))
 			this.move(Action.DOWN);
 		
-		else if (right && !this.pos.add_x(pos, 1).outOfBounds() && !game.isSolid(this.pos.add_x(pos, 1)))
+		else if (getRight() && !this.pos.add_x(pos, 1).outOfBounds() && !game.isSolid(this.pos.add_x(pos, 1)))
 			this.move(Action.RIGHT);
 		
 		else {
 			if(!this.pos.add_x(pos, -1).outOfBounds() && !game.isSolid(this.pos.add_x(pos, -1))) {
 				this.move(Action.LEFT);;
-				right = false;
+				setRight(false);
 			}
 			else if (!this.pos.add_x(pos, 1).outOfBounds() && !game.isSolid(this.pos.add_x(pos, 1))){
 				this.move(Action.RIGHT);
-				right = true;
+				setRight(true);
 			}
 		}
 		
