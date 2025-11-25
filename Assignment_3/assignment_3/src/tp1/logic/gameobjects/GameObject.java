@@ -98,6 +98,14 @@ public abstract class GameObject implements GameItem { // TODO
 		return false;
 	}
 	
+	public String toString() {
+		StringBuilder objectString = new StringBuilder();
+		
+		objectString.append(this.pos.toString()).append(' ').append(getName());
+		
+		return objectString.toString();
+	}
+	
 	public boolean receiveInteraction(Ground ground) {
 		return false;
 	}

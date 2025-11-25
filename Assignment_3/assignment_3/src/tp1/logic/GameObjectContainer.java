@@ -42,7 +42,17 @@ public class GameObjectContainer {
 			}
 		}
 		return icon;
-	}	
+	}
+	
+	public String toString() {
+		StringBuilder finalString = new StringBuilder();
+		
+		for (GameObject c : objects) {
+			finalString.append(c.toString()).append(Messages.LINE_SEPARATOR);
+		}
+		
+		return finalString.toString();
+	}
 	
 	public boolean doInteractions(GameItem obj) {
 		boolean interacted = false, auxiliary = false;

@@ -15,4 +15,6 @@ public interface GameItem {
 	public boolean receiveInteraction(Goomba goomba);
 	public boolean receiveInteraction(Mushroom mushroom);
 	public boolean receiveInteraction(Box box);
+	
+	public String toString();
 }

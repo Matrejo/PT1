@@ -3,6 +3,8 @@ package tp1.logic;
 import tp1.control.commands.Command;
 import tp1.logic.gameobjects.*;
 import tp1.view.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class Game implements GameModel, GameStatus, GameWorld {
 
@@ -121,8 +123,8 @@ public class Game implements GameModel, GameStatus, GameWorld {
 
 	@Override
 	public String toString() {
-		// TODO returns a textual representation of the object
-		return "TODO: Hola soy el game";
+		String gameToString = gameObjects.toString();
+		return gameToString;
 	}
 	
 	public void reachedDoor() {
@@ -195,6 +197,15 @@ public class Game implements GameModel, GameStatus, GameWorld {
 				this.nLevel = -1;
 				this.remainingTime = currentTime;
 			}
+		}
+	}
+	
+	public void save(String fileName){
+		try {
+			FileOutputStream out = new FileOutputStream(fileName);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	

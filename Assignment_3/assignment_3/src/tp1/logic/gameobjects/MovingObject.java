@@ -66,6 +66,22 @@ public class MovingObject extends GameObject {
 	public String getIcon() {
 		return this.getIcon();
 	}
+	
+	public String toString() {
+		StringBuilder objectString = new StringBuilder();
+				
+		objectString.append(super.toString()).append(' ');
+		
+		if (right) {
+			objectString.append("RIGHT");
+		}
+		
+		else {
+			objectString.append("LEFT");
+		}
+		
+		return objectString.toString();
+	}
 
 	// Not mandatory but recommended
 	protected void move(Action dir) {

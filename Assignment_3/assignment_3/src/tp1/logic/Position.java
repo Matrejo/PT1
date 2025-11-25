@@ -68,4 +68,12 @@ public class Position {
 		
 		return new Position(x, y);
 	}
+	
+	public String toString() {
+		StringBuilder posString = new StringBuilder();
+		
+		posString.append("(").append(col).append(",").append(row).append(")");
+		
+		return posString.toString();
+	}
 }

@@ -24,6 +24,22 @@ public class Mario extends MovingObject{
 		this.mario_actions = actions;
 	}
 	
+	public String toString() {
+		StringBuilder objectString = new StringBuilder();
+				
+		objectString.append(super.toString()).append(' ');
+		
+		if (big) {
+			objectString.append("BIG");
+		}
+		
+		else {
+			objectString.append("SMALL");
+		}
+		
+		return objectString.toString();
+	}
+	
 	public String getShortcut() {
 		return SHORTCUT;
 	}
