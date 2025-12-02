@@ -48,6 +48,8 @@ public class Messages {
 	// Errores de factorías:
 	public static final String UNKNOWN_COMMAND = "Unknown command: %s";
 	public static final String INVALID_GAME_OBJECT = "Invalid game object: %s";
+	public static final String LOADING_GAME_ERROR = "Error while loading the game info";
+	public static final String SAVING_GAME_ERROR = "Error while saving the game info";
 	// Errores de commandos:
 	public static final String COMMAND_PARAMETERS_MISSING = "Missing parameters";
 	public static final String COMMAND_INCORRECT_PARAMETER_NUMBER = "Incorrect parameter number";
@@ -119,6 +121,12 @@ public class Messages {
 	public static final String COMMAND_SAVE_SHORTCUT = "s";
 	public static final String COMMAND_SAVE_DETAILS = "[s]ave <fileName>";
 	public static final String COMMAND_SAVE_HELP = "save the actual configuration in the text file <fileName>";
+	
+	// LOAD
+	public static final String COMMAND_LOAD_NAME = "load";
+	public static final String COMMAND_LOAD_SHORTCUT = "l";
+	public static final String COMMAND_LOAD_DETAILS = "[l]oad <fileName>";
+	public static final String COMMAND_LOAD_HELP = "load the game configuration from text file <fileName>";
 
 	//Symbols
 	public static final String EMPTY = "";

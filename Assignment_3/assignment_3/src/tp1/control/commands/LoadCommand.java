@@ -6,20 +6,20 @@ import tp1.view.Messages;
 import tp1.exceptions.*;
 import java.io.*;
 
-public class SaveCommand extends AbstractCommand {
+public class LoadCommand extends AbstractCommand {
 	// Forman parte de atributos de estado
-		private static final String NAME = Messages.COMMAND_SAVE_NAME;
-		private static final String SHORTCUT = Messages.COMMAND_SAVE_SHORTCUT;
-		private static final String DETAILS = Messages.COMMAND_SAVE_DETAILS;
-		private static final String HELP = Messages.COMMAND_SAVE_HELP;
+		private static final String NAME = Messages.COMMAND_LOAD_NAME;
+		private static final String SHORTCUT = Messages.COMMAND_LOAD_SHORTCUT;
+		private static final String DETAILS = Messages.COMMAND_LOAD_DETAILS;
+		private static final String HELP = Messages.COMMAND_LOAD_HELP;
 		
 		private String fileName;
 		
-		public SaveCommand() {
+		public LoadCommand() {
 			super(NAME, SHORTCUT, DETAILS, HELP); 
 		}
 		
-		private SaveCommand(String fileName) {
+		private LoadCommand(String fileName) {
 		    this();
 		    this.fileName = fileName;
 		}
@@ -33,7 +33,7 @@ public class SaveCommand extends AbstractCommand {
 			
 			if(this.matchCommandName(newCommand[0])) {
 				if (newCommand.length == 2) {
-					returnCommand = new SaveCommand(newCommand[1]);
+					returnCommand = new LoadCommand(newCommand[1]);
 				}
 				else {
 					throw new CommandParseException(Messages.INVALID_COMMAND_PARAMETERS);
@@ -45,9 +45,9 @@ public class SaveCommand extends AbstractCommand {
 		
 		public void execute(GameModel game, GameView view) throws CommandExecuteException{
 			try{
-				game.save(fileName);
-			}catch (GameSaveException gse) {
-				throw new CommandExecuteException(Messages.UNKNOWN_FILE_NAME_ERROR.formatted(fileName), gse);
+				game.load(fileName);
+			}catch (GameLoadException gle) {
+				throw new CommandExecuteException(Messages.UNKNOWN_FILE_NAME_ERROR.formatted(fileName), gle);
 			}
 		}
 }

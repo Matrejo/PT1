@@ -5,10 +5,11 @@ import java.io.*;
 public interface GameModel {
 	public boolean isFinished();
 	public void update();
-	public void restart();
+	public void restart() throws GameLoadException;
 	public void doMarioActions(Action[] actions);
 	public void exit();
 	public void setLevel(int level);
 	public void newObject(String[] newObject) throws GameModelException;
-	public void save(String fileName) throws CommandExecuteException, FileNotFoundException, IOException;
+	public void save(String fileName) throws GameSaveException;
+	public void load(String fileName) throws GameLoadException;
 }

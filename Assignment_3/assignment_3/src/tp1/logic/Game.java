@@ -5,6 +5,8 @@ import tp1.exceptions.*;
 import tp1.logic.gameobjects.*;
 import tp1.view.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game implements GameModel, GameStatus, GameWorld {
 
@@ -16,6 +18,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 	private boolean endGame = false, won = false, exit = false, addMushroom = false, hasMario = false;
 	private GameObjectContainer gameObjects;
 	private Position newMushroomPos;
+	private GameConfiguration previousConfig = null;
 	
 	public void doMarioActions(Action[] actions) {
         mario.setActions(actions);
@@ -81,24 +84,40 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		return won;
 	}
 	
-	public void restart() {
-		gameObjects = new GameObjectContainer();
-		this.remainingTime = 100;
-		this.numPoints = 0;
-		if (nLevel == 1) {
-			this.initLevel1();
-			this.nLevel = 1;
-		}
-		
-		else if (nLevel == 0){
-			this.initLevel0();
-			this.nLevel = 0;
+	public void restart() throws GameLoadException {
+		if (previousConfig == null) {
+			gameObjects = new GameObjectContainer();
+			this.remainingTime = 100;
+			this.numPoints = 0;
+			if (nLevel == 1) {
+				this.initLevel1();
+				this.nLevel = 1;
+			}
+			
+			else if (nLevel == 0){
+				this.initLevel0();
+				this.nLevel = 0;
+			}
+			
+			else {
+				this.initLevelVoid();
+				this.nLevel = -1;
+				this.numLives = 3;
+			}
 		}
 		
 		else {
-			this.initLevelVoid();
-			this.nLevel = -1;
-			this.numLives = 3;
+			List<GameObject> npc_list = previousConfig.getNPCObjects();
+			this.gameObjects = new GameObjectContainer();
+			
+			for (GameObject c : npc_list) {
+				this.gameObjects.add(c);
+			}
+			
+			this.mario = previousConfig.getMario();
+			this.remainingTime = previousConfig.getRemainingTime();
+			this.numPoints = previousConfig.points();
+			this.numLives = previousConfig.numLives();
 		}
 	}
 	
@@ -200,7 +219,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		}
 	}
 	
-	public void save(String fileName) throws CommandExecuteException{
+	public void save(String fileName) throws GameSaveException{
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream(fileName);
@@ -214,12 +233,27 @@ public class Game implements GameModel, GameStatus, GameWorld {
 				out.close();
 			}
 		} catch(FileNotFoundException fnfe) {
-			throw new CommandExecuteException(Messages.UNKNOWN_FILE_NAME_ERROR, fnfe);
+			throw new GameSaveException(Messages.UNKNOWN_FILE_NAME_ERROR, fnfe);
 		} catch (IOException ioe) {
-			throw new CommandExecuteException("Error while saving the data", ioe);
+			throw new GameSaveException("Error while saving the data", ioe);
 		}
 	}
 	
+	public void load(String fileName) throws GameLoadException {
+		FileGameConfiguration new_file_data = new FileGameConfiguration(fileName, this);
+		previousConfig = new_file_data;
+		List<GameObject> npc_list = new_file_data.getNPCObjects();
+		this.gameObjects = new GameObjectContainer();
+		
+		for (GameObject c : npc_list) {
+			this.gameObjects.add(c);
+		}
+		
+		this.mario = new_file_data.getMario();
+		this.remainingTime = new_file_data.getRemainingTime();
+		this.numPoints = new_file_data.points();
+		this.numLives = new_file_data.numLives();
+	}
 
 	private void initLevel0() {
 		this.nLevel = 0;

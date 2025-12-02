@@ -1,6 +1,8 @@
 package tp1.control.commands;
 
 import tp1.exceptions.CommandParseException;
+import tp1.exceptions.CommandExecuteException;
+import tp1.exceptions.GameLoadException;
 import tp1.logic.GameModel;
 import tp1.view.GameView;
 import tp1.view.Messages;
@@ -44,14 +46,18 @@ public class RestartCommand extends AbstractCommand{
 		return returnCommand;
 	}
 	
-	public void execute(GameModel game, GameView view) {
+	public void execute(GameModel game, GameView view) throws CommandExecuteException {
 		int requestedLevel = newLevel;
 		
-		if (requestedLevel != -2) {
-			game.setLevel(requestedLevel);
+		try {
+			if (requestedLevel != -2) {
+				game.setLevel(requestedLevel);
+			}
+			
+			game.restart();
+			view.showGame();
+		} catch(GameLoadException gle) {
+			throw new CommandExecuteException(gle);
 		}
-		
-		game.restart();
-		view.showGame();
 	}
 }
