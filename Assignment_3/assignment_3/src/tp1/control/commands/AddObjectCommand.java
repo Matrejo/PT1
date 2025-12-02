@@ -26,10 +26,6 @@ public class AddObjectCommand extends AbstractCommand{
 	    this();
 	    this.newObject = newObject;
 	}
-
-	protected boolean matchCommand(String name) {
-		return this.matchCommandName(name);
-	}
 	
 	public Command parse(String[] newCommand) throws CommandParseException {
 	

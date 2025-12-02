@@ -26,6 +26,9 @@ public class FileGameConfiguration implements GameConfiguration{
 			this.remainingTime = Integer.parseInt(separated_info[0]);
 			this.points = Integer.parseInt(separated_info[1]);
 			this.lives = Integer.parseInt(separated_info[2]);
+			if (data_in != null) {
+				data_in.close();
+			}
 		} catch(FileNotFoundException fnfe) {
 			throw new GameLoadException(Messages.UNKNOWN_FILE_NAME_ERROR, fnfe);
 		} catch(Exception e) {
@@ -45,6 +48,9 @@ public class FileGameConfiguration implements GameConfiguration{
 				if (new_object_string[1].equalsIgnoreCase("Mario")) {
 					mario = mario.createInstance(new_object_string, game);
 				}
+			}
+			if (data_in != null) {
+				data_in.close();
 			}
 		} catch(Exception e) {
 			throw new GameLoadException(Messages.LOADING_GAME_ERROR, e);
@@ -79,6 +85,9 @@ public class FileGameConfiguration implements GameConfiguration{
 					new_object = GameObjectFactory.parse(new_object_string, game);
 					npc_list.add(new_object);
 				}
+			}
+			if (data_in != null) {
+				data_in.close();
 			}
 		} catch(Exception e) {
 			throw new GameLoadException(Messages.LOADING_GAME_ERROR, e);

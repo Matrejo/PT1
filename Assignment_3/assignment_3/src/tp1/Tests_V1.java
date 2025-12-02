@@ -1,6 +1,6 @@
-package tp1;
+/*package tp1;
 
-/*import java.nio.file.Paths;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,5 +40,4 @@ public class Tests_V1 {
 	public void test05() { 	testN(5); }
 	@Test
 	public void test06() { 	testN(6); }
-}
-*/
+}*/

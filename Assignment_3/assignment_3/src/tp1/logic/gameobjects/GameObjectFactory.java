@@ -34,6 +34,6 @@ public class GameObjectFactory {
 			}
 		}
 		
-		throw new ObjectParseException();
+		throw new ObjectParseException(Messages.OBJECT_ERROR);
 	};
 }

@@ -38,16 +38,12 @@ public class MovingObject extends GameObject {
 		return this.pos.equals(p);
 	}
 	
-	public GameObject parse(String objWords[], GameWorld game) throws OffBoardException, ObjectParseException{
+	public GameObject parse(String objWords[], GameWorld game) throws OffBoardException, ObjectParseException, PositionParseException{
 		GameObject object = null;
 		
 		object = super.parse(objWords, game);
 		
 		return object;
-	}
-	
-	protected boolean matchObjectName(String name) {
-		return getShortcut().equalsIgnoreCase(name) || getName().equalsIgnoreCase(name);
 	}
 	
 	public GameObject createInstance(String[] newObject, GameWorld game) throws OffBoardException, PositionParseException{

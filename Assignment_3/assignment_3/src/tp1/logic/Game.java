@@ -33,14 +33,18 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		
 		try {
 			if (newGameObject != null) {
-				if (mario.getName().equalsIgnoreCase(newGameObject.getName())) {
+				GameObject obj = null;
+				obj = mario.parse(newObject, this);
+				if (obj != null) {
 					if (!mario.isAlive()){
 						this.mario = mario.createInstance(newObject, this);
 						gameObjects.add(this.mario);
 					}
 					
 					else {
-						System.out.println(Messages.ERROR.formatted(Messages.ERROR_EXISTING_MARIO));	
+						this.mario.dead();
+						this.mario = mario.createInstance(newObject, this);
+						gameObjects.add(this.mario);
 					}
 				}
 				
@@ -49,7 +53,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 				}
 			}
 		} catch (PositionParseException ppe) {
-			
+			throw new GameModelException(Messages.OBJECT_ERROR, ppe);
 		}
 	}
 
@@ -221,22 +225,22 @@ public class Game implements GameModel, GameStatus, GameWorld {
 	}
 	
 	public void save(String fileName) throws GameSaveException{
-		FileOutputStream out = null;
+		FileOutputStream outFile = null;
 		try {
-			out = new FileOutputStream(fileName);
+			outFile = new FileOutputStream(fileName);
 			StringBuilder finalString = new StringBuilder();
 			finalString.append(remainingTime).append(" ").append(numPoints).append(" ").append(numLives).append(Messages.LINE_SEPARATOR);
 			finalString.append(gameObjects.toString());
 			byte[] gameStringBytes = finalString.toString().getBytes();
-			out.write(gameStringBytes);
-			System.out.println("Game succcessfully saved to the file");
-			if (out != null) {
-				out.close();
+			outFile.write(gameStringBytes);
+			System.out.println(Messages.GAME_SAVED);
+			if (outFile != null) {
+				outFile.close();
 			}
 		} catch(FileNotFoundException fnfe) {
 			throw new GameSaveException(Messages.UNKNOWN_FILE_NAME_ERROR, fnfe);
 		} catch (IOException ioe) {
-			throw new GameSaveException("Error while saving the data", ioe);
+			throw new GameSaveException(Messages.SAVING_GAME_ERROR, ioe);
 		}
 	}
 	

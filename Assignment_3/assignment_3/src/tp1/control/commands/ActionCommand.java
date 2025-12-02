@@ -43,7 +43,7 @@ public class ActionCommand extends AbstractCommand{
 		if (this.matchCommandName(commandWords[0])) {
 			 if (commandWords.length < 2) {
 				 throw new CommandParseException();
-		        }
+		     }
   
             List<Action> list = new ArrayList<>();
 
@@ -64,7 +64,7 @@ public class ActionCommand extends AbstractCommand{
                 try{
                 	a = Action.fromString(commandWords[i]);
                 } catch (ActionParseException ape) {
-                	throw new CommandParseException(Messages.UNKNOWN_ACTION.formatted(commandWords[i]), ape);
+                	throw new CommandParseException(Messages.INVALID_COMMAND_PARAMETERS, ape);
                 }
 
                 switch (a) {

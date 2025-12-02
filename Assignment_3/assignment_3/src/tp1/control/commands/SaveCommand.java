@@ -36,7 +36,7 @@ public class SaveCommand extends AbstractCommand {
 					returnCommand = new SaveCommand(newCommand[1]);
 				}
 				else {
-					throw new CommandParseException(Messages.INVALID_COMMAND_PARAMETERS);
+					throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 				}
 			}
 			

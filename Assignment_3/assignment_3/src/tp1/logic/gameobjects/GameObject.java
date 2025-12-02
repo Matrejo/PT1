@@ -5,6 +5,7 @@ import tp1.logic.GameWorld;
 import tp1.logic.GameModel;
 import tp1.logic.GameStatus;
 import tp1.logic.Position;
+import tp1.view.Messages;
 import tp1.exceptions.OffBoardException;
 import tp1.exceptions.ObjectParseException;
 import tp1.exceptions.PositionParseException;
@@ -34,17 +35,16 @@ public abstract class GameObject implements GameItem { // TODO
  	
 	public abstract GameObject createInstance(String[] info, GameWorld game) throws OffBoardException, PositionParseException;
 	
-	public GameObject parse(String objWords[], GameWorld game) throws ObjectParseException, OffBoardException{
+	public GameObject parse(String objWords[], GameWorld game) throws ObjectParseException, OffBoardException, PositionParseException{
 		GameObject object = null;
 		
-		try {
-			if ((5 <= objWords[0].length() && objWords[0].length() < 8)) {
-				if (this.matchObjectName(objWords[1])) {
-					object = this.createInstance(objWords, game);
-				}
+		if ((5 <= objWords[0].length() && objWords[0].length() < 8)) {
+			if (this.matchObjectName(objWords[1])) {
+				object = this.createInstance(objWords, game);
 			}
-		} catch(PositionParseException ppe) {
-			throw new OffBoardException(ppe);
+		}
+		else {
+			throw new PositionParseException(Messages.UNRECOGNISABLE_POSITION_ERROR.formatted(objWords[0]));
 		}
 		
 		return object;

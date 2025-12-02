@@ -24,10 +24,10 @@ public class Messages {
 
 	// GAME STATUS
 	public static final String NUMBER_OF_CYCLES = "Number of cycles: %s";
-
 	public static final String REMAINING_TIME = "Time: %s";
 	public static final String POINTS = "Points: %s";
 	public static final String NUM_LIVES = "Lives: %s";
+	public static final String GAME_SAVED = "Game successfully saved!";
 
 	// GAME END MESSAGE
 	public static final String GAME_OVER = "Game over";
@@ -58,8 +58,9 @@ public class Messages {
 	public static final String INVALID_COMMAND = "Invalid command: %s";
 	public static final String INVALID_COMMAND_PARAMETERS = "Invalid command parameters";
 	public static final String ERROR_COMMAND_EXECUTE = "Command execute problem";
-	public static final String ERROR_EXISTING_MARIO = "There is already a Mario in the game";
+	public static final String OBJECT_ERROR = "Object could not be added to the game";
 	public static final String OBJECT_OUT_OF_BOUNDS_ERROR = "Object out of bounds: %s";
+	public static final String UNRECOGNISABLE_POSITION_ERROR = "Couldn't translate the position: %s";
 	public static final String COORDS_NOT_A_NUMBER_ERROR = "Coordinates must be a number: %s";
 	public static final String UNKNOWN_FILE_NAME_ERROR = "Unknown file name: %s";
 

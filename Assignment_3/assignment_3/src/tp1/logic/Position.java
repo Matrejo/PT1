@@ -3,6 +3,7 @@ package tp1.logic;
 
 import tp1.exceptions.OffBoardException;
 import tp1.exceptions.PositionParseException;
+import tp1.view.Messages;
 /**
  * 
  * TODO: Immutable class to encapsulate and manipulate positions in the game board
@@ -73,11 +74,11 @@ public class Position {
 			}
 		}
 		else {
-			throw new PositionParseException("Incorrect Position ig or smth idk");
+			throw new PositionParseException(Messages.UNRECOGNISABLE_POSITION_ERROR.formatted(newPos));
 		}
 		
 		if (new Position(x, y).outOfBounds()) {
-			throw new OffBoardException();
+			throw new OffBoardException(Messages.OBJECT_OUT_OF_BOUNDS_ERROR.formatted(newPos));
 		}
 		
 		return new Position(x, y);

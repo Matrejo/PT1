@@ -59,7 +59,7 @@ public class Mario extends MovingObject{
 		return NAME;
 	}
 	
-	public GameObject parse(String objWords[]) throws OffBoardException, ObjectParseException{
+	public GameObject parse(String objWords[]) throws OffBoardException, ObjectParseException, PositionParseException{
 		GameObject object = null;
 		
 		object = super.parse(objWords, game);
