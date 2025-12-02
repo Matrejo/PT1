@@ -3,6 +3,9 @@ package tp1.logic.gameobjects;
 import tp1.logic.Action;
 import tp1.logic.GameWorld;
 import tp1.logic.Position;
+import tp1.exceptions.OffBoardException;
+import tp1.exceptions.ObjectParseException;
+import tp1.exceptions.PositionParseException;
 
 public class MovingObject extends GameObject {
 	private boolean right = true, falling = false;
@@ -35,7 +38,7 @@ public class MovingObject extends GameObject {
 		return this.pos.equals(p);
 	}
 	
-	public GameObject parse(String objWords[], GameWorld game) {
+	public GameObject parse(String objWords[], GameWorld game) throws OffBoardException, ObjectParseException{
 		GameObject object = null;
 		
 		object = super.parse(objWords, game);
@@ -47,7 +50,7 @@ public class MovingObject extends GameObject {
 		return getShortcut().equalsIgnoreCase(name) || getName().equalsIgnoreCase(name);
 	}
 	
-	public GameObject createInstance(String[] newObject, GameWorld game) {
+	public GameObject createInstance(String[] newObject, GameWorld game) throws OffBoardException, PositionParseException{
 		return this.createInstance(newObject, game);
 	}
 	

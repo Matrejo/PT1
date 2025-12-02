@@ -1,5 +1,8 @@
 package tp1.logic;
 
+import tp1.view.Messages;
+import tp1.exceptions.ActionParseException;
+
 /**
  * Represents the allowed actions in the game
  *
@@ -21,7 +24,7 @@ public enum Action {
 	}
 	
 	//parsing of one word
-	 public static Action parseCommand(String command) {
+	 /*public static Action parseCommand(String command) {
 	        if (command == null) {
 	        	return STOP;
 	        }
@@ -45,9 +48,9 @@ public enum Action {
 	                return STOP;
 	        }
 	    }
-	 
+	 */
 	 //parsing of more then one word
-	 public static ActionList parseCommands(String[] commands) {
+	 public static ActionList parseCommands(String[] commands) throws ActionParseException {
 	        if (commands == null) {
 	        	return new ActionList(0);
 	        }
@@ -56,7 +59,7 @@ public enum Action {
 	        ActionList list = new ActionList(commands.length);
 
 	        for (int i = 0; i < commands.length; i++) {
-	            Action a = parseCommand(commands[i]);
+	            Action a = fromString(commands[i]);
 
 	            switch (a) {
 	                case UP:
@@ -90,13 +93,13 @@ public enum Action {
 	        return list;
 	    }
 	 
-	 public static Action fromString(String input) {
+	 public static Action fromString(String input) throws ActionParseException{ //parser
 	   for (Action action : Action.values()) {
 	     if (action.name().equalsIgnoreCase(input) || action.abbrev.equalsIgnoreCase(input)) {
 	       return action;
 	     }
 	   }
-	   return null;
+	   throw new ActionParseException(Messages.UNKNOWN_ACTION.formatted(input));
 	 }
 	 
 }

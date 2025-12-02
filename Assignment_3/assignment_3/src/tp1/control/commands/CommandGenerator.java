@@ -1,9 +1,12 @@
 package tp1.control.commands;
 
+
+import tp1.exceptions.CommandParseException;
 import java.util.Arrays;
 import java.util.List;
 
 import tp1.view.Messages;
+import java.io.*;
 
 public class CommandGenerator {
 
@@ -18,14 +21,15 @@ public class CommandGenerator {
 			
 	);
 
-	public static Command parse(String[] commandWords) {
-		Command final_command = null;
+	public static Command parse(String[] commandWords) throws CommandParseException {
 		for (Command c: availableCommands) {
-			if (c.parse(commandWords) != null) {
-				final_command = c.parse(commandWords);
+			Command parsed = c.parse(commandWords);
+			
+			if (parsed != null) {
+	            return parsed;  
 			}
 		}
-		return final_command;
+		throw new CommandParseException( Messages.UNKNOWN_COMMAND.formatted(commandWords[0]));
 	}
 		
 	public static String commandHelp() {

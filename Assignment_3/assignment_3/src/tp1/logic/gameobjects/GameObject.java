@@ -5,6 +5,9 @@ import tp1.logic.GameWorld;
 import tp1.logic.GameModel;
 import tp1.logic.GameStatus;
 import tp1.logic.Position;
+import tp1.exceptions.OffBoardException;
+import tp1.exceptions.ObjectParseException;
+import tp1.exceptions.PositionParseException;
 
 public abstract class GameObject implements GameItem { // TODO 
 
@@ -29,14 +32,19 @@ public abstract class GameObject implements GameItem { // TODO
 	}
 	
  	
-	public abstract GameObject createInstance(String[] info, GameWorld game);
+	public abstract GameObject createInstance(String[] info, GameWorld game) throws OffBoardException, PositionParseException;
 	
-	public GameObject parse(String objWords[], GameWorld game) {
+	public GameObject parse(String objWords[], GameWorld game) throws ObjectParseException, OffBoardException{
 		GameObject object = null;
-		if (objWords.length == 2 && (5 <= objWords[0].length() && objWords[0].length() < 8) && !pos.coordsToPos(objWords[0]).outOfBounds()) {
-			if (this.matchObjectName(objWords[1])) {
-				object = this.createInstance(objWords, game);
+		
+		try {
+			if (objWords.length == 2 && (5 <= objWords[0].length() && objWords[0].length() < 8)) {
+				if (this.matchObjectName(objWords[1])) {
+					object = this.createInstance(objWords, game);
+				}
 			}
+		} catch(PositionParseException ppe) {
+			
 		}
 		
 		return object;

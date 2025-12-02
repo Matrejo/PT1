@@ -1,4 +1,6 @@
 package tp1.logic;
+import tp1.exceptions.*;
+import java.io.*;
 
 public interface GameModel {
 	public boolean isFinished();
@@ -7,5 +9,6 @@ public interface GameModel {
 	public void doMarioActions(Action[] actions);
 	public void exit();
 	public void setLevel(int level);
-	public boolean newObject(String[] newObject);
+	public void newObject(String[] newObject) throws GameModelException;
+	public void save(String fileName) throws CommandExecuteException, FileNotFoundException, IOException;
 }

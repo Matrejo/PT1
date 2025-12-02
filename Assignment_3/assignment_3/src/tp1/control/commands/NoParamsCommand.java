@@ -1,27 +1,22 @@
 package tp1.control.commands;
 
+import tp1.exceptions.CommandParseException;
+import tp1.view.Messages;
+
 public abstract class NoParamsCommand extends AbstractCommand {
 
 	public NoParamsCommand(String name, String shortcut, String details, String help) {
 		super(name, shortcut, details, help);
 	}
 
+	
 	@Override
-	/*public Command parse(String[] commandWords) {
-		Command return_command = this.parse(commandWords);
-		return return_command;
-	}*/
-	
-	
-	public Command parse(String[] commandWords) {
-		Command return_command = null;
-		
-		if(commandWords.length == 1) {
-			if(this.matchCommandName(commandWords[0])) {
-				return_command = this;
-			}
-		}
-		
-		return return_command;
+	 public Command parse(String[] commandWords) throws CommandParseException {
+	    if (commandWords.length != 0 && matchCommandName(commandWords[0]))
+	      if (commandWords.length > 1)      // there are extraneous parameters
+	        throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+	      else
+	        return this;
+	    return null;
 	}
 }

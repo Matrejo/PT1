@@ -4,6 +4,8 @@ import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 import tp1.logic.Action;
+import tp1.exceptions.OffBoardException;
+import tp1.exceptions.PositionParseException;
 
 public class Goomba extends MovingObject{	
 	private static final String NAME = "goomba";
@@ -20,7 +22,7 @@ public class Goomba extends MovingObject{
 		return Messages.GOOMBA;
 	}
 	
-	public Goomba createInstance(String[] info, GameWorld game) {
+	public Goomba createInstance(String[] info, GameWorld game) throws OffBoardException, PositionParseException{
 		Goomba new_goomba = new Goomba(game, pos.coordsToPos(info[0]));
 		
 		if(info.length == 3) {
@@ -52,7 +54,7 @@ public class Goomba extends MovingObject{
 		if (!game.isSolid(this.pos.add_y(pos, 1)))
 			this.move(Action.DOWN);
 		
-		else if (getRight() && !this.pos.add_x(pos, 1).outOfBounds() && !game.isSolid(this.pos.add_x(pos, 1)))
+		else if (getRight() && !game.isSolid(this.pos.add_x(pos, 1)))
 			this.move(Action.RIGHT);
 		
 		else {

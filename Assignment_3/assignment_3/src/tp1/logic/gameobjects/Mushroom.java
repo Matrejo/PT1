@@ -4,6 +4,8 @@ import tp1.logic.Action;
 import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
+import tp1.exceptions.OffBoardException;
+import tp1.exceptions.PositionParseException;
 
 public class Mushroom extends MovingObject{
 	private static final String NAME = "Mushroom";
@@ -19,7 +21,7 @@ public class Mushroom extends MovingObject{
 		return Messages.MUSHROOM;
 	}
 	
-	public Mushroom createInstance(String[] info, GameWorld game) {
+	public Mushroom createInstance(String[] info, GameWorld game) throws OffBoardException, PositionParseException{
 		Mushroom new_mushroom = new Mushroom(game, pos.coordsToPos(info[0]));
 		
 		if(info.length == 3) {

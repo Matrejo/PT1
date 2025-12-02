@@ -4,6 +4,8 @@ import tp1.logic.Action;
 import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
+import tp1.exceptions.OffBoardException;
+import tp1.exceptions.PositionParseException;
 
 public class Box extends GameObject{
 		private boolean empty = false;
@@ -24,7 +26,7 @@ public class Box extends GameObject{
 		}
 
 		
-		public Box createInstance(String[] info, GameWorld game) {
+		public Box createInstance(String[] info, GameWorld game) throws OffBoardException, PositionParseException{
 		    Box new_box = new Box(game, pos.coordsToPos(info[0]));
 
 		    if (info.length >= 3) {

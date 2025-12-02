@@ -3,6 +3,8 @@ package tp1.logic.gameobjects;
 import tp1.logic.Position;
 import tp1.logic.GameWorld;
 import tp1.view.Messages;
+import tp1.exceptions.OffBoardException;
+import tp1.exceptions.PositionParseException;
 
 public class Ground extends GameObject{
 	private static final String NAME = "ground";
@@ -20,7 +22,7 @@ public class Ground extends GameObject{
 		return Messages.LAND;
 	}
 	
-	public Ground createInstance(String[] info, GameWorld game) {
+	public Ground createInstance(String[] info, GameWorld game) throws OffBoardException, PositionParseException {
 		return new Ground(game, pos.coordsToPos(info[0]));
 	}
 	

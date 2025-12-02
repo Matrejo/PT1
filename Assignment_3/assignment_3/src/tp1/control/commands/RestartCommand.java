@@ -1,5 +1,6 @@
 package tp1.control.commands;
 
+import tp1.exceptions.CommandParseException;
 import tp1.logic.GameModel;
 import tp1.view.GameView;
 import tp1.view.Messages;
@@ -26,19 +27,20 @@ public class RestartCommand extends AbstractCommand{
 		return this.matchCommandName(name);
 	}
 	
-	public Command parse(String[] newCommand) {
+	public Command parse(String[] newCommand) throws CommandParseException {
 		Command returnCommand = null;
 		
 		if (this.matchCommandName(newCommand[0])) {
-			if(newCommand.length == 2) {
-				returnCommand = new RestartCommand(Integer.parseInt(newCommand[1]));
+			if(newCommand.length != 2 || newCommand.length != 1 ) {
+				throw new CommandParseException (Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 			}
 			
-			else {
-				returnCommand = new RestartCommand(-2);
-			}
+			try {
+				returnCommand = new RestartCommand(Integer.parseInt(newCommand[1]));
+			} catch (NumberFormatException nfe) {
+	            throw new CommandParseException(Messages.LEVEL_NOT_A_NUMBER_ERROR.formatted(newCommand[1]), nfe);
+				}
 		}
-		
 		return returnCommand;
 	}
 	

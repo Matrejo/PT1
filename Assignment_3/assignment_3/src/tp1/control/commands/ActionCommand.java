@@ -5,8 +5,12 @@ import tp1.logic.GameModel;
 import tp1.view.GameView;
 import tp1.view.Messages;
 
+import tp1.exceptions.CommandParseException;
+import tp1.exceptions.CommandExecuteException;
+
 import java.util.ArrayList;
 import java.util.List;
+import tp1.exceptions.ActionParseException;
 
 public class ActionCommand extends AbstractCommand{
 
@@ -34,10 +38,13 @@ public class ActionCommand extends AbstractCommand{
 
 	
 	@Override
-    public Command parse(String[] commandWords) {
-        // at least 2 words, the frist one is action
-        if (commandWords.length >= 2 && this.matchCommandName(commandWords[0])) {
-
+    public Command parse(String[] commandWords) throws CommandParseException {
+        // at least 2 words, the first one is action
+		if (this.matchCommandName(commandWords[0])) {
+			 if (commandWords.length < 2) {
+				 throw new CommandParseException();
+		        }
+  
             List<Action> list = new ArrayList<>();
 
             // counters (max 4)
@@ -48,14 +55,16 @@ public class ActionCommand extends AbstractCommand{
             int countStop = 0;
 
             // to check the opposite actions rule
-            Action horizontal_chosen = null; // LEFT o RIGHT
-            Action vertical_chosen = null;   // UP o DOWN
+            Action horizontal_chosen = null; 
+            Action vertical_chosen = null;   
 
             // after "action"
             for (int i = 1; i < commandWords.length; i++) {
-                Action a = Action.fromString(commandWords[i]);
-                if (a == null) {
-                    return null;
+            	Action a; 
+                try{
+                	a = Action.fromString(commandWords[i]);
+                } catch (ActionParseException ape) {
+                	throw new CommandParseException(Messages.UNKNOWN_ACTION.formatted(commandWords[i]), ape);
                 }
 
                 switch (a) {

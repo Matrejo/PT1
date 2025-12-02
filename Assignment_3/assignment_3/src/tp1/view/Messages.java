@@ -57,6 +57,9 @@ public class Messages {
 	public static final String INVALID_COMMAND_PARAMETERS = "Invalid command parameters";
 	public static final String ERROR_COMMAND_EXECUTE = "Command execute problem";
 	public static final String ERROR_EXISTING_MARIO = "There is already a Mario in the game";
+	public static final String OBJECT_OUT_OF_BOUNDS_ERROR = "Object out of bounds: %s";
+	public static final String COORDS_NOT_A_NUMBER_ERROR = "Coordinates must be a number: %s";
+	public static final String UNKNOWN_FILE_NAME_ERROR = "Unknown file name: %s";
 
 	
 	public static final String HELP_AVAILABLE_COMMANDS = "Available commands:";
@@ -110,6 +113,12 @@ public class Messages {
 	public static final String COMMAND_HELP_SHORTCUT = "h";
 	public static final String COMMAND_HELP_DETAILS = "[h]elp";
 	public static final String COMMAND_HELP_HELP = "print this help message";
+	
+	// SAVE
+	public static final String COMMAND_SAVE_NAME = "save";
+	public static final String COMMAND_SAVE_SHORTCUT = "s";
+	public static final String COMMAND_SAVE_DETAILS = "[s]ave <fileName>";
+	public static final String COMMAND_SAVE_HELP = "save the actual configuration in the text file <fileName>";
 
 	//Symbols
 	public static final String EMPTY = "";

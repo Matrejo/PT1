@@ -8,6 +8,7 @@ import tp1.view.ConsoleColorsView;
 import tp1.view.ConsoleView;
 import tp1.view.GameView;
 import tp1.view.Messages;
+import java.io.IOException;
 
 public class Main {
 
@@ -16,7 +17,7 @@ public class Main {
 	 * 
 	 * @param args Arguments for the game.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
 		// Required to avoid issues with tests
         Locale.of("es", "ES");
 		

@@ -1,5 +1,8 @@
 package tp1.logic;
 
+
+import tp1.exceptions.OffBoardException;
+import tp1.exceptions.PositionParseException;
 /**
  * 
  * TODO: Immutable class to encapsulate and manipulate positions in the game board
@@ -35,7 +38,11 @@ public class Position {
 		return (this.row < 0 || this.row > 14 || this.col < 0 || this.col > 29);
 	}
 	
-	public Position coordsToPos(String newPos) {
+	public void newObjectPos() throws OffBoardException{
+		
+	}
+	
+	public Position coordsToPos(String newPos) throws OffBoardException, PositionParseException {
 		int x = 0, y = 0;
 		String aux;
 		
@@ -52,7 +59,7 @@ public class Position {
 				y = Integer.parseInt(aux);
 			}
 		}
-		else {
+		else if (newPos.charAt(3) == ','){
 			aux = newPos.substring(1, 3);
 			x = Integer.parseInt(aux);
 			
@@ -64,6 +71,13 @@ public class Position {
 				aux = newPos.substring(4, 6);
 				y = Integer.parseInt(aux);
 			}
+		}
+		else {
+			throw new PositionParseException("Incorrect Position ig or smth idk");
+		}
+		
+		if (new Position(x, y).outOfBounds()) {
+			throw new OffBoardException();
 		}
 		
 		return new Position(x, y);

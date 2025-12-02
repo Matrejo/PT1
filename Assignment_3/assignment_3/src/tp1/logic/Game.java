@@ -1,10 +1,10 @@
 package tp1.logic;
 
 import tp1.control.commands.Command;
+import tp1.exceptions.*;
 import tp1.logic.gameobjects.*;
 import tp1.view.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class Game implements GameModel, GameStatus, GameWorld {
 
@@ -23,31 +23,31 @@ public class Game implements GameModel, GameStatus, GameWorld {
         this.update();
     }
 	
-	public boolean newObject(String[] newObject) {
-		boolean added = false;
+	public void newObject(String[] newObject) throws GameModelException {
+
 		AddObject addObjectToGame = new AddObject(newObject, this);
 		GameObject newGameObject = addObjectToGame.addObject(this);
 		
-		if (newGameObject != null) {
-			if (mario.getName().equalsIgnoreCase(newGameObject.getName())) {
-				if (!mario.isAlive()){
-					this.mario = mario.createInstance(newObject, this);
-					gameObjects.add(this.mario);
-					added = true;
+		try {
+			if (newGameObject != null) {
+				if (mario.getName().equalsIgnoreCase(newGameObject.getName())) {
+					if (!mario.isAlive()){
+						this.mario = mario.createInstance(newObject, this);
+						gameObjects.add(this.mario);
+					}
+					
+					else {
+						System.out.println(Messages.ERROR.formatted(Messages.ERROR_EXISTING_MARIO));	
+					}
 				}
 				
 				else {
-					System.out.println(Messages.ERROR.formatted(Messages.ERROR_EXISTING_MARIO));	
+					gameObjects.add(newGameObject);
 				}
 			}
+		} catch (PositionParseException ppe) {
 			
-			else {
-				gameObjects.add(newGameObject);
-				added = true;
-			}
 		}
-		
-		return added;
 	}
 
 	//TODO fill your code
@@ -200,12 +200,23 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		}
 	}
 	
-	public void save(String fileName){
+	public void save(String fileName) throws CommandExecuteException{
+		FileOutputStream out = null;
 		try {
-			FileOutputStream out = new FileOutputStream(fileName);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
+			out = new FileOutputStream(fileName);
+			StringBuilder finalString = new StringBuilder();
+			finalString.append(remainingTime).append(" ").append(numPoints).append(" ").append(numLives).append(Messages.LINE_SEPARATOR);
+			finalString.append(gameObjects.toString());
+			byte[] gameStringBytes = finalString.toString().getBytes();
+			out.write(gameStringBytes);
+			System.out.println("Game succcessfully saved to the file");
+			if (out != null) {
+				out.close();
+			}
+		} catch(FileNotFoundException fnfe) {
+			throw new CommandExecuteException(Messages.UNKNOWN_FILE_NAME_ERROR, fnfe);
+		} catch (IOException ioe) {
+			throw new CommandExecuteException("Error while saving the data", ioe);
 		}
 	}
 	

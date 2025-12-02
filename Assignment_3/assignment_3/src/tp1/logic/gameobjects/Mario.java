@@ -4,6 +4,9 @@ import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 import tp1.logic.Action;
+import tp1.exceptions.OffBoardException;
+import tp1.exceptions.ObjectParseException;
+import tp1.exceptions.PositionParseException;
 
 public class Mario extends MovingObject{
 	private Position big_pos;
@@ -48,7 +51,7 @@ public class Mario extends MovingObject{
 		return NAME;
 	}
 	
-	public GameObject parse(String objWords[]) {
+	public GameObject parse(String objWords[]) throws OffBoardException, ObjectParseException{
 		GameObject object = null;
 		
 		object = super.parse(objWords, game);
@@ -81,7 +84,7 @@ public class Mario extends MovingObject{
 		return mario;
 	}
 	
-	public Mario createInstance(String[] info, GameWorld game) {
+	public Mario createInstance(String[] info, GameWorld game) throws OffBoardException, PositionParseException{
 		Mario new_mario = new Mario(game, pos.coordsToPos(info[0]));
 		
 		if (info.length >= 3) {

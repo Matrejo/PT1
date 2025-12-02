@@ -1,9 +1,13 @@
 package tp1.control.commands;
 
-
+import tp1.exceptions.ObjectParseException;
+import tp1.exceptions.CommandParseException;
+import tp1.exceptions.CommandExecuteException;
 import tp1.logic.GameModel;
 import tp1.view.GameView;
 import tp1.view.Messages;
+import tp1.exceptions.OffBoardException;
+import tp1.exceptions.GameModelException;
 
 public class AddObjectCommand extends AbstractCommand{
 	// Forman parte de atributos de estado
@@ -27,41 +31,42 @@ public class AddObjectCommand extends AbstractCommand{
 		return this.matchCommandName(name);
 	}
 	
-	public Command parse(String[] newCommand) {
-		Command returnCommand = null;
-		
-		if(newCommand.length >= 3) {
-			if (this.matchCommandName(newCommand[0])) {
-				returnCommand = new AddObjectCommand(newCommand);
-			}
-		}
-		
-		return returnCommand;
+	public Command parse(String[] newCommand) throws CommandParseException {
+	
+	    if (!this.matchCommandName(newCommand[0])) {
+	    	return null;}
+
+	    if (newCommand.length < 3) {
+	        throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+	    }
+	    
+	   // try {
+	    	return new AddObjectCommand(newCommand);
+	   /* } catch (ObjectParseException gope) { //da definire
+	    	throw new CommandParseException("Error parsing object", gope);
+	    }*/
 	}
 	
-	public void execute(GameModel game, GameView view) {
-		boolean added = false;
+	public void execute(GameModel game, GameView view) throws CommandExecuteException{
+
 		String[] noCommandObject = new String[newObject.length - 1];
 		
-		for (int i = 1; i < newObject.length; i++) {
-			noCommandObject[i - 1] = newObject[i];
-		}
-		
-		added = game.newObject(noCommandObject);
-		
-		if (added) {
-			view.showGame();
-		}
-		
-		else {
-			StringBuilder errorMessage = new StringBuilder();
-			
+		try {
 			for (int i = 1; i < newObject.length; i++) {
-				errorMessage.append(newObject[i]);
-				errorMessage.append(" ");
+				noCommandObject[i - 1] = newObject[i];
 			}
 			
-			view.showError(Messages.INVALID_GAME_OBJECT.formatted(String.join(" ", errorMessage)));
+			game.newObject(noCommandObject);
+			view.showGame();
+			
+		} catch(ObjectParseException ope) {
+			throw new CommandExecuteException(Messages.INVALID_GAME_OBJECT.formatted(newObject[2]), ope);
+		} catch(OffBoardException obe) {
+			throw new CommandExecuteException(Messages.OBJECT_OUT_OF_BOUNDS_ERROR.formatted(newObject[1]), obe);
+		} catch (NumberFormatException nfe) {
+			throw new CommandExecuteException(Messages.COORDS_NOT_A_NUMBER_ERROR.formatted(newObject[1]), nfe);
+		} catch(GameModelException gme) {
+			
 		}
 	}
 }
