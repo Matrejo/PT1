@@ -48,28 +48,28 @@ public class Position {
 		
 		if(newPos.charAt(2) == ',') {
 			aux = newPos.substring(1, 2);
-			x = Integer.parseInt(aux);
+			y = Integer.parseInt(aux);
 			
 			if (newPos.charAt(4) == ')') {
 				aux = newPos.substring(3, 4);
-				y = Integer.parseInt(aux);
+				x = Integer.parseInt(aux);
 			}
 			else {
 				aux = newPos.substring(3, 5);
-				y = Integer.parseInt(aux);
+				x = Integer.parseInt(aux);
 			}
 		}
 		else if (newPos.charAt(3) == ','){
 			aux = newPos.substring(1, 3);
-			x = Integer.parseInt(aux);
+			y = Integer.parseInt(aux);
 			
 			if (newPos.charAt(5) == ')') {
 				aux = newPos.substring(4, 5);
-				y = Integer.parseInt(aux);
+				x = Integer.parseInt(aux);
 			}
 			else {
 				aux = newPos.substring(4, 6);
-				y = Integer.parseInt(aux);
+				x = Integer.parseInt(aux);
 			}
 		}
 		else {

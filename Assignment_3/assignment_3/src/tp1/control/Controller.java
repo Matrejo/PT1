@@ -39,6 +39,7 @@ public class Controller {
 			} catch (CommandException e) {
 				 view.showError(e.getMessage());
 				 Throwable wrapped = e;
+				 wrapped = wrapped.getCause();
 				 // display all levels of error message
 				 while ( (wrapped = wrapped.getCause()) != null )
 					 view.showError(wrapped.getMessage());

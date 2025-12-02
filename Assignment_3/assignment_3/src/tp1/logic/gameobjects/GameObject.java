@@ -38,13 +38,13 @@ public abstract class GameObject implements GameItem { // TODO
 		GameObject object = null;
 		
 		try {
-			if (objWords.length == 2 && (5 <= objWords[0].length() && objWords[0].length() < 8)) {
+			if ((5 <= objWords[0].length() && objWords[0].length() < 8)) {
 				if (this.matchObjectName(objWords[1])) {
 					object = this.createInstance(objWords, game);
 				}
 			}
 		} catch(PositionParseException ppe) {
-			
+			throw new OffBoardException(ppe);
 		}
 		
 		return object;

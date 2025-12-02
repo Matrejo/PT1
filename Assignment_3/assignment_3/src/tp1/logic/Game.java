@@ -115,6 +115,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 			}
 			
 			this.mario = previousConfig.getMario();
+			this.gameObjects.add(this.mario);
 			this.remainingTime = previousConfig.getRemainingTime();
 			this.numPoints = previousConfig.points();
 			this.numLives = previousConfig.numLives();
@@ -241,7 +242,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 	
 	public void load(String fileName) throws GameLoadException {
 		FileGameConfiguration new_file_data = new FileGameConfiguration(fileName, this);
-		previousConfig = new_file_data;
+		this.previousConfig = new_file_data;
 		List<GameObject> npc_list = new_file_data.getNPCObjects();
 		this.gameObjects = new GameObjectContainer();
 		
@@ -250,6 +251,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		}
 		
 		this.mario = new_file_data.getMario();
+		this.gameObjects.add(this.mario);
 		this.remainingTime = new_file_data.getRemainingTime();
 		this.numPoints = new_file_data.points();
 		this.numLives = new_file_data.numLives();

@@ -14,7 +14,7 @@ public class RestartCommand extends AbstractCommand{
 	private static final String DETAILS = Messages.COMMAND_RESTART_DETAILS;
 	private static final String HELP = Messages.COMMAND_RESTART_HELP;
 	
-	private int newLevel;
+	private int newLevel = 999;
 	
 	public RestartCommand() {
 		super(NAME, SHORTCUT, DETAILS, HELP); 
@@ -33,15 +33,19 @@ public class RestartCommand extends AbstractCommand{
 		Command returnCommand = null;
 		
 		if (this.matchCommandName(newCommand[0])) {
-			if(newCommand.length != 2 || newCommand.length != 1 ) {
+			if(newCommand.length > 2) {
 				throw new CommandParseException (Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+			}
+			
+			if(newCommand.length == 1) {
+				return new RestartCommand(999);
 			}
 			
 			try {
 				returnCommand = new RestartCommand(Integer.parseInt(newCommand[1]));
 			} catch (NumberFormatException nfe) {
 	            throw new CommandParseException(Messages.LEVEL_NOT_A_NUMBER_ERROR.formatted(newCommand[1]), nfe);
-				}
+			}
 		}
 		return returnCommand;
 	}
@@ -50,7 +54,7 @@ public class RestartCommand extends AbstractCommand{
 		int requestedLevel = newLevel;
 		
 		try {
-			if (requestedLevel != -2) {
+			if (requestedLevel >= -1 && requestedLevel < 2) {
 				game.setLevel(requestedLevel);
 			}
 			

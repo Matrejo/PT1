@@ -29,8 +29,14 @@ public class Mario extends MovingObject{
 	
 	public String toString() {
 		StringBuilder objectString = new StringBuilder();
-				
-		objectString.append(super.toString()).append(' ');
+		
+		if (moving) {
+			objectString.append(super.toString()).append(' ');
+		}
+		
+		else {
+			objectString.append(this.pos.toString()).append(' ').append(getName()).append(' ').append("STOP").append(' ');
+		}
 		
 		if (big) {
 			objectString.append("BIG");
@@ -39,6 +45,8 @@ public class Mario extends MovingObject{
 		else {
 			objectString.append("SMALL");
 		}
+		
+		
 		
 		return objectString.toString();
 	}
@@ -85,7 +93,7 @@ public class Mario extends MovingObject{
 	}
 	
 	public Mario createInstance(String[] info, GameWorld game) throws OffBoardException, PositionParseException{
-		Mario new_mario = new Mario(game, pos.coordsToPos(info[0]));
+		Mario new_mario = new Mario(this.game, pos.coordsToPos(info[0]));
 		
 		if (info.length >= 3) {
 			if(info[2].equalsIgnoreCase("left")) {
@@ -93,6 +101,9 @@ public class Mario extends MovingObject{
 			}
 			else if (info[2].equalsIgnoreCase("small")) {
 				new_mario.makeSmall();
+			}
+			else if (info[2].equalsIgnoreCase("stop")) {
+				new_mario.stop();
 			}
 			
 			if(info.length == 4) {
@@ -102,10 +113,17 @@ public class Mario extends MovingObject{
 				else if (info[3].equalsIgnoreCase("small")) {
 					new_mario.makeSmall();
 				}
+				else if (info[3].equalsIgnoreCase("stop")) {
+					new_mario.stop();
+				}
 			}
 		}
 		
 		return new_mario;
+	}
+	
+	public void stop() {
+		this.moving = false;
 	}
 	
 	public boolean IsBig() {

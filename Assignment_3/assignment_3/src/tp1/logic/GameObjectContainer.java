@@ -48,7 +48,9 @@ public class GameObjectContainer {
 		StringBuilder finalString = new StringBuilder();
 		
 		for (GameObject c : objects) {
-			finalString.append(c.toString()).append(Messages.LINE_SEPARATOR);
+			if (c.isAlive()) {
+				finalString.append(c.toString()).append(Messages.LINE_SEPARATOR);
+			}
 		}
 		
 		return finalString.toString();

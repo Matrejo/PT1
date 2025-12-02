@@ -36,7 +36,7 @@ public class LoadCommand extends AbstractCommand {
 					returnCommand = new LoadCommand(newCommand[1]);
 				}
 				else {
-					throw new CommandParseException(Messages.INVALID_COMMAND_PARAMETERS);
+					throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 				}
 			}
 			
@@ -47,7 +47,9 @@ public class LoadCommand extends AbstractCommand {
 			try{
 				game.load(fileName);
 			}catch (GameLoadException gle) {
-				throw new CommandExecuteException(Messages.UNKNOWN_FILE_NAME_ERROR.formatted(fileName), gle);
+				throw new CommandExecuteException(Messages.ERROR_COMMAND_EXECUTE.formatted(fileName), gle);
 			}
+			
+			view.showGame();
 		}
 }

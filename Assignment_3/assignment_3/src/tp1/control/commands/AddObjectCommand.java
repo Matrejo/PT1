@@ -66,7 +66,7 @@ public class AddObjectCommand extends AbstractCommand{
 		} catch (NumberFormatException nfe) {
 			throw new CommandExecuteException(Messages.COORDS_NOT_A_NUMBER_ERROR.formatted(newObject[1]), nfe);
 		} catch(GameModelException gme) {
-			
+			throw new CommandExecuteException(Messages.ERROR_COMMAND_EXECUTE, gme);
 		}
 	}
 }
