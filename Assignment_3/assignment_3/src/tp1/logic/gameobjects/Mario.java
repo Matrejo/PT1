@@ -93,7 +93,7 @@ public class Mario extends MovingObject{
 	}
 	
 	public Mario createInstance(String[] info, GameWorld game) throws OffBoardException, PositionParseException{
-		Mario new_mario = new Mario(this.game, pos.coordsToPos(info[0]));
+		Mario new_mario = new Mario(game, pos.coordsToPos(info[0]));
 		
 		if (info.length >= 3) {
 			if(info[2].equalsIgnoreCase("left")) {
