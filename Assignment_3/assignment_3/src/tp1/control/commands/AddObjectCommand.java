@@ -55,14 +55,8 @@ public class AddObjectCommand extends AbstractCommand{
 			game.newObject(noCommandObject);
 			view.showGame();
 			
-		} catch(ObjectParseException ope) {
-			throw new CommandExecuteException(Messages.INVALID_GAME_OBJECT.formatted(newObject[2]), ope);
-		} catch(OffBoardException obe) {
-			throw new CommandExecuteException(Messages.OBJECT_OUT_OF_BOUNDS_ERROR.formatted(newObject[1]), obe);
-		} catch (NumberFormatException nfe) {
-			throw new CommandExecuteException(Messages.COORDS_NOT_A_NUMBER_ERROR.formatted(newObject[1]), nfe);
-		} catch(GameModelException gme) {
-			throw new CommandExecuteException(Messages.ERROR_COMMAND_EXECUTE, gme);
+		} catch(Exception e) {
+			throw new CommandExecuteException(Messages.ERROR_COMMAND_EXECUTE, e);
 		}
 	}
 }

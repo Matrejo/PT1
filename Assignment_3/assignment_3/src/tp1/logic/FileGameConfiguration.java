@@ -30,7 +30,7 @@ public class FileGameConfiguration implements GameConfiguration{
 				data_in.close();
 			}
 		} catch(FileNotFoundException fnfe) {
-			throw new GameLoadException(Messages.UNKNOWN_FILE_NAME_ERROR, fnfe);
+			throw new GameLoadException(Messages.UNKNOWN_FILE_NAME_ERROR.formatted(fileName), fnfe);
 		} catch(Exception e) {
 			throw new GameLoadException(Messages.LOADING_GAME_ERROR, e);
 		}

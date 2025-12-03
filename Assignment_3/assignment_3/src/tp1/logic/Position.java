@@ -39,10 +39,6 @@ public class Position {
 		return (this.row < 0 || this.row > 14 || this.col < 0 || this.col > 29);
 	}
 	
-	public void newObjectPos() throws OffBoardException{
-		
-	}
-	
 	public Position coordsToPos(String newPos) throws OffBoardException, PositionParseException {
 		int x = 0, y = 0;
 		String aux;

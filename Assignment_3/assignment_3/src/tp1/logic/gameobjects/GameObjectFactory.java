@@ -34,6 +34,11 @@ public class GameObjectFactory {
 			}
 		}
 		
-		throw new ObjectParseException(Messages.OBJECT_ERROR);
+		String errorObject = "";
+		
+		for (int i = 0; i < objWords.length; i++) {
+			errorObject = errorObject + objWords[i] + " ";
+		}
+		throw new ObjectParseException(Messages.OBJECT_ERROR.formatted(errorObject));
 	};
 }

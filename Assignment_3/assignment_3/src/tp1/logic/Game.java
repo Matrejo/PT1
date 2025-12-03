@@ -225,20 +225,18 @@ public class Game implements GameModel, GameStatus, GameWorld {
 	}
 	
 	public void save(String fileName) throws GameSaveException{
-		FileOutputStream outFile = null;
+		BufferedWriter outFile = null;
 		try {
-			outFile = new FileOutputStream(fileName);
+			outFile = new BufferedWriter( new FileWriter (fileName));
 			StringBuilder finalString = new StringBuilder();
 			finalString.append(remainingTime).append(" ").append(numPoints).append(" ").append(numLives).append(Messages.LINE_SEPARATOR);
 			finalString.append(gameObjects.toString());
-			byte[] gameStringBytes = finalString.toString().getBytes();
-			outFile.write(gameStringBytes);
-			System.out.println(Messages.GAME_SAVED);
+			outFile.write(finalString.toString());
 			if (outFile != null) {
 				outFile.close();
 			}
 		} catch(FileNotFoundException fnfe) {
-			throw new GameSaveException(Messages.UNKNOWN_FILE_NAME_ERROR, fnfe);
+			throw new GameSaveException(Messages.UNKNOWN_FILE_NAME_ERROR.formatted(fileName), fnfe);
 		} catch (IOException ioe) {
 			throw new GameSaveException(Messages.SAVING_GAME_ERROR, ioe);
 		}

@@ -46,8 +46,9 @@ public class SaveCommand extends AbstractCommand {
 		public void execute(GameModel game, GameView view) throws CommandExecuteException{
 			try{
 				game.save(fileName);
+				System.out.println(Messages.GAME_SAVED);
 			}catch (GameSaveException gse) {
-				throw new CommandExecuteException(Messages.UNKNOWN_FILE_NAME_ERROR.formatted(fileName), gse);
+				throw new CommandExecuteException(Messages.ERROR_COMMAND_EXECUTE, gse);
 			}
 		}
 }

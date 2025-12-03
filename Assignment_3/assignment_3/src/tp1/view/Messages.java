@@ -58,7 +58,7 @@ public class Messages {
 	public static final String INVALID_COMMAND = "Invalid command: %s";
 	public static final String INVALID_COMMAND_PARAMETERS = "Invalid command parameters";
 	public static final String ERROR_COMMAND_EXECUTE = "Command execute problem";
-	public static final String OBJECT_ERROR = "Object could not be added to the game";
+	public static final String OBJECT_ERROR = "Unknown game object: %s";
 	public static final String OBJECT_OUT_OF_BOUNDS_ERROR = "Object out of bounds: %s";
 	public static final String UNRECOGNISABLE_POSITION_ERROR = "Couldn't translate the position: %s";
 	public static final String COORDS_NOT_A_NUMBER_ERROR = "Coordinates must be a number: %s";
