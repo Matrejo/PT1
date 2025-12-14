@@ -1,0 +1,11 @@
+99 0 3
+(2,2) mario RIGHT BIG
+(12,3) goomba LEFT
+(12,2) goomba LEFT
+(12,2) goomba RIGHT
+(14,2) ground
+(2,2) mario RIGHT BIG
+(12,3) goomba LEFT
+(12,2) goomba LEFT
+(12,2) goomba RIGHT
+(14,2) ground

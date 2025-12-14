@@ -1,0 +1,4 @@
+aob (1,1) Ground
+addoBjEct (-1,-1) Ground
+aO (2,2) Patata
+exit

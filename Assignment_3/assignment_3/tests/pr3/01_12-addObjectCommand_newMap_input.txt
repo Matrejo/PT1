@@ -1,0 +1,13 @@
+reset -1
+ao (14,0) groUnD
+Ao (14,1) g
+addoBjEct (14,2) G
+addObject (14,3) ExitDoor
+addObject (13,0) Ground
+ao (13,2) Mario L S
+a u u r
+
+
+
+
+exit

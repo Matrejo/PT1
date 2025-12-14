@@ -1,4 +1,4 @@
-/*package tp1;
+package tp1;
 
 import java.nio.file.Paths;
 
@@ -40,4 +40,3 @@ public class Tests_V2_1 {
 	@Test
 	public void test06() { 	testN(6); }
 }
-*/

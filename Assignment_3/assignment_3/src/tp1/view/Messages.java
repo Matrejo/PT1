@@ -4,7 +4,7 @@ import tp1.util.MyStringUtils;
 
 public class Messages {
 	
-	public static final String VERSION = "2.X";
+	public static final String VERSION = "3.0";
 
 	public static final String GAME_NAME = "MarioBross";
 
@@ -62,7 +62,7 @@ public class Messages {
 	public static final String OBJECT_OUT_OF_BOUNDS_ERROR = "Object out of bounds: %s";
 	public static final String UNRECOGNISABLE_POSITION_ERROR = "Couldn't translate the position: %s";
 	public static final String COORDS_NOT_A_NUMBER_ERROR = "Coordinates must be a number: %s";
-	public static final String UNKNOWN_FILE_NAME_ERROR = "Unknown file name: %s";
+	public static final String UNKNOWN_FILE_NAME_ERROR = "Unable to load game configuration from file \"%s\"";
 
 	
 	public static final String HELP_AVAILABLE_COMMANDS = "Available commands:";
@@ -70,6 +70,7 @@ public class Messages {
 	/* @formatter:off */
 	public static final String[] HELP_LINES = new String[] { HELP_AVAILABLE_COMMANDS,
 		"[a]ction [[R]IGHT | [L]EFT | [U]P | [D]OWN | [S]TOP]+: user performs actions",
+		"[l]oad <fileName>: load the game configuration from text file <fileName>",
 		"[u]pdate | \"\": user does not perform any action",
 		"[r]eset [numLevel]: reset the game to initial configuration if not numLevel else load the numLevel map",
 		"[h]elp: print this help message",
@@ -87,10 +88,10 @@ public class Messages {
 	public static final String COMMAND_UPDATE_HELP = "user does not perform any action";
 	
 	// RESTART
-	public static final String COMMAND_RESTART_NAME = "restart";
-	public static final String COMMAND_RESTART_SHORTCUT = "r";
-	public static final String COMMAND_RESTART_DETAILS = "[r]eset [numLevel]";
-	public static final String COMMAND_RESTART_HELP = "reset the game to initial configuration if not numLevel else load the numLevel map";
+	public static final String COMMAND_RESET_NAME = "reset";
+	public static final String COMMAND_RESET_SHORTCUT = "r";
+	public static final String COMMAND_RESET_DETAILS = "[r]eset [numLevel]";
+	public static final String COMMAND_RESET_HELP = "reset the game to initial configuration if not numLevel else load the numLevel map";
 
 	
 	//ACTION

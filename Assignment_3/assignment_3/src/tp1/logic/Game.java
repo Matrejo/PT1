@@ -147,8 +147,11 @@ public class Game implements GameModel, GameStatus, GameWorld {
 
 	@Override
 	public String toString() {
-		String gameToString = gameObjects.toString();
-		return gameToString;
+		StringBuilder gameToString = new StringBuilder();
+		gameToString.append(remainingTime).append(" ").append(numPoints).append(" ").append(numLives).append(Messages.LINE_SEPARATOR);
+		gameToString.append(gameObjects.toString());
+		gameToString.append(gameObjects.toString());
+		return gameToString.toString();
 	}
 	
 	public void reachedDoor() {
@@ -228,9 +231,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		BufferedWriter outFile = null;
 		try {
 			outFile = new BufferedWriter( new FileWriter (fileName));
-			StringBuilder finalString = new StringBuilder();
-			finalString.append(remainingTime).append(" ").append(numPoints).append(" ").append(numLives).append(Messages.LINE_SEPARATOR);
-			finalString.append(gameObjects.toString());
+			String finalString = this.toString();
 			outFile.write(finalString.toString());
 			if (outFile != null) {
 				outFile.close();
